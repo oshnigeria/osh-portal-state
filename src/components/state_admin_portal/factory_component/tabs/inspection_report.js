@@ -18,6 +18,7 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   loading: () => <p>Loading ...</p>,
 });
 const InspectionReportComp = () => {
+  if (typeof window !== "undefined") null;
   const router = useRouter();
 
   const fetcher = (url) =>
