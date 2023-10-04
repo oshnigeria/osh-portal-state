@@ -104,6 +104,7 @@ const FactoryDocComp = (props) => {
                     >
                       <a
                         href={`${main_url}/inventory/factory/wr/file?factory_id=${props.factory_id}&file_key=${props.file_key}&doc_type=${props.doc_type}`}
+                        target="blank"
                         css={(theme) => ({
                           display: "flex",
                           cursor: "pointer",
@@ -117,7 +118,7 @@ const FactoryDocComp = (props) => {
                         Download
                       </a>
                     </div>
-                    <div
+                    {/* <div
                       css={{
                         padding: "24px 44px",
                         cursor: "pointer",
@@ -129,7 +130,7 @@ const FactoryDocComp = (props) => {
                       onClick={() => props.delete()}
                     >
                       Delete
-                    </div>
+                    </div> */}
                     <div
                       css={{
                         padding: "24px 44px",

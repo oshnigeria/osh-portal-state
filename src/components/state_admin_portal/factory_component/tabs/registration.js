@@ -119,7 +119,7 @@ const FactoryRegistration = () => {
                         fontSize: 20,
                       })}
                     >
-                      {single_factory.data.factory._occupier_name}
+                      {single_factory.data.factory?._occupier_name}
                     </div>
                   </div>
                   <div>

@@ -48,16 +48,16 @@ const ReplacementComp = () => {
         });
       },
     },
-    {
-      title: "Ongoing",
-      route: "ongoing",
-      state: () => {
-        setProgress({
-          min: 50,
-          max: 60,
-        });
-      },
-    },
+    // {
+    //   title: "Ongoing",
+    //   route: "ongoing",
+    //   state: () => {
+    //     setProgress({
+    //       min: 50,
+    //       max: 60,
+    //     });
+    //   },
+    // },
     {
       title: "Completed",
       route: "completed",
@@ -286,7 +286,7 @@ const ReplacementComp = () => {
                               padding: "24px 40px",
                             })}
                             onClick={() =>
-                              router.push(`/factory/${factory._id}`)
+                              router.push(`/factory/${factory.factory._id}`)
                             }
                           >
                             <div
@@ -298,7 +298,7 @@ const ReplacementComp = () => {
                                 lineHeight: "22px",
                               })}
                             >
-                              {factory.occupier_name}
+                              {factory.factory.occupier_name}
                             </div>
                             <div
                               css={(theme) => ({

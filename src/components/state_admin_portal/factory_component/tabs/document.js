@@ -36,7 +36,7 @@ const DocumentUploadTab = () => {
   } = useSWR(
     isLoading
       ? null
-      : `${main_url}/state-officer/factory-docs?factory_id=${single_factory.data.factory._id}`,
+      : `${main_url}/state-officer/factory-docs?factory_id=${router.query.id}`,
     fetcher
   );
 
@@ -84,7 +84,7 @@ const DocumentUploadTab = () => {
             })}
           >
             {single_factory_doc.data.docs.filter(
-              (word) => word.doc_type !== "payment_evidence"
+              (word) => word.doc_type !== "payment_reciept"
             ).length ? (
               <div
                 css={{
@@ -93,10 +93,15 @@ const DocumentUploadTab = () => {
                 }}
               >
                 {single_factory_doc.data.docs
-                  .filter((word) => word.doc_type !== "payment_evidence")
+                  .filter((word) => word.doc_type !== "payment_reciept")
                   .map((doc) => (
                     <div key={doc._id}>
-                      <FactoryDocComp name={doc.name} type={doc.file_type} />
+                      <FactoryDocComp
+                        name={doc.name}
+                        doc_type={doc.doc_type}
+                        factory_id={router.query.id}
+                        file_key={doc.src}
+                      />
                     </div>
                   ))}
               </div>

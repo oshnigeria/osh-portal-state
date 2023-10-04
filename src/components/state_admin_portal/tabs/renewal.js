@@ -34,7 +34,14 @@ const RenewalComp = () => {
     `${main_url}/state-officer/factory/certificate/mutations?event=renewal`,
     fetcher
   );
+  const {
+    data: completed,
 
+    isLoading: factory_isLoading,
+  } = useSWR(
+    `${main_url}/state-officer/factory/ammendments/completed`,
+    fetcher
+  );
   const router = useRouter();
   console.log(factory);
   const tabs = [
@@ -48,16 +55,16 @@ const RenewalComp = () => {
         });
       },
     },
-    {
-      title: "Ongoing",
-      route: "ongoing",
-      state: () => {
-        setProgress({
-          min: 50,
-          max: 60,
-        });
-      },
-    },
+    // {
+    //   title: "Ongoing",
+    //   route: "ongoing",
+    //   state: () => {
+    //     setProgress({
+    //       min: 50,
+    //       max: 60,
+    //     });
+    //   },
+    // },
     {
       title: "Completed",
       route: "completed",
@@ -286,7 +293,9 @@ const RenewalComp = () => {
                               padding: "24px 40px",
                             })}
                             onClick={() =>
-                              router.push(`/factory/${factory._id}`)
+                              router.push(
+                                `/factory/${factory.factory._id}?type=renewal`
+                              )
                             }
                           >
                             <div
@@ -298,7 +307,7 @@ const RenewalComp = () => {
                                 lineHeight: "22px",
                               })}
                             >
-                              {factory.occupier_name}
+                              {factory.factory.occupier_name}
                             </div>
                             <div
                               css={(theme) => ({

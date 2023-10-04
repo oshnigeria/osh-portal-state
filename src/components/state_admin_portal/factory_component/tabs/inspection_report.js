@@ -39,17 +39,27 @@ const InspectionReportComp = () => {
     isLoading,
   } = useSWR(`${main_url}/state-officer/factory/${router.query.id}`, fetcher);
 
-  console.log(single_factory);
+  console.log(single_factory?.data.factory);
   const [value, setValue] = useState("");
   const [willAmmend, setWillAmmend] = useState(false);
   const [factory, setFactory] = useState("650b125a69fcacc38ae2b0dd");
-  const [natureOfWorkDone, setNatureOfWorkDone] = useState(""); // Required
-  const [inspectionDate, setInspectionDate] = useState("");
-  const [inspectionSummary, setInspectionSummary] = useState("");
-  const [healthSafetyReport, setHealthSafetyReport] = useState("");
-  const [recommendations, setRecommendations] = useState("");
+  const [natureOfWorkDone, setNatureOfWorkDone] = useState(
+    single_factory?.data.factory?.inspection_report?.nature_of_work_done
+  ); // Required
+  const [inspectionDate, setInspectionDate] = useState(
+    single_factory?.data.factory?.inspection_report?.inspection_date
+  );
+  const [inspectionSummary, setInspectionSummary] = useState(
+    single_factory?.data.factory?.inspection_report?.inspection_summary
+  );
+  const [healthSafetyReport, setHealthSafetyReport] = useState(
+    single_factory?.data.factory?.inspection_report?.health_safety_report
+  );
+  const [recommendations, setRecommendations] = useState(
+    single_factory?.data.factory?.inspection_report?.recommendations
+  );
   const [state, setState] = useState(single_factory?.data?.factory?.state);
-  const [event, setEvent] = useState("ammendment");
+  const [event, setEvent] = useState(router.query.type);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -140,7 +150,7 @@ const InspectionReportComp = () => {
           health_safety_report: healthSafetyReport,
           recommendations: recommendations,
           state: state,
-          event: event,
+          event: event ?? undefined,
         },
         {
           headers: {
@@ -151,7 +161,8 @@ const InspectionReportComp = () => {
       )
       .then(function (response) {
         console.log(response.data);
-        update_progress(60);
+        router.push("/");
+        setLoading(false);
         success_message(response?.data.message);
         setWillAmmend(false);
         setLoading(false);

@@ -14,7 +14,25 @@ import VerifyPaymentTab from "./tabs/verify_payment";
 import dynamic from "next/dynamic";
 const InspectionReportComp = dynamic(import("./tabs/inspection_report"), {
   ssr: false,
-  loading: () => <p>Loading ...</p>,
+  loading: () => (
+    <div
+      css={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      {" "}
+      <div
+        css={{
+          width: 64,
+          height: 64,
+          margin: "50px 0px",
+        }}
+      >
+        <img src="/svg/loader/loader-green.svg" />
+      </div>
+    </div>
+  ),
 });
 const FactoryPageComp = () => {
   const router = useRouter();
