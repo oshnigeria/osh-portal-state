@@ -283,7 +283,7 @@ const AmmendmentComp = () => {
                             )
                             ?.map((factory) => (
                               <div
-                                key={factory._id}
+                                key={factory.factory._id}
                                 css={(theme) => ({
                                   display: "grid",
                                   gridTemplateColumns: "repeat(3, 1fr)",
@@ -294,7 +294,9 @@ const AmmendmentComp = () => {
                                   padding: "24px 40px",
                                 })}
                                 onClick={() =>
-                                  router.push(`/factory/${factory.factory._id}`)
+                                  router.push(
+                                    `/factory/${factory.factory._id}?type=ammendment`
+                                  )
                                 }
                               >
                                 <div
@@ -416,7 +418,9 @@ const AmmendmentComp = () => {
                                   padding: "24px 40px",
                                 })}
                                 onClick={() =>
-                                  router.push(`/factory/${factory.factory._id}`)
+                                  router.push(
+                                    `/factory/${factory.factory._id}?type=ammendment`
+                                  )
                                 }
                               >
                                 <div
