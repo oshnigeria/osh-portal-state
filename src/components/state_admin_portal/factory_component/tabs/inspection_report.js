@@ -161,7 +161,7 @@ const InspectionReportComp = () => {
       )
       .then(function (response) {
         console.log(response.data);
-        router.push("/");
+        // router.push("/");
         setLoading(false);
         success_message(response?.data.message);
         setWillAmmend(false);
