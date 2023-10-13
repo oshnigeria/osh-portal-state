@@ -286,7 +286,7 @@ const IncidentsComp = () => {
                               })}
                               onClick={() =>
                                 router.push(
-                                  `/factory/${factory.factory._id}?type=renewal`
+                                  `/factory/${factory.factory._id}?type=incident`
                                 )
                               }
                             >
@@ -399,7 +399,9 @@ const IncidentsComp = () => {
                                 padding: "24px 40px",
                               })}
                               onClick={() =>
-                                router.push(`/incident/${factory._id}`)
+                                router.push(
+                                  `/incident/${factory._id}?type=incident`
+                                )
                               }
                             >
                               <div
