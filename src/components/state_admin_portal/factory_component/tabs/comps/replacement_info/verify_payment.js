@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import { FactoryContext } from "@/src/context/factoryContext";
 import FactoryDocComp from "@/src/components/factoryDetailsComp";
 
-const AmmendmentVerifyPayment = () => {
+const ReplacementVerifyPayment = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +50,7 @@ const AmmendmentVerifyPayment = () => {
   } = useSWR(
     isLoading
       ? null
-      : `${main_url}/state-officer/factory-docs?factory_id=${single_factory.data.factory._id}`,
+      : `${main_url}/state-officer/factory-docs?factory_id=${router.query.id}`,
     fetcher
   );
   console.log(single_factory_doc);
@@ -128,7 +128,7 @@ const AmmendmentVerifyPayment = () => {
             })}
           >
             {single_factory_doc.data.docs.filter(
-              (word) => word.doc_type === "ammendment_payment_reciept"
+              (word) => word.doc_type === "replacement_payment_reciept"
             ).length >= 1 ? (
               <div
                 css={{
@@ -138,7 +138,7 @@ const AmmendmentVerifyPayment = () => {
               >
                 {single_factory_doc.data.docs
                   .filter(
-                    (word) => word.doc_type === "ammendment_payment_reciept"
+                    (word) => word.doc_type === "replacement_payment_reciept"
                   )
                   .map((doc) => (
                     <div key={doc._id}>
@@ -237,4 +237,4 @@ const AmmendmentVerifyPayment = () => {
   );
 };
 
-export default AmmendmentVerifyPayment;
+export default ReplacementVerifyPayment;

@@ -9,6 +9,8 @@ import Cookies from "js-cookie";
 import { FactoryContext } from "@/src/context/factoryContext";
 import FactoryDocComp from "@/src/components/factoryDetailsComp";
 import AmmendedDocumentUploaded from "./comps/ammendment_info/document";
+import RenewalDocumentUploaded from "./comps/renewal_info/document";
+import ReplacementDocumentUploaded from "./comps/replacement_info/document";
 const DocumentUploadTab = () => {
   const router = useRouter();
   const factory = useContext(FactoryContext);
@@ -43,157 +45,158 @@ const DocumentUploadTab = () => {
 
   console.log(single_factory_doc);
   console.log(single_factory);
+  if (router.query.type === "ammendment") return <AmmendedDocumentUploaded />;
+  if (router.query.type === "renewal") return <RenewalDocumentUploaded />;
+  if (router.query.type === "replacement")
+    return <ReplacementDocumentUploaded />;
+
   return (
     <div>
-      {router.query.type === "ammendment" ? (
-        <AmmendedDocumentUploaded />
-      ) : (
-        <div
-          css={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          {doc_isLoading ? (
+      <div
+        css={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {doc_isLoading ? (
+          <div
+            css={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {" "}
             <div
               css={{
-                display: "flex",
-                justifyContent: "center",
+                width: 64,
+                height: 64,
+                margin: "50px 0px",
               }}
             >
-              {" "}
-              <div
-                css={{
-                  width: 64,
-                  height: 64,
-                  margin: "50px 0px",
-                }}
-              >
-                <img src="/svg/loader/loader-green.svg" />
-              </div>
+              <img src="/svg/loader/loader-green.svg" />
             </div>
-          ) : (
+          </div>
+        ) : (
+          <div
+            css={{
+              width: "90%",
+            }}
+          >
             <div
-              css={{
-                width: "90%",
-              }}
+              css={(theme) => ({
+                marginTop: 54,
+
+                border: `1px solid ${theme.colors.Primary_100}`,
+                padding: "50px 32px",
+
+                borderRadius: 8,
+              })}
             >
-              <div
-                css={(theme) => ({
-                  marginTop: 54,
-
-                  border: `1px solid ${theme.colors.Primary_100}`,
-                  padding: "50px 32px",
-
-                  borderRadius: 8,
-                })}
-              >
-                {single_factory_doc.data.docs.filter(
-                  (word) => word.doc_type !== "payment_reciept"
-                ).length ? (
-                  <div
-                    css={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    {single_factory_doc.data.docs
-                      .filter((word) => word.doc_type !== "payment_reciept")
-                      .map((doc) => (
-                        <div key={doc._id}>
-                          <FactoryDocComp
-                            name={doc.name}
-                            doc_type={doc.doc_type}
-                            factory_id={router.query.id}
-                            file_key={doc.src}
-                          />
-                        </div>
-                      ))}
-                  </div>
-                ) : (
-                  <div>
-                    <div
-                      css={{
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {" "}
-                      <div
-                        css={{
-                          margin: "50px 0px",
-                        }}
-                      >
-                        <img
-                          css={{
-                            width: 100,
-                            height: 100,
-                          }}
-                          src="/svg/dashboard/empty.svg"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div
-                css={{
-                  marginTop: 64,
-                  display: "flex",
-                  justifyContent: "right",
-                }}
-              >
-                <button
-                  css={(theme) => ({
-                    height: 56,
-                    borderRadius: 30,
-                    width: 356,
-                    //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-                    padding: "16px 24px",
-                    fontSize: 20,
-                    cursor: "pointer",
-                    marginRight: 20,
-                    fontWeight: 600,
-                    lineHeight: "17px",
-                    border: "none",
+              {single_factory_doc.data.docs.filter(
+                (word) => word.doc_type !== "payment_reciept"
+              ).length ? (
+                <div
+                  css={{
                     display: "flex",
-                    justifyContent: "center",
-                    color: "#fff",
-                    backgroundColor: theme.colors.Primary_500,
-                  })}
-                  type="submit"
-                  onClick={() => {
-                    // factory_details.add_factory_details(formData);
-                    factory.set_tab("Payment verification");
+                    flexWrap: "wrap",
                   }}
                 >
+                  {single_factory_doc.data.docs
+                    .filter((word) => word.doc_type !== "payment_reciept")
+                    .map((doc) => (
+                      <div key={doc._id}>
+                        <FactoryDocComp
+                          name={doc.name}
+                          doc_type={doc.doc_type}
+                          factory_id={router.query.id}
+                          file_key={doc.src}
+                        />
+                      </div>
+                    ))}
+                </div>
+              ) : (
+                <div>
                   <div
                     css={{
                       display: "flex",
-                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    <div>Verify & continue</div>
+                    {" "}
                     <div
                       css={{
-                        marginLeft: 8,
+                        margin: "50px 0px",
                       }}
                     >
                       <img
                         css={{
-                          width: 24,
-                          height: 24,
+                          width: 100,
+                          height: 100,
                         }}
-                        src="/svg/registration/left_arrow.svg"
+                        src="/svg/dashboard/empty.svg"
                       />
                     </div>
                   </div>
-                </button>
-              </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      )}
+            <div
+              css={{
+                marginTop: 64,
+                display: "flex",
+                justifyContent: "right",
+              }}
+            >
+              <button
+                css={(theme) => ({
+                  height: 56,
+                  borderRadius: 30,
+                  width: 356,
+                  //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                  padding: "16px 24px",
+                  fontSize: 20,
+                  cursor: "pointer",
+                  marginRight: 20,
+                  fontWeight: 600,
+                  lineHeight: "17px",
+                  border: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#fff",
+                  backgroundColor: theme.colors.Primary_500,
+                })}
+                type="submit"
+                onClick={() => {
+                  // factory_details.add_factory_details(formData);
+                  factory.set_tab("Payment verification");
+                }}
+              >
+                <div
+                  css={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <div>Verify & continue</div>
+                  <div
+                    css={{
+                      marginLeft: 8,
+                    }}
+                  >
+                    <img
+                      css={{
+                        width: 24,
+                        height: 24,
+                      }}
+                      src="/svg/registration/left_arrow.svg"
+                    />
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

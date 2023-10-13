@@ -102,7 +102,7 @@ const AmmendedDocumentUploaded = () => {
                         name={doc.name}
                         doc_type={doc.doc_type}
                         factory_id={router.query.id}
-                        file_key={doc.src}
+                        file_key={doc.ammended_src}
                       />
                     </div>
                   ))}
