@@ -74,9 +74,9 @@ const SignInComp = () => {
         }}
       />
       <div
-        css={{
-          padding: " 40px 146px",
-        }}
+        css={mq({
+          padding: ["16px 16px", "16px 16px", " 40px 146px"],
+        })}
       >
         <div>
           <div
@@ -101,14 +101,16 @@ const SignInComp = () => {
             </div>
           </div>
           <div
-            css={(theme) => ({
-              colors: theme.colors.Gray_600,
-              marginTop: 50,
-              textAlign: "center",
-              width: "100%",
-              fontSize: 40,
-              fontWeight: 700,
-            })}
+            css={(theme) =>
+              mq({
+                colors: theme.colors.Gray_600,
+                marginTop: [30, 30, 50],
+                textAlign: ["left", "center"],
+                width: "100%",
+                fontSize: [20, 20, 40],
+                fontWeight: 700,
+              })
+            }
           >
             Welcome back
           </div>

@@ -984,10 +984,10 @@ const InspectionReportComp = () => {
               >
                 {" "}
                 <div
-                  css={{
-                    width: 24,
-                    height: 24,
-                  }}
+                  css={mq({
+                    width: [16, 16, 24],
+                    height: [16, 16, 24],
+                  })}
                 >
                   <img src="/svg/loader/loader.svg" />
                 </div>
