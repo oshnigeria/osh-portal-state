@@ -97,7 +97,7 @@ const SignInComp = () => {
                 fontWeight: 700,
               })}
             >
-              Factory registration portal
+              State portal
             </div>
           </div>
           <div

@@ -8,7 +8,9 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { FactoryContext } from "@/src/context/factoryContext";
 import FactoryDocComp from "@/src/components/factoryDetailsComp";
-
+import facepaint from "facepaint";
+const breakpoints = [576, 768, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const ReplacementVerifyPayment = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -185,23 +187,25 @@ const ReplacementVerifyPayment = () => {
             }}
           >
             <button
-              css={(theme) => ({
-                height: 56,
-                borderRadius: 30,
-                width: 356,
-                //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-                padding: "16px 24px",
-                fontSize: 20,
-                cursor: "pointer",
-                marginRight: 20,
-                fontWeight: 600,
-                lineHeight: "17px",
-                border: "none",
-                display: "flex",
-                justifyContent: "center",
-                color: "#fff",
-                backgroundColor: theme.colors.Primary_500,
-              })}
+              css={(theme) =>
+                mq({
+                  height: 56,
+                  borderRadius: 30,
+                  width: 356,
+                  //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                  padding: "16px 24px",
+                  fontSize: 20,
+                  cursor: "pointer",
+                  marginRight: 20,
+                  fontWeight: 600,
+                  lineHeight: "17px",
+                  border: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#fff",
+                  backgroundColor: theme.colors.Primary_500,
+                })
+              }
               type="submit"
               onClick={() => {
                 // factory_details.add_factory_details(formData);

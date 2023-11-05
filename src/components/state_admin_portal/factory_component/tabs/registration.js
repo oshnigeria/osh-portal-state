@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { FactoryContext } from "@/src/context/factoryContext";
 import AmmendmentRegistration from "./comps/ammendment_info/registration";
+import facepaint from "facepaint";
+const breakpoints = [576, 768, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const FactoryRegistration = () => {
   const router = useRouter();
   const factory = useContext(FactoryContext);
@@ -73,30 +76,34 @@ const FactoryRegistration = () => {
               }}
             >
               <div
-                css={(theme) => ({
-                  marginTop: 54,
+                css={(theme) =>
+                  mq({
+                    marginTop: [24, 24, 54],
 
-                  border: `1px solid ${theme.colors.Primary_100}`,
-                  padding: "50px 32px",
-                  width: "90%",
-                  borderRadius: 8,
-                })}
+                    border: [0, 0, `1px solid ${theme.colors.Primary_100}`],
+                    padding: ["16px 16px", "16px 16px", "50px 32px"],
+                    width: "90%",
+                    borderRadius: 8,
+                  })
+                }
               >
                 <div
-                  css={(theme) => ({
-                    fontSize: 32,
-                    color: theme.colors.Gray_700,
-                    textTransform: "capitalize",
-                  })}
+                  css={(theme) =>
+                    mq({
+                      fontSize: [16, 16, 32],
+                      color: theme.colors.Gray_700,
+                      textTransform: "capitalize",
+                    })
+                  }
                 >
                   Factory information
                 </div>
 
                 <div>
                   <div
-                    css={{
-                      marginTop: 48,
-                    }}
+                    css={mq({
+                      marginTop: [24, 24, 48],
+                    })}
                   >
                     <div
                       css={{
@@ -108,212 +115,255 @@ const FactoryRegistration = () => {
                     >
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Occupier name
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           {single_factory.data.factory?._occupier_name}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           State of occupier
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           {single_factory.data.factory.state}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Phone number of occupier
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           {single_factory.data.factory.phone_number}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Date of Expiration of CoR
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
-                          {single_factory.data.factory._occupier_name}
+                          {/* {single_factory.data.factory._occupier_name} */}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Postal address of occupier
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           {single_factory.data.factory.postal_address}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Registration Status
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
-                          {single_factory.data.factory._occupier_name}
+                          {single_factory.data.factory.progress}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Precise address of occupier
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           {single_factory.data.factory.address}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Company Registration number
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           {single_factory.data.factory.company_registration_no}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Date of occupation
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
-                          {single_factory.data.factory._occupier_name}
+                          {single_factory.data.factory.date_operations_started}
                         </div>
                       </div>
                       <div>
                         <div
-                          css={(theme) => ({
-                            color: theme.colors.Gray_400,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
                           Nature of work
                         </div>
                         <div
-                          css={(theme) => ({
-                            marginTop: 12,
-                            color: theme.colors.Gray_700,
-                            lineHeight: "20px",
-                            fontSize: 20,
-                          })}
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
                         >
-                          {single_factory.data.factory.type}
+                          {
+                            single_factory?.data?.factory?.inspection_report
+                              ?.nature_of_work_done
+                          }
                         </div>
                       </div>
                     </div>
@@ -327,11 +377,13 @@ const FactoryRegistration = () => {
                 ></div>
                 <div>
                   <div
-                    css={(theme) => ({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
                   >
                     Employee Information
                   </div>
@@ -361,11 +413,13 @@ const FactoryRegistration = () => {
                   }}
                 >
                   <div
-                    css={(theme) => ({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
                   >
                     Employee shift Information
                   </div>
@@ -376,11 +430,13 @@ const FactoryRegistration = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_500,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       Morning shift
                     </div>
@@ -410,11 +466,13 @@ const FactoryRegistration = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_500,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       Afternoon shift
                     </div>
@@ -444,11 +502,13 @@ const FactoryRegistration = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_500,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       Evening shift
                     </div>
@@ -490,21 +550,25 @@ const FactoryRegistration = () => {
                 <div>
                   <div>
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_500,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       Will mechanical power machine be used?
                     </div>
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginTop: 12,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       {single_factory?.data?.factory?.use_mechanical_power
                         ? "Yes"
@@ -517,21 +581,25 @@ const FactoryRegistration = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_500,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       What type of mechanical power is used/ intended to be used
                     </div>
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginTop: 12,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       {single_factory?.data?.factory?.use_mechanical_power
                         ? "Yes"
@@ -545,11 +613,13 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_500,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         What type of mechanical power is used/ intended to be
                         used
@@ -568,11 +638,15 @@ const FactoryRegistration = () => {
                             .map((key) => (
                               <li
                                 key={key}
-                                css={(theme) => ({
-                                  fontSize: 20,
-                                  color: theme.colors.Gray_700,
-                                  textTransform: "capitalize",
-                                })}
+                                css={(theme) =>
+                                  mq({
+                                    marginTop: 12,
+                                    color: theme.colors.Gray_700,
+                                    lineHeight: "20px",
+                                    fontSize: [14, 14, 20],
+                                    textTransform: "capitalize",
+                                  })
+                                }
                               >
                                 <div
                                   css={{
@@ -613,22 +687,26 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_500,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Are boilers going to be used?
                       </div>
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                          marginTop: 12,
-                          textTransform: "capitalize",
-                        })}
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
                       >
                         {single_factory?.data?.factory?.use_boiler
                           ? "Yes"
@@ -641,22 +719,26 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_500,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Type, description and distinctive number
                       </div>
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                          marginTop: 12,
-                          textTransform: "capitalize",
-                        })}
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
                         dangerouslySetInnerHTML={{
                           __html:
                             single_factory?.data?.factory?.boiler_description,
@@ -670,22 +752,26 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_500,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Country and year of manufacture
                       </div>
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                          marginTop: 12,
-                          textTransform: "capitalize",
-                        })}
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
                       >
                         {
                           single_factory?.data?.factory
@@ -700,23 +786,27 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_500,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Date of last thorough test and examination and name &
                         address of the examiner
                       </div>
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                          marginTop: 12,
-                          textTransform: "capitalize",
-                        })}
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
                         dangerouslySetInnerHTML={{
                           __html:
                             single_factory?.data?.factory?.examination_report,
@@ -730,22 +820,26 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_500,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Maximum permissible working pressure in kg/sq Cm
                       </div>
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                          marginTop: 12,
-                          textTransform: "capitalize",
-                        })}
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
                       >
                         {single_factory?.data?.factory?.working_pressure}
                       </div>
@@ -757,23 +851,27 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_500,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Location in the factory (indicate also the linear
                         distance to the nearest workroom)
                       </div>
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                          marginTop: 12,
-                          textTransform: "capitalize",
-                        })}
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
                       >
                         {single_factory?.data?.factory?.address}
                       </div>
@@ -785,22 +883,26 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_400,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Type of fuel to be used
                       </div>
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                          marginTop: 12,
-                          textTransform: "capitalize",
-                        })}
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
                       >
                         {single_factory?.data?.factory?.fuel_type}
                       </div>
@@ -812,22 +914,26 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_400,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Particulars of boiler attendants
                       </div>
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                          marginTop: 12,
-                          textTransform: "capitalize",
-                        })}
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
                       >
                         {single_factory?.data?.factory?.boiler_attendants}
                       </div>
@@ -854,11 +960,13 @@ const FactoryRegistration = () => {
                       }}
                     >
                       <div
-                        css={(theme) => ({
-                          color: theme.colors.Gray_500,
-                          lineHeight: "20px",
-                          fontSize: 20,
-                        })}
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_400,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
                       >
                         Equipment available
                       </div>
@@ -869,11 +977,15 @@ const FactoryRegistration = () => {
                           ).map((key) => (
                             <li
                               key={key}
-                              css={(theme) => ({
-                                fontSize: 20,
-                                color: theme.colors.Gray_700,
-                                textTransform: "capitalize",
-                              })}
+                              css={(theme) =>
+                                mq({
+                                  marginTop: 12,
+                                  color: theme.colors.Gray_700,
+                                  lineHeight: "20px",
+                                  fontSize: [14, 14, 20],
+                                  textTransform: "capitalize",
+                                })
+                              }
                             >
                               <div
                                 css={{
@@ -899,22 +1011,26 @@ const FactoryRegistration = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       Give brief particulars
                     </div>
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginTop: 12,
-                        textTransform: "capitalize",
-                      })}
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                          textTransform: "capitalize",
+                        })
+                      }
                       dangerouslySetInnerHTML={{
                         __html: single_factory?.data?.factory?.particulars,
                       }}
@@ -941,22 +1057,26 @@ const FactoryRegistration = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       Has the premises previously been used as a factory?
                     </div>
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginTop: 12,
-                        textTransform: "capitalize",
-                      })}
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                          textTransform: "capitalize",
+                        })
+                      }
                     >
                       {single_factory?.data?.factory?.previously_used_as_factory
                         ? "Yes"
@@ -970,23 +1090,27 @@ const FactoryRegistration = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       State the name of previous occupier, nature of processes
                       carried out and CoR number
                     </div>
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginTop: 12,
-                        textTransform: "capitalize",
-                      })}
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                          textTransform: "capitalize",
+                        })
+                      }
                       dangerouslySetInnerHTML={{
                         __html:
                           single_factory?.data?.factory?.previous_occupier,
@@ -1013,23 +1137,27 @@ const FactoryRegistration = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
                     >
                       Other documents/ information submitted in support of this
                       application
                     </div>
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginTop: 12,
-                        textTransform: "capitalize",
-                      })}
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                          textTransform: "capitalize",
+                        })
+                      }
                       dangerouslySetInnerHTML={{
                         __html: single_factory?.data?.factory?.other_document,
                       }}
@@ -1048,23 +1176,25 @@ const FactoryRegistration = () => {
             }}
           >
             <button
-              css={(theme) => ({
-                height: 56,
-                borderRadius: 30,
-                width: 356,
-                //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-                padding: "16px 24px",
-                fontSize: 20,
-                cursor: "pointer",
-                marginRight: 20,
-                fontWeight: 600,
-                lineHeight: "17px",
-                border: "none",
-                display: "flex",
-                justifyContent: "center",
-                color: "#fff",
-                backgroundColor: theme.colors.Primary_500,
-              })}
+              css={(theme) =>
+                mq({
+                  height: [40, 40, 56],
+                  borderRadius: 30,
+                  width: ["auto", "auto", 356],
+                  //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                  padding: ["12px 16px", "12px 16px", "16px 24px"],
+                  fontSize: [12, 12, 20],
+                  cursor: "pointer",
+                  marginRight: 20,
+                  fontWeight: 600,
+                  lineHeight: "17px",
+                  border: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#fff",
+                  backgroundColor: theme.colors.Primary_500,
+                })
+              }
               type="submit"
               onClick={() => {
                 // factory_details.add_factory_details(formData);

@@ -3,7 +3,10 @@ import { useState, useEffect, useContext } from "react";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import { main_url } from "@/src/details";
 import { useRouter } from "next/router";
+import facepaint from "facepaint";
 
+const breakpoints = [576, 768, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const FactoryDocComp = (props) => {
   const [options, setOptions] = useState(false);
   const router = useRouter();
@@ -46,9 +49,10 @@ const FactoryDocComp = (props) => {
                 />
               </div>
               <div
-                css={{
+                css={mq({
                   marginLeft: 16,
-                }}
+                  fontSize: [12, 12, 16],
+                })}
               >
                 {props.name}.{props.type}
               </div>

@@ -13,6 +13,10 @@ import DeclarationPopup from "./comps/declaration_popup";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { main_url, cookies_id } from "@/src/details";
+
+import facepaint from "facepaint";
+const breakpoints = [576, 768, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
@@ -190,35 +194,43 @@ const InspectionReportComp = () => {
       />
       <div>
         <div
-          css={(theme) => ({
-            marginTop: 54,
+          css={(theme) =>
+            mq({
+              marginTop: [24, 24, 54],
 
-            border: `1px solid ${theme.colors.Primary_100}`,
-            padding: "50px 32px",
-            width: "90%",
-            borderRadius: 8,
-          })}
+              border: [0, 0, `1px solid ${theme.colors.Primary_100}`],
+              padding: ["16px 16px", "16px 16px", "50px 32px"],
+              width: "90%",
+              borderRadius: 8,
+            })
+          }
         >
           <div
-            css={{
-              fontSize: 32,
-            }}
+            css={(theme) =>
+              mq({
+                fontSize: [16, 16, 32],
+                color: theme.colors.Gray_700,
+                textTransform: "capitalize",
+              })
+            }
           >
             Inspection Form
           </div>
           <div
-            css={{
-              marginTop: 80,
-            }}
+            css={mq({
+              marginTop: [24, 24, 80],
+            })}
           >
             <div>
               <div>
                 <label
-                  css={(theme) => ({
-                    color: theme.colors.Gray_400,
-                    lineHeight: "20px",
-                    fontSize: 20,
-                  })}
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
                 >
                   Name of Undertaking
                 </label>
@@ -228,29 +240,31 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <input
-                    css={(theme) => ({
-                      padding: "12px 14px",
-                      width: ["100%", "100%", "70%"],
-                      fontSize: 18,
-                      color: theme.colors.Gray_400,
-                      border: `1px solid ${theme.colors.Gray_200}`,
-                      borderRadius: 8,
-
-                      ":focus": {
-                        outline: "none",
-                        border: `1px solid ${theme.colors.Gray_400}`,
-
+                    css={(theme) =>
+                      mq({
                         padding: "12px 14px",
-                        color: theme.colors.Gray_800,
-                      },
-                      ":placeholder ": {
-                        outline: "none",
-                        border: "none",
-
-                        padding: "12px 14px",
+                        width: ["100%", "100%", "70%"],
+                        fontSize: [14, 14, 18],
                         color: theme.colors.Gray_400,
-                      },
-                    })}
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
                     placeholder=""
                     type="text"
                     //   onChange={(e) => handleFieldChange(e, "occupier_name")}
@@ -265,11 +279,13 @@ const InspectionReportComp = () => {
                 }}
               >
                 <label
-                  css={(theme) => ({
-                    color: theme.colors.Gray_400,
-                    lineHeight: "20px",
-                    fontSize: 20,
-                  })}
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
                 >
                   Postal address of occupier/intending occupier
                 </label>
@@ -279,29 +295,31 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <input
-                    css={(theme) => ({
-                      padding: "12px 14px",
-                      width: ["100%", "100%", "70%"],
-                      fontSize: 18,
-                      color: theme.colors.Gray_400,
-                      border: `1px solid ${theme.colors.Gray_200}`,
-                      borderRadius: 8,
-
-                      ":focus": {
-                        outline: "none",
-                        border: `1px solid ${theme.colors.Gray_400}`,
-
+                    css={(theme) =>
+                      mq({
                         padding: "12px 14px",
-                        color: theme.colors.Gray_800,
-                      },
-                      ":placeholder ": {
-                        outline: "none",
-                        border: "none",
-
-                        padding: "12px 14px",
+                        width: ["100%", "100%", "70%"],
+                        fontSize: [14, 14, 18],
                         color: theme.colors.Gray_400,
-                      },
-                    })}
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
                     placeholder=""
                     type="text"
                     //   onChange={(e) => handleFieldChange(e, "occupier_name")}
@@ -316,11 +334,13 @@ const InspectionReportComp = () => {
                 }}
               >
                 <label
-                  css={(theme) => ({
-                    color: theme.colors.Gray_400,
-                    lineHeight: "20px",
-                    fontSize: 20,
-                  })}
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
                 >
                   Phone number of occupier/intending occupier
                 </label>
@@ -330,29 +350,31 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <input
-                    css={(theme) => ({
-                      padding: "12px 14px",
-                      width: ["100%", "100%", "70%"],
-                      fontSize: 18,
-                      color: theme.colors.Gray_400,
-                      border: `1px solid ${theme.colors.Gray_200}`,
-                      borderRadius: 8,
-
-                      ":focus": {
-                        outline: "none",
-                        border: `1px solid ${theme.colors.Gray_400}`,
-
+                    css={(theme) =>
+                      mq({
                         padding: "12px 14px",
-                        color: theme.colors.Gray_800,
-                      },
-                      ":placeholder ": {
-                        outline: "none",
-                        border: "none",
-
-                        padding: "12px 14px",
+                        width: ["100%", "100%", "70%"],
+                        fontSize: [14, 14, 18],
                         color: theme.colors.Gray_400,
-                      },
-                    })}
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
                     placeholder=""
                     type="text"
                     //   onChange={(e) => handleFieldChange(e, "occupier_name")}
@@ -367,11 +389,13 @@ const InspectionReportComp = () => {
                 }}
               >
                 <label
-                  css={(theme) => ({
-                    color: theme.colors.Gray_400,
-                    lineHeight: "20px",
-                    fontSize: 20,
-                  })}
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
                 >
                   Precise location of the factory
                 </label>
@@ -381,29 +405,31 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <input
-                    css={(theme) => ({
-                      padding: "12px 14px",
-                      width: ["100%", "100%", "70%"],
-                      fontSize: 18,
-                      color: theme.colors.Gray_400,
-                      border: `1px solid ${theme.colors.Gray_200}`,
-                      borderRadius: 8,
-
-                      ":focus": {
-                        outline: "none",
-                        border: `1px solid ${theme.colors.Gray_400}`,
-
+                    css={(theme) =>
+                      mq({
                         padding: "12px 14px",
-                        color: theme.colors.Gray_800,
-                      },
-                      ":placeholder ": {
-                        outline: "none",
-                        border: "none",
-
-                        padding: "12px 14px",
+                        width: ["100%", "100%", "70%"],
+                        fontSize: [14, 14, 18],
                         color: theme.colors.Gray_400,
-                      },
-                    })}
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
                     placeholder=""
                     type="text"
                     // onChange={(e) => setState(e.target.value)}
@@ -417,11 +443,13 @@ const InspectionReportComp = () => {
                 }}
               >
                 <label
-                  css={(theme) => ({
-                    color: theme.colors.Gray_400,
-                    lineHeight: "20px",
-                    fontSize: 20,
-                  })}
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
                 >
                   Total number of person employed or intended to be employed in
                   the factory
@@ -439,39 +467,43 @@ const InspectionReportComp = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginRight: 28,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                          marginRight: 28,
+                        })
+                      }
                     >
                       Adults
                     </div>
                     <input
-                      css={(theme) => ({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: 18,
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-                        marginRight: 28,
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
+                      css={(theme) =>
+                        mq({
                           padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
+                          width: ["100%", "100%", "70%"],
+                          fontSize: [14, 14, 18],
                           color: theme.colors.Gray_400,
-                        },
-                      })}
+                          border: `1px solid ${theme.colors.Gray_200}`,
+                          borderRadius: 8,
+                          marginRight: 28,
+                          ":focus": {
+                            outline: "none",
+                            border: `1px solid ${theme.colors.Gray_400}`,
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_800,
+                          },
+                          ":placeholder ": {
+                            outline: "none",
+                            border: "none",
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_400,
+                          },
+                        })
+                      }
                       placeholder="Male"
                       type="text"
                       value={
@@ -480,29 +512,31 @@ const InspectionReportComp = () => {
                       }
                     />
                     <input
-                      css={(theme) => ({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: 18,
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
+                      css={(theme) =>
+                        mq({
                           padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
+                          width: ["100%", "100%", "70%"],
+                          fontSize: [14, 14, 18],
                           color: theme.colors.Gray_400,
-                        },
-                      })}
+                          border: `1px solid ${theme.colors.Gray_200}`,
+                          borderRadius: 8,
+
+                          ":focus": {
+                            outline: "none",
+                            border: `1px solid ${theme.colors.Gray_400}`,
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_800,
+                          },
+                          ":placeholder ": {
+                            outline: "none",
+                            border: "none",
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_400,
+                          },
+                        })
+                      }
                       placeholder="Female"
                       type="text"
                       value={
@@ -520,39 +554,43 @@ const InspectionReportComp = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginRight: 28,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                          marginRight: 28,
+                        })
+                      }
                     >
                       Youths
                     </div>
                     <input
-                      css={(theme) => ({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: 18,
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-                        marginRight: 28,
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
+                      css={(theme) =>
+                        mq({
                           padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
+                          width: ["100%", "100%", "70%"],
+                          fontSize: [14, 14, 18],
                           color: theme.colors.Gray_400,
-                        },
-                      })}
+                          border: `1px solid ${theme.colors.Gray_200}`,
+                          borderRadius: 8,
+                          marginRight: 28,
+                          ":focus": {
+                            outline: "none",
+                            border: `1px solid ${theme.colors.Gray_400}`,
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_800,
+                          },
+                          ":placeholder ": {
+                            outline: "none",
+                            border: "none",
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_400,
+                          },
+                        })
+                      }
                       placeholder="Male"
                       type="text"
                       value={
@@ -561,29 +599,31 @@ const InspectionReportComp = () => {
                       }
                     />
                     <input
-                      css={(theme) => ({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: 18,
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
+                      css={(theme) =>
+                        mq({
                           padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
+                          width: ["100%", "100%", "70%"],
+                          fontSize: [14, 14, 18],
                           color: theme.colors.Gray_400,
-                        },
-                      })}
+                          border: `1px solid ${theme.colors.Gray_200}`,
+                          borderRadius: 8,
+
+                          ":focus": {
+                            outline: "none",
+                            border: `1px solid ${theme.colors.Gray_400}`,
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_800,
+                          },
+                          ":placeholder ": {
+                            outline: "none",
+                            border: "none",
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_400,
+                          },
+                        })
+                      }
                       placeholder="Female"
                       type="text"
                       value={
@@ -601,39 +641,43 @@ const InspectionReportComp = () => {
                     }}
                   >
                     <div
-                      css={(theme) => ({
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                        marginRight: 28,
-                      })}
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                          marginRight: 28,
+                        })
+                      }
                     >
                       Total
                     </div>
                     <input
-                      css={(theme) => ({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: 18,
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
+                      css={(theme) =>
+                        mq({
                           padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
+                          width: ["100%", "100%", "70%"],
+                          fontSize: [14, 14, 18],
                           color: theme.colors.Gray_400,
-                        },
-                      })}
+                          border: `1px solid ${theme.colors.Gray_200}`,
+                          borderRadius: 8,
+
+                          ":focus": {
+                            outline: "none",
+                            border: `1px solid ${theme.colors.Gray_400}`,
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_800,
+                          },
+                          ":placeholder ": {
+                            outline: "none",
+                            border: "none",
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_400,
+                          },
+                        })
+                      }
                       {...register("youth_male", { required: true })}
                       placeholder="1000"
                       type="text"
@@ -656,11 +700,13 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <label
-                    css={(theme) => ({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
                   >
                     Nature of work carried out on the factory
                   </label>
@@ -670,29 +716,31 @@ const InspectionReportComp = () => {
                     }}
                   >
                     <input
-                      css={(theme) => ({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: 18,
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
+                      css={(theme) =>
+                        mq({
                           padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
+                          width: ["100%", "100%", "70%"],
+                          fontSize: [14, 14, 18],
                           color: theme.colors.Gray_400,
-                        },
-                      })}
+                          border: `1px solid ${theme.colors.Gray_200}`,
+                          borderRadius: 8,
+
+                          ":focus": {
+                            outline: "none",
+                            border: `1px solid ${theme.colors.Gray_400}`,
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_800,
+                          },
+                          ":placeholder ": {
+                            outline: "none",
+                            border: "none",
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_400,
+                          },
+                        })
+                      }
                       {...register("nature_of_work", { required: true })}
                       placeholder=""
                       type="text"
@@ -719,11 +767,13 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <label
-                    css={(theme) => ({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
                   >
                     Inspection date
                   </label>
@@ -733,29 +783,31 @@ const InspectionReportComp = () => {
                     }}
                   >
                     <input
-                      css={(theme) => ({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: 18,
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
+                      css={(theme) =>
+                        mq({
                           padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
+                          width: ["100%", "100%", "70%"],
+                          fontSize: [14, 14, 18],
                           color: theme.colors.Gray_400,
-                        },
-                      })}
+                          border: `1px solid ${theme.colors.Gray_200}`,
+                          borderRadius: 8,
+
+                          ":focus": {
+                            outline: "none",
+                            border: `1px solid ${theme.colors.Gray_400}`,
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_800,
+                          },
+                          ":placeholder ": {
+                            outline: "none",
+                            border: "none",
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_400,
+                          },
+                        })
+                      }
                       {...register("inspection_date", { required: true })}
                       placeholder=""
                       type="date"
@@ -782,11 +834,13 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <label
-                    css={(theme) => ({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
                   >
                     Inspectionn summary
                   </label>
@@ -817,11 +871,13 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <label
-                    css={(theme) => ({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
                   >
                     Health and safty report
                   </label>
@@ -852,11 +908,13 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <label
-                    css={(theme) => ({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
                   >
                     Recomendations
                   </label>
@@ -893,23 +951,25 @@ const InspectionReportComp = () => {
           }}
         >
           <button
-            css={(theme) => ({
-              height: 56,
-              borderRadius: 30,
-              width: 356,
-              //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-              padding: "16px 24px",
-              fontSize: 20,
-              cursor: "pointer",
-              marginRight: 20,
-              fontWeight: 600,
-              lineHeight: "17px",
-              border: "none",
-              display: "flex",
-              justifyContent: "center",
-              color: "#fff",
-              backgroundColor: theme.colors.Primary_500,
-            })}
+            css={(theme) =>
+              mq({
+                height: [40, 40, 56],
+                borderRadius: 30,
+                width: ["auto", "auto", 356],
+                //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                padding: ["12px 16px", "12px 16px", "16px 24px"],
+                fontSize: [12, 12, 20],
+                cursor: "pointer",
+                marginRight: 20,
+                fontWeight: 600,
+                lineHeight: "17px",
+                border: "none",
+                display: "flex",
+                justifyContent: "center",
+                color: "#fff",
+                backgroundColor: theme.colors.Primary_500,
+              })
+            }
             type="submit"
             onClick={() => {
               setWillAmmend(true);
@@ -946,10 +1006,10 @@ const InspectionReportComp = () => {
                   }}
                 >
                   <img
-                    css={{
-                      width: 24,
-                      height: 24,
-                    }}
+                    css={mq({
+                      width: [14, 14, 24],
+                      height: [14, 14, 24],
+                    })}
                     src="/svg/registration/left_arrow.svg"
                   />
                 </div>

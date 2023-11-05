@@ -7,6 +7,9 @@ import useSWR, { useSWRConfig, mutate } from "swr";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { FactoryContext } from "@/src/context/factoryContext";
+import facepaint from "facepaint";
+const breakpoints = [576, 768, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const AmmendmentRegistration = () => {
   const router = useRouter();
   const factory = useContext(FactoryContext);

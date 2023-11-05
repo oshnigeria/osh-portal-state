@@ -8,7 +8,9 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { FactoryContext } from "@/src/context/factoryContext";
 import FactoryDocComp from "@/src/components/factoryDetailsComp";
-
+import facepaint from "facepaint";
+const breakpoints = [576, 768, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const AmmendmentVerifyPayment = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -185,7 +187,8 @@ const AmmendmentVerifyPayment = () => {
             }}
           >
             <button
-              css={(theme) => ({
+             css={(theme) =>
+              mq({
                 height: 56,
                 borderRadius: 30,
                 width: 356,
@@ -201,7 +204,8 @@ const AmmendmentVerifyPayment = () => {
                 justifyContent: "center",
                 color: "#fff",
                 backgroundColor: theme.colors.Primary_500,
-              })}
+              })
+            }
               type="submit"
               onClick={() => {
                 // factory_details.add_factory_details(formData);
