@@ -38,6 +38,8 @@ const InspectionReportComp = dynamic(import("./tabs/inspection_report"), {
   ),
 });
 const FactoryPageComp = () => {
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const fetcher = (url) =>
     axios
@@ -58,12 +60,56 @@ const FactoryPageComp = () => {
   } = useSWR(`${main_url}/state-officer/factory/${router.query.id}`, fetcher);
 
   const factory = useContext(FactoryContext);
+  const update_progress = (progress) => {
+    setLoading(true);
 
+    axios
+      .patch(
+        `${main_url}/state-officer/factory/progress`,
+        {
+          id: router.query.id,
+          progress: progress,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get(cookies_id)}`,
+          },
+        }
+      )
+      .then(function (response) {
+        // success_message(response?.data.message);
+        factory.set_tab("Inspection report");
+        console.log(response.data);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        // error_message(error?.response?.data?.message);
+
+        setLoading(false);
+      });
+
+    // console.log("ade");
+  };
   const steps = [
-    "Factory information",
-    "Document verification",
-    "Payment verification",
-    "Inspection report",
+    {
+      title: "Factory information",
+      click: () => null,
+    },
+    {
+      title: "Document verification",
+      click: () => null,
+    },
+
+    {
+      title: "Payment verification",
+      click: () => null,
+    },
+
+    {
+      title: "Inspection report",
+      click: () => update_progress(60),
+    },
   ];
   return (
     <div>
@@ -145,31 +191,32 @@ const FactoryPageComp = () => {
               >
                 {steps.map((step) => (
                   <div
-                    key={step}
-                    css={(theme) =>
-                      mq({
-                        padding: ["4px 4px", "4px 4px", "14px 28px"],
-                        backgroundColor:
-                          factory.tab === step
-                            ? theme.colors.Primary_500
-                            : theme.colors.Primary_50,
-                        fontSize: [10, 10, 12],
-                        textAlign: "center",
-                        cursor: "pointer",
-                        color: factory.tab === step ? "#fff" : "#000",
-                      })
-                    }
-                    onClick={() => factory.set_tab(step)}
+                    key={step.title}
+                    css={(theme) => ({
+                      padding: "14px 28px",
+                      backgroundColor:
+                        factory.tab === step.title
+                          ? theme.colors.Primary_500
+                          : theme.colors.Primary_50,
+                      fontSize: 12,
+                      textAlign: "center",
+                      cursor: "pointer",
+                      color: factory.tab === step.title ? "#fff" : "#000",
+                    })}
+                    onClick={() => {
+                      factory.set_tab(step.title);
+                      step.click();
+                    }}
                   >
-                    {step}
+                    {step.title}
                   </div>
                 ))}
               </div>
             </div>
-            {factory.tab === steps[0] && <FactoryRegistration />}
-            {factory.tab === steps[1] && <DocumentUploadTab />}
-            {factory.tab === steps[2] && <VerifyPaymentTab />}
-            {factory.tab === steps[3] && <InspectionReportComp />}
+            {factory.tab === steps[0].title && <FactoryRegistration />}
+            {factory.tab === steps[1].title && <DocumentUploadTab />}
+            {factory.tab === steps[2].title && <VerifyPaymentTab />}
+            {factory.tab === steps[3].title && <InspectionReportComp />}
           </div>
         )}
       </DashboadWrapperComp>
