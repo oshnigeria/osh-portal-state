@@ -49,10 +49,13 @@ const FactoryDocComp = (props) => {
                 />
               </div>
               <div
-                css={mq({
-                  marginLeft: 16,
-                  fontSize: [12, 12, 16],
-                })}
+                css={(theme) =>
+                  mq({
+                    marginLeft: 16,
+                    fontSize: [12, 12, 16],
+                    color: theme.colors.Gray_700,
+                  })
+                }
               >
                 {props.name}.{props.type}
               </div>
