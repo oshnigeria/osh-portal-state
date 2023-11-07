@@ -66,7 +66,7 @@ const NewRegistrationComp = () => {
       state: () => {
         setProgress({
           min: 61,
-          max: 70,
+          max: 101,
         });
       },
     },
