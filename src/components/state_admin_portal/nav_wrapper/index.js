@@ -82,6 +82,13 @@ const DashboadWrapperComp = (props) => {
       icon: "incident",
       active_icon: "incident_active",
     },
+    {
+      title: "Factory",
+      route: "/dashboard/registration",
+      path: "dashboard/registration",
+      icon: "incident",
+      active_icon: "incident_active",
+    },
   ];
   return (
     <div>
@@ -114,7 +121,7 @@ const DashboadWrapperComp = (props) => {
               position: "fixed",
               top: 0,
               left: 0,
-              padding: ["16px 16px", "16px 16px", "102px 20px"],
+              padding: ["16px 16px", "16px 16px", "60px 20px"],
               width: 312,
               height: "100vh",
               background: theme.colors.Primary_500,
