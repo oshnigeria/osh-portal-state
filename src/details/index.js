@@ -1,5 +1,5 @@
 export const main_url =
-  process.env.NODE_ENV !== "production"
+  process.env.NEXT_PUBLIC_NODE_ENV !== "production"
     ? "https://sbxapi.oshnigeria.org"
     : "https://api.oshnigeria.org";
 
