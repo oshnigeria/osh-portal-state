@@ -76,16 +76,16 @@ const DashboadWrapperComp = (props) => {
       active_icon: "replacement_active",
     },
     {
-      title: "Incident",
+      title: "Incident reports",
       route: "/incident",
       path: "incident",
       icon: "incident",
       active_icon: "incident_active",
     },
     {
-      title: "Factory",
-      route: "/dashboard/registration",
-      path: "dashboard/registration",
+      title: "Routine inspection",
+      route: "/dashboard/routine-inspections",
+      path: "dashboard/routine-inspections",
       icon: "incident",
       active_icon: "incident_active",
     },
@@ -156,6 +156,7 @@ const DashboadWrapperComp = (props) => {
                   padding: "16px 36px",
                   cursor: "pointer",
                   borderRadius: 8,
+                  textTransform: "capitalize",
                 }}
                 onClick={() => router.push(`/${tab.path}`)}
               >
