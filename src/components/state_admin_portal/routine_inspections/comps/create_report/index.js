@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useRouter } from "next/router";
 
-import InspectionReportComp from "../../../factory_component/tabs/inspection_report";
+import CreateRoutineReportComp from "./routine_checks_form";
 import DashboadWrapperComp from "../../../nav_wrapper";
 import facepaint from "facepaint";
 const breakpoints = [576, 768, 1200];
@@ -46,10 +46,10 @@ const CreateReportComp = () => {
           })}
         >
           {/* {single_factory?.data?.factory?._occupier_name} */}
-          occupier name
+          {/* occupier name */}
         </div>
       </div>
-      <InspectionReportComp />
+      <CreateRoutineReportComp />
     </DashboadWrapperComp>
   );
 };

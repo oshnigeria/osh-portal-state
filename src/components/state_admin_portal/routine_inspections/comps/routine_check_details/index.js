@@ -125,7 +125,7 @@ const RoutineCheckDetailsComp = () => {
               marginTop: [16, 16, 60],
             })}
           >
-            <div
+            {/* <div
               css={mq({
                 display: "grid",
                 gridTemplateColumns: `repeat(${steps.length}, 1fr)`,
@@ -157,7 +157,7 @@ const RoutineCheckDetailsComp = () => {
                   {step.title}
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
           {factory.tab === steps[0].title && <FacRoutineDetailsComp />}
           {/* {factory.tab === steps[1].title && <DocumentUploadTab />}

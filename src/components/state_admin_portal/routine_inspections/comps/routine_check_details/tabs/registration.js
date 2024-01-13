@@ -33,7 +33,6 @@ const FacRoutineDetailsComp = () => {
     fetcher
   );
 
-  console.log(single_report);
   return (
     <div>
       {isLoading || error ? (

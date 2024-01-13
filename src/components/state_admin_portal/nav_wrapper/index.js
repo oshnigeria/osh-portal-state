@@ -249,7 +249,7 @@ const DashboadWrapperComp = (props) => {
           css={mq({
             marginLeft: [0, 0, 430],
             minWidth: [0, 0, 600],
-
+            width: "100%",
             minHeight: "100vh",
             padding: [0, 0, "36px 0px"],
             paddingRight: [0, 0, 70],

@@ -44,6 +44,7 @@ const AmmendmentComp = () => {
     fetcher
   );
   console.log(completed);
+  console.log(factory);
   const router = useRouter();
   const tabs = [
     {

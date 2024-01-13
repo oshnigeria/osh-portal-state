@@ -7,9 +7,9 @@ import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import useSWR, { useSWRConfig, mutate } from "swr";
-
+import { AuthContext } from "@/src/context/authContext";
 import { success_message, error_message } from "@/src/components/toasts";
-import DeclarationPopup from "./comps/declaration_popup";
+import DeclarationPopup from "../../routine_check_details/tabs/comps/declaration_popup";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { main_url, cookies_id } from "@/src/details";
@@ -21,10 +21,11 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 });
-const InspectionReportComp = () => {
+const CreateRoutineReportComp = () => {
   if (typeof window !== "undefined") null;
   const router = useRouter();
-
+  const auth = useContext(AuthContext);
+  console.log(auth.dec_token);
   const fetcher = (url) =>
     axios
       .get(url, {
@@ -45,29 +46,25 @@ const InspectionReportComp = () => {
 
   console.log(single_factory?.data.factory);
   const [value, setValue] = useState("");
+  const [cert_no, setCert_no] = useState("");
+
   const [willAmmend, setWillAmmend] = useState(false);
-  const [factory, setFactory] = useState("650b125a69fcacc38ae2b0dd");
-  const [natureOfWorkDone, setNatureOfWorkDone] = useState(
-    single_factory?.data.factory?.inspection_report?.nature_of_work_done
-  ); // Required
-  const [inspectionDate, setInspectionDate] = useState(
-    single_factory?.data.factory?.inspection_report?.inspection_date
-  );
-  const [inspectionSummary, setInspectionSummary] = useState(
-    single_factory?.data.factory?.inspection_report?.inspection_summary
-  );
-  const [healthSafetyReport, setHealthSafetyReport] = useState(
-    single_factory?.data.factory?.inspection_report?.health_safety_report
-  );
-  const [recommendations, setRecommendations] = useState(
-    single_factory?.data.factory?.inspection_report?.recommendations
-  );
-  const [state, setState] = useState(single_factory?.data?.factory?.state);
+  const [factory, setFactory] = useState("");
+  const [factory_name, setFactory_name] = useState("");
+  const [postal_address, setPostal_address] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [address, setAddress] = useState("");
+  const [male_emp, setMale_emp] = useState("");
+  const [female_emp, setFemale_emp] = useState("");
+
+  const [natureOfWorkDone, setNatureOfWorkDone] = useState(""); // Required
+  const [inspectionDate, setInspectionDate] = useState("");
+  const [inspectionSummary, setInspectionSummary] = useState("");
+  const [healthSafetyReport, setHealthSafetyReport] = useState("");
+  const [recommendations, setRecommendations] = useState("");
+  const [state, setState] = useState("");
   const [event, setEvent] = useState(router.query.type);
   const [loading, setLoading] = useState(false);
-  const [comment, setComment] = useState("");
-  const [willAllowEdit, setWillAllowEdit] = useState(false);
-  const [willCancel, setWillCancel] = useState(false);
 
   const {
     register,
@@ -112,15 +109,70 @@ const InspectionReportComp = () => {
     "video",
   ];
 
-  const update_progress = (progress) => {
+  const check_fac_cert_no = (id) => {
     setLoading(true);
 
     axios
-      .patch(
-        `${main_url}/state-officer/factory/progress`,
+      .get(
+        `${main_url}/inventory/factory/certificate?cert_no=${id}`,
+
         {
-          id: router.query.id,
-          progress: progress,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get(cookies_id)}`,
+          },
+        }
+      )
+      .then(function (response) {
+        success_message(response?.data.message);
+        // router.push("/");
+        console.log("fac");
+        console.log(response?.data);
+
+        console.log("fac");
+        setFactory(response?.data?.data?.factory?._id);
+        setState(response?.data?.data?.factory?.state);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        error_message(error?.response?.data?.message);
+
+        setLoading(false);
+      });
+
+    // console.log("ade");
+  };
+
+  const create_routine_report = (
+    factory,
+    factory_name,
+    postal_address,
+    location,
+    no_of_male_employees,
+    no_of_female_employees,
+    nature_of_work,
+    inspection_date,
+    inspection_summary,
+    recommendations,
+    state
+  ) => {
+    setLoading(true);
+
+    axios
+      .post(
+        `${main_url}/state-officer/routine-check`,
+        {
+          factory,
+          factory_name,
+          postal_address,
+          location,
+          no_of_male_employees,
+          no_of_female_employees,
+          nature_of_work,
+          inspection_date,
+          inspection_summary,
+          recommendations,
+          state,
         },
         {
           headers: {
@@ -131,7 +183,8 @@ const InspectionReportComp = () => {
       )
       .then(function (response) {
         success_message(response?.data.message);
-        router.push("/");
+        // router.push("/");
+        console.log(response);
         setLoading(false);
       })
       .catch(function (error) {
@@ -141,6 +194,30 @@ const InspectionReportComp = () => {
       });
 
     // console.log("ade");
+  };
+
+  const handleFormSubmit = () => {
+    try {
+      check_fac_cert_no(cert_no);
+    } catch {
+      (err) => {
+        console.log(err);
+      };
+    } finally {
+      create_routine_report(
+        factory,
+        factory_name,
+        postal_address,
+        address,
+        male_emp,
+        female_emp,
+        natureOfWorkDone,
+        inspectionDate,
+        inspectionSummary,
+        recommendations,
+        state
+      );
+    }
   };
 
   const state_report = () => {
@@ -182,120 +259,12 @@ const InspectionReportComp = () => {
 
     // console.log("ade");
   };
-
-  const will_allow_factory_edit = () => {
-    // props.next();
-    // router.push("/dashboard/registration?tab=b");
-
-    setLoading(true);
-    // factory.add_factory_details(
-    //   occupier_name,
-    //   state,
-    //   type,
-    //   address,
-    //   year_of_last_renewal,
-    //   year_of_first_registration
-    // );
-    // addDocuments("650b10c969fcacc38ae2b0b4");
-    // delete details.date_of_occupation;
-
-    axios
-      .patch(
-        `${main_url}/state-officer/factory-mutation?id=${single_factory.data.factory._id}`,
-        {
-          id: single_factory.data.factory._id,
-          // occupier_name: formData.occupier_name,
-
-          progress: 70,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get(cookies_id)}`,
-          },
-        }
-      )
-      .then(function (response) {
-        console.log(response.data);
-        // factory.add_factory_id(response.data.data.factory._id);
-        // router.push("/dashboard/registration?tab=a");
-        // console.log(response.data.data.factory._id);
-        // addDocuments(response.data.data.factory._id);
-        success_message(response.data.message);
-        mutate(`${main_url}/account/user/factory/${router.query.id}`);
-
-        setLoading(false);
-      })
-      .catch(function (error) {
-        // error_message(error?.response?.data.message);
-        console.log(error);
-        setLoading(false);
-      });
-    console.log("ade");
-  };
-
-  const will_cancel = () => {
-    // props.next();
-    // router.push("/dashboard/registration?tab=b");
-
-    setLoading(true);
-    // factory.add_factory_details(
-    //   occupier_name,
-    //   state,
-    //   type,
-    //   address,
-    //   year_of_last_renewal,
-    //   year_of_first_registration
-    // );
-    // addDocuments("650b10c969fcacc38ae2b0b4");
-    // delete details.date_of_occupation;
-
-    axios
-      .patch(
-        `${main_url}/state-officer/factory/ammendments/cancel?id=${router.query.id}`,
-        {
-          id: router.query.id,
-          // occupier_name: formData.occupier_name,
-          reason: "Disorganized approach",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get(cookies_id)}`,
-          },
-        }
-      )
-      .then(function (response) {
-        console.log(response.data);
-        // factory.add_factory_id(response.data.data.factory._id);
-        // router.push("/dashboard/registration?tab=a");
-        // console.log(response.data.data.factory._id);
-        // addDocuments(response.data.data.factory._id);
-        success_message(response.data.message);
-        mutate(`${main_url}/account/user/factory/${router.query.id}`);
-
-        setLoading(false);
-      })
-      .catch(function (error) {
-        // error_message(error?.response?.data.message);
-        console.log(error);
-        setLoading(false);
-      });
-    console.log("ade");
-  };
-
-  const handle_will_allow_edit_submit = () => {
-    will_allow_factory_edit();
-  };
-
-  const handle_will_cancel = () => {
-    will_cancel();
-  };
   return (
     <div
       css={{
         display: "center",
         justifyContent: "center",
+        // width: "100%",
       }}
     >
       <Toaster
@@ -344,6 +313,60 @@ const InspectionReportComp = () => {
                     })
                   }
                 >
+                  Certificate Number of Factory
+                </label>
+                <div
+                  css={{
+                    marginTop: 20,
+                  }}
+                >
+                  <input
+                    css={(theme) =>
+                      mq({
+                        padding: "12px 14px",
+                        width: ["100%", "100%", "70%"],
+                        fontSize: [14, 14, 18],
+                        color: theme.colors.Gray_400,
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
+                    placeholder=""
+                    type="text"
+                    onChange={(e) => setCert_no(e.target.value)}
+                    value={cert_no}
+                  />
+                </div>
+              </div>
+              <div
+                css={{
+                  marginTop: 48,
+                }}
+              >
+                <label
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                >
                   Name of Undertaking
                 </label>
                 <div
@@ -379,8 +402,8 @@ const InspectionReportComp = () => {
                     }
                     placeholder=""
                     type="text"
-                    //   onChange={(e) => handleFieldChange(e, "occupier_name")}
-                    value={single_factory?.data?.factory?.occupier_name}
+                    onChange={(e) => setFactory_name(e.target.value)}
+                    value={factory_name}
                   />
                 </div>
               </div>
@@ -434,8 +457,8 @@ const InspectionReportComp = () => {
                     }
                     placeholder=""
                     type="text"
-                    //   onChange={(e) => handleFieldChange(e, "occupier_name")}
-                    value={single_factory?.data?.factory?.postal_address}
+                    onChange={(e) => setPostal_address(e.target.value)}
+                    value={postal_address}
                   />
                 </div>
               </div>
@@ -489,8 +512,8 @@ const InspectionReportComp = () => {
                     }
                     placeholder=""
                     type="text"
-                    //   onChange={(e) => handleFieldChange(e, "occupier_name")}
-                    value={single_factory?.data?.factory?.phone_number}
+                    onChange={(e) => setPhone_number(e.target.value)}
+                    value={phone_number}
                   />
                 </div>
               </div>
@@ -544,8 +567,8 @@ const InspectionReportComp = () => {
                     }
                     placeholder=""
                     type="text"
-                    // onChange={(e) => setState(e.target.value)}
-                    value={single_factory?.data?.factory?.address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    value={address}
                   />
                 </div>
               </div>
@@ -568,7 +591,7 @@ const InspectionReportComp = () => {
                 </label>
                 <div
                   css={{
-                    width: "50%",
+                    width: "70%",
                   }}
                 >
                   <div
@@ -588,7 +611,7 @@ const InspectionReportComp = () => {
                         })
                       }
                     >
-                      Adults
+                      Male
                     </div>
                     <input
                       css={(theme) =>
@@ -599,39 +622,6 @@ const InspectionReportComp = () => {
                           color: theme.colors.Gray_400,
                           border: `1px solid ${theme.colors.Gray_200}`,
                           borderRadius: 8,
-                          marginRight: 28,
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      placeholder="Male"
-                      type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.adult
-                          ?.male
-                      }
-                    />
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
 
                           ":focus": {
                             outline: "none",
@@ -649,15 +639,13 @@ const InspectionReportComp = () => {
                           },
                         })
                       }
-                      placeholder="Female"
+                      {...register("male_emp", { required: true })}
+                      placeholder=""
                       type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.adult
-                          ?.female
-                      }
+                      onChange={(e) => setMale_emp(e.target.value)}
+                      value={male_emp}
                     />
                   </div>
-
                   <div
                     css={{
                       marginTop: 20,
@@ -675,94 +663,7 @@ const InspectionReportComp = () => {
                         })
                       }
                     >
-                      Youths
-                    </div>
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-                          marginRight: 28,
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      placeholder="Male"
-                      type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.youth
-                          ?.male
-                      }
-                    />
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      placeholder="Female"
-                      type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.youth
-                          ?.female
-                      }
-                    />
-                  </div>
-
-                  <div
-                    css={{
-                      marginTop: 20,
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                          marginRight: 28,
-                        })
-                      }
-                    >
-                      Total
+                      Female
                     </div>
                     <input
                       css={(theme) =>
@@ -790,19 +691,11 @@ const InspectionReportComp = () => {
                           },
                         })
                       }
-                      {...register("youth_male", { required: true })}
-                      placeholder="1000"
+                      {...register("female_emp", { required: true })}
+                      placeholder=""
                       type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.adult
-                          ?.male +
-                        single_factory?.data?.factory?.total_employees?.adult
-                          ?.female +
-                        single_factory?.data?.factory?.total_employees?.youth
-                          ?.male +
-                        single_factory?.data?.factory?.total_employees?.youth
-                          ?.female
-                      }
+                      onChange={(e) => setFemale_emp(e.target.value)}
+                      value={female_emp}
                     />
                   </div>
                 </div>
@@ -1051,131 +944,6 @@ const InspectionReportComp = () => {
                     />
                   </div>
                 </div>
-                {/* <div
-                  css={{
-                    marginTop: 88,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_400,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                  >
-                    Factory Information Update
-                  </div>
-                  <div
-                    css={{
-                      marginTop: 20,
-                    }}
-                  >
-                    <textarea
-                      rows={5}
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: 20,
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_200}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      {...register("email", { required: true })}
-                      placeholder=""
-                      type="text"
-                      onChange={(e) => setComment(e.target.value)}
-                      value={comment}
-                    />
-                    <div
-                      css={{
-                        marginTop: 48,
-                        display: "flex",
-                        justifyContent: "left",
-                      }}
-                    >
-                      <button
-                        css={(theme) =>
-                          mq({
-                            height: [40, 40, 56],
-                            borderRadius: 30,
-                            width: ["auto", "auto", 356],
-                            //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-                            padding: ["12px 16px", "12px 16px", "16px 24px"],
-                            fontSize: [12, 12, 20],
-                            cursor: "pointer",
-                            marginRight: 20,
-                            fontWeight: 600,
-                            lineHeight: "17px",
-                            border: "none",
-                            display: "flex",
-                            justifyContent: "center",
-                            color: "#fff",
-                            backgroundColor: theme.colors.Primary_500,
-                          })
-                        }
-                        type="submit"
-                        onClick={() => {
-                          zonal_comments();
-                        }}
-                        // onClick={() => {
-                        //   factory_details.add_factory_details(formData);
-                        //   factory.set_tab("Upload document");
-                        // }}
-                      >
-                        {loading ? (
-                          <div
-                            css={{
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                          >
-                            {" "}
-                            <div
-                              css={{
-                                width: 64,
-                                height: 64,
-                                margin: "50px 0px",
-                              }}
-                            >
-                              <img src="/svg/loader/loader.svg" />
-                            </div>
-                          </div>
-                        ) : (
-                          <div
-                            css={{
-                              display: "flex",
-                              marginTop: 4,
-                              alignItems: "center",
-                              textTransform: "capitalize",
-                            }}
-                          >
-                            <div>Adjust info</div>
-                          </div>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
@@ -1184,163 +952,9 @@ const InspectionReportComp = () => {
           css={{
             marginTop: 64,
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "right",
           }}
         >
-          <div>
-            {router.query.type ? (
-              <button
-                css={(theme) =>
-                  mq({
-                    height: [40, 40, 56],
-                    borderRadius: 30,
-                    width: ["auto", "auto", 356],
-                    //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-                    padding: ["12px 16px", "12px 16px", "16px 24px"],
-                    fontSize: [12, 12, 20],
-                    cursor: "pointer",
-                    marginRight: 20,
-                    fontWeight: 600,
-                    lineHeight: "17px",
-                    border: "none",
-                    display: "flex",
-                    justifyContent: "center",
-                    color: "#fff",
-                    backgroundColor: theme.colors.Gray_900,
-                  })
-                }
-                type="submit"
-                onClick={() => {
-                  setWillCancel(true);
-                }}
-              >
-                {loading ? (
-                  <div
-                    css={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {" "}
-                    <div
-                      css={mq({
-                        width: [16, 16, 24],
-                        height: [16, 16, 24],
-                      })}
-                    >
-                      <img src="/svg/loader/loader.svg" />
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    css={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div
-                      css={{
-                        paddingTop: 4,
-                      }}
-                    >
-                      Cancel
-                    </div>
-                    {/* <div
-                  css={{
-                    marginLeft: 8,
-                  }}
-                >
-                  <img
-                    css={mq({
-                      width: [14, 14, 24],
-                      height: [14, 14, 24],
-                    })}
-                    src="/svg/registration/left_arrow.svg"
-                  />
-                </div> */}
-                  </div>
-                )}
-              </button>
-            ) : (
-              <button
-                css={(theme) =>
-                  mq({
-                    height: [40, 40, 56],
-                    borderRadius: 30,
-                    width: ["auto", "auto", 356],
-                    //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-                    padding: ["12px 16px", "12px 16px", "16px 24px"],
-                    fontSize: [12, 12, 20],
-                    cursor: single_factory?.data.factory?.can_edit
-                      ? "not-allowed"
-                      : "pointer",
-                    marginRight: 20,
-                    fontWeight: 600,
-                    lineHeight: "17px",
-                    border: "none",
-                    display: "flex",
-                    justifyContent: "center",
-                    color: "#fff",
-                    backgroundColor: single_factory?.data.factory?.can_edit
-                      ? theme.colors.Gray_200
-                      : theme.colors.Gray_900,
-                  })
-                }
-                type="submit"
-                disabled={single_factory?.data.factory?.can_edit}
-                onClick={() => {
-                  setWillAllowEdit(true);
-                }}
-              >
-                {loading ? (
-                  <div
-                    css={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {" "}
-                    <div
-                      css={mq({
-                        width: [16, 16, 24],
-                        height: [16, 16, 24],
-                      })}
-                    >
-                      <img src="/svg/loader/loader.svg" />
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    css={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div
-                      css={{
-                        paddingTop: 4,
-                      }}
-                    >
-                      Adjust info
-                    </div>
-                    {/* <div
-                  css={{
-                    marginLeft: 8,
-                  }}
-                >
-                  <img
-                    css={mq({
-                      width: [14, 14, 24],
-                      height: [14, 14, 24],
-                    })}
-                    src="/svg/registration/left_arrow.svg"
-                  />
-                </div> */}
-                  </div>
-                )}
-              </button>
-            )}
-          </div>
           <button
             css={(theme) =>
               mq({
@@ -1467,138 +1081,7 @@ const InspectionReportComp = () => {
               <DeclarationPopup
                 close={() => setWillAmmend(false)}
                 ammend={() => {
-                  state_report();
-                }}
-              />
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence initial={false}>
-        {willAllowEdit && (
-          <div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                ease: "easeInOut",
-                duration: 0.4,
-              }}
-              css={{
-                position: "fixed",
-                width: "100vw",
-                height: "100vh",
-                // zIndex: 2,
-                zIndex: 3,
-                backgroundColor: "rgb(0,0,0,0.1)",
-                right: 0,
-                top: 0,
-                opacity: 0,
-              }}
-              onClick={() => setWillAllowEdit(false)}
-            >
-              {" "}
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 900 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 900 }}
-              transition={{
-                ease: "easeInOut",
-                // duration: 0.4,
-              }}
-              id="location"
-              css={(theme) => ({
-                position: "fixed",
-                width: ["90vw", 524, 524],
-                height: 427,
-                overflowY: "scroll",
-
-                borderRadius: 14,
-                zIndex: 5,
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                margin: "auto",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#fff",
-              })}
-            >
-              {/* <CreateRiderAccount close={() => router.back()} /> */}
-              <DeclarationPopup
-                close={() => setWillAllowEdit(false)}
-                ammend={() => {
-                  handle_will_allow_edit_submit();
-                }}
-              />
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence initial={false}>
-        {willCancel && (
-          <div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                ease: "easeInOut",
-                duration: 0.4,
-              }}
-              css={{
-                position: "fixed",
-                width: "100vw",
-                height: "100vh",
-                // zIndex: 2,
-                zIndex: 3,
-                backgroundColor: "rgb(0,0,0,0.1)",
-                right: 0,
-                top: 0,
-                opacity: 0,
-              }}
-              onClick={() => setWillCancel(false)}
-            >
-              {" "}
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 900 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 900 }}
-              transition={{
-                ease: "easeInOut",
-                // duration: 0.4,
-              }}
-              id="location"
-              css={(theme) => ({
-                position: "fixed",
-                width: ["90vw", 524, 524],
-                height: 427,
-                overflowY: "scroll",
-
-                borderRadius: 14,
-                zIndex: 5,
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                margin: "auto",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#fff",
-              })}
-            >
-              {/* <CreateRiderAccount close={() => router.back()} /> */}
-              <DeclarationPopup
-                close={() => setWillCancel(false)}
-                ammend={() => {
-                  handle_will_cancel();
+                  handleFormSubmit();
                 }}
               />
             </motion.div>
@@ -1609,4 +1092,4 @@ const InspectionReportComp = () => {
   );
 };
 
-export default InspectionReportComp;
+export default CreateRoutineReportComp;
