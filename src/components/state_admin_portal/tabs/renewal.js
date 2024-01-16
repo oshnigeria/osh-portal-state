@@ -258,135 +258,7 @@ const RenewalComp = () => {
               </div>
             ) : (
               <div>
-                {router.query.tab === "completed" ? (
-                  <div>
-                    {completed?.data?.renewals?.length >= 1 ? (
-                      <div>
-                        <div
-                          css={{
-                            marginTop: 32,
-                            padding: "24px 40px",
-                          }}
-                        >
-                          <div
-                            css={{
-                              display: "grid",
-                              gridTemplateColumns: "repeat(3, 1fr)",
-
-                              rowGap: 0,
-                              columnGap: 64,
-                            }}
-                          >
-                            {table.map((tab) => (
-                              <div
-                                css={(theme) =>
-                                  mq({
-                                    color: theme.colors.Gray_500,
-                                    fontSize: [12, 12, 18],
-                                    lineHeight: ["14px", "14px", "22px"],
-                                    fontWeight: [600, 600, 400],
-                                  })
-                                }
-                              >
-                                {tab.title}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div>
-                          {completed?.data?.renewals?.map((factory) => (
-                            <div
-                              key={factory.factory._id}
-                              css={(theme) => ({
-                                display: "grid",
-                                gridTemplateColumns: "repeat(3, 1fr)",
-                                cursor: "pointer",
-                                rowGap: 0,
-                                columnGap: 64,
-                                borderBottom: `1px solid ${theme.colors.Gray_200}`,
-                                padding: "24px 40px",
-                              })}
-                              onClick={() =>
-                                router.push(
-                                  `/factory/${factory.factory._id}?type=renewal`
-                                )
-                              }
-                            >
-                              <div
-                                css={(theme) =>
-                                  mq({
-                                    textAlign: "left",
-                                    color: theme.colors.Gray_700,
-
-                                    textTransform: "capitalize",
-
-                                    fontSize: [12, 12, 18],
-                                    lineHeight: ["14px", "14px", "22px"],
-                                    fontWeight: [600, 600, 400],
-                                  })
-                                }
-                              >
-                                {factory.factory.occupier_name}
-                              </div>
-                              <div
-                                css={(theme) =>
-                                  mq({
-                                    textAlign: "left",
-                                    color: theme.colors.Gray_700,
-                                    textTransform: "capitalize",
-                                    fontSize: [12, 12, 18],
-                                    lineHeight: ["14px", "14px", "22px"],
-                                    fontWeight: [600, 600, 400],
-                                  })
-                                }
-                              >
-                                {factory.state}
-                              </div>
-                              <div
-                                css={(theme) =>
-                                  mq({
-                                    textAlign: "left",
-                                    color: theme.colors.Gray_700,
-                                    fontSize: [12, 12, 18],
-                                    lineHeight: ["14px", "14px", "22px"],
-                                    fontWeight: [600, 600, 400],
-                                  })
-                                }
-                              >
-                                {formatDateToCustom(factory.createdAt)}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <div>
-                        <div
-                          css={{
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        >
-                          {" "}
-                          <div
-                            css={{
-                              margin: "50px 0px",
-                            }}
-                          >
-                            <img
-                              css={mq({
-                                width: [50, 50, 100],
-                                height: [50, 50, 100],
-                              })}
-                              src="/svg/dashboard/empty.svg"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
+                {router.query.tab === "canceled" ? (
                   <div>
                     {factory?.data?.renewals?.length >= 1 ? (
                       <div>
@@ -423,69 +295,71 @@ const RenewalComp = () => {
                         </div>
 
                         <div>
-                          {factory?.data?.renewals?.map((factory) => (
-                            <div
-                              key={factory._id}
-                              css={(theme) => ({
-                                display: "grid",
-                                gridTemplateColumns: "repeat(3, 1fr)",
-                                cursor: "pointer",
-                                rowGap: 0,
-                                columnGap: 64,
-                                borderBottom: `1px solid ${theme.colors.Gray_200}`,
-                                padding: "24px 40px",
-                              })}
-                              onClick={() =>
-                                router.push(
-                                  `/factory/${factory.factory._id}?type=renewal`
-                                )
-                              }
-                            >
+                          {factory?.data?.renewals
+                            ?.filter((item) => item.has_been_cancelled === true)
+                            .map((factory) => (
                               <div
-                                css={(theme) =>
-                                  mq({
-                                    textAlign: "left",
-                                    color: theme.colors.Gray_700,
+                                key={factory._id}
+                                css={(theme) => ({
+                                  display: "grid",
+                                  gridTemplateColumns: "repeat(3, 1fr)",
+                                  cursor: "pointer",
+                                  rowGap: 0,
+                                  columnGap: 64,
+                                  borderBottom: `1px solid ${theme.colors.Gray_200}`,
+                                  padding: "24px 40px",
+                                })}
+                                onClick={() =>
+                                  router.push(
+                                    `/factory/${factory.factory._id}?type=renewal`
+                                  )
+                                }
+                              >
+                                <div
+                                  css={(theme) =>
+                                    mq({
+                                      textAlign: "left",
+                                      color: theme.colors.Gray_700,
 
-                                    textTransform: "capitalize",
+                                      textTransform: "capitalize",
 
-                                    fontSize: [12, 12, 18],
-                                    lineHeight: ["14px", "14px", "22px"],
-                                    fontWeight: [600, 600, 400],
-                                  })
-                                }
-                              >
-                                {factory.factory?.occupier_name}
+                                      fontSize: [12, 12, 18],
+                                      lineHeight: ["14px", "14px", "22px"],
+                                      fontWeight: [600, 600, 400],
+                                    })
+                                  }
+                                >
+                                  {factory.factory?.occupier_name}
+                                </div>
+                                <div
+                                  css={(theme) =>
+                                    mq({
+                                      textAlign: "left",
+                                      color: theme.colors.Gray_700,
+                                      textTransform: "capitalize",
+                                      fontSize: [12, 12, 18],
+                                      lineHeight: ["14px", "14px", "22px"],
+                                      fontWeight: [600, 600, 400],
+                                    })
+                                  }
+                                >
+                                  {factory.state}
+                                </div>
+                                <div
+                                  css={(theme) =>
+                                    mq({
+                                      textAlign: "left",
+                                      color: theme.colors.Gray_700,
+                                      fontSize: [12, 12, 18],
+                                      lineHeight: ["14px", "14px", "22px"],
+                                      fontWeight: [600, 600, 400],
+                                    })
+                                  }
+                                >
+                                  {formatDateToCustom(factory.createdAt)}
+                                </div>
                               </div>
-                              <div
-                                css={(theme) =>
-                                  mq({
-                                    textAlign: "left",
-                                    color: theme.colors.Gray_700,
-                                    textTransform: "capitalize",
-                                    fontSize: [12, 12, 18],
-                                    lineHeight: ["14px", "14px", "22px"],
-                                    fontWeight: [600, 600, 400],
-                                  })
-                                }
-                              >
-                                {factory.state}
-                              </div>
-                              <div
-                                css={(theme) =>
-                                  mq({
-                                    textAlign: "left",
-                                    color: theme.colors.Gray_700,
-                                    fontSize: [12, 12, 18],
-                                    lineHeight: ["14px", "14px", "22px"],
-                                    fontWeight: [600, 600, 400],
-                                  })
-                                }
-                              >
-                                {formatDateToCustom(factory.createdAt)}
-                              </div>
-                            </div>
-                          ))}
+                            ))}
                         </div>
                       </div>
                     ) : (
@@ -511,6 +385,270 @@ const RenewalComp = () => {
                             />
                           </div>
                         </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    {router.query.tab === "completed" ? (
+                      <div>
+                        {completed?.data?.renewals?.length >= 1 ? (
+                          <div>
+                            <div
+                              css={{
+                                marginTop: 32,
+                                padding: "24px 40px",
+                              }}
+                            >
+                              <div
+                                css={{
+                                  display: "grid",
+                                  gridTemplateColumns: "repeat(3, 1fr)",
+
+                                  rowGap: 0,
+                                  columnGap: 64,
+                                }}
+                              >
+                                {table.map((tab) => (
+                                  <div
+                                    css={(theme) =>
+                                      mq({
+                                        color: theme.colors.Gray_500,
+                                        fontSize: [12, 12, 18],
+                                        lineHeight: ["14px", "14px", "22px"],
+                                        fontWeight: [600, 600, 400],
+                                      })
+                                    }
+                                  >
+                                    {tab.title}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div>
+                              {completed?.data?.renewals?.map((factory) => (
+                                <div
+                                  key={factory.factory._id}
+                                  css={(theme) => ({
+                                    display: "grid",
+                                    gridTemplateColumns: "repeat(3, 1fr)",
+                                    cursor: "pointer",
+                                    rowGap: 0,
+                                    columnGap: 64,
+                                    borderBottom: `1px solid ${theme.colors.Gray_200}`,
+                                    padding: "24px 40px",
+                                  })}
+                                  onClick={() =>
+                                    router.push(
+                                      `/factory/${factory.factory._id}?type=renewal`
+                                    )
+                                  }
+                                >
+                                  <div
+                                    css={(theme) =>
+                                      mq({
+                                        textAlign: "left",
+                                        color: theme.colors.Gray_700,
+
+                                        textTransform: "capitalize",
+
+                                        fontSize: [12, 12, 18],
+                                        lineHeight: ["14px", "14px", "22px"],
+                                        fontWeight: [600, 600, 400],
+                                      })
+                                    }
+                                  >
+                                    {factory.factory.occupier_name}
+                                  </div>
+                                  <div
+                                    css={(theme) =>
+                                      mq({
+                                        textAlign: "left",
+                                        color: theme.colors.Gray_700,
+                                        textTransform: "capitalize",
+                                        fontSize: [12, 12, 18],
+                                        lineHeight: ["14px", "14px", "22px"],
+                                        fontWeight: [600, 600, 400],
+                                      })
+                                    }
+                                  >
+                                    {factory.state}
+                                  </div>
+                                  <div
+                                    css={(theme) =>
+                                      mq({
+                                        textAlign: "left",
+                                        color: theme.colors.Gray_700,
+                                        fontSize: [12, 12, 18],
+                                        lineHeight: ["14px", "14px", "22px"],
+                                        fontWeight: [600, 600, 400],
+                                      })
+                                    }
+                                  >
+                                    {formatDateToCustom(factory.createdAt)}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <div
+                              css={{
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {" "}
+                              <div
+                                css={{
+                                  margin: "50px 0px",
+                                }}
+                              >
+                                <img
+                                  css={mq({
+                                    width: [50, 50, 100],
+                                    height: [50, 50, 100],
+                                  })}
+                                  src="/svg/dashboard/empty.svg"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div>
+                        {factory?.data?.renewals?.length >= 1 ? (
+                          <div>
+                            <div
+                              css={{
+                                marginTop: 32,
+                                padding: "24px 40px",
+                              }}
+                            >
+                              <div
+                                css={{
+                                  display: "grid",
+                                  gridTemplateColumns: "repeat(3, 1fr)",
+
+                                  rowGap: 0,
+                                  columnGap: 64,
+                                }}
+                              >
+                                {table.map((tab) => (
+                                  <div
+                                    css={(theme) =>
+                                      mq({
+                                        color: theme.colors.Gray_500,
+                                        fontSize: [12, 12, 18],
+                                        lineHeight: ["14px", "14px", "22px"],
+                                        fontWeight: [600, 600, 400],
+                                      })
+                                    }
+                                  >
+                                    {tab.title}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div>
+                              {factory?.data?.renewals
+                                ?.filter(
+                                  (item) => item.has_been_cancelled !== true
+                                )
+                                .map((factory) => (
+                                  <div
+                                    key={factory._id}
+                                    css={(theme) => ({
+                                      display: "grid",
+                                      gridTemplateColumns: "repeat(3, 1fr)",
+                                      cursor: "pointer",
+                                      rowGap: 0,
+                                      columnGap: 64,
+                                      borderBottom: `1px solid ${theme.colors.Gray_200}`,
+                                      padding: "24px 40px",
+                                    })}
+                                    onClick={() =>
+                                      router.push(
+                                        `/factory/${factory.factory._id}?type=renewal`
+                                      )
+                                    }
+                                  >
+                                    <div
+                                      css={(theme) =>
+                                        mq({
+                                          textAlign: "left",
+                                          color: theme.colors.Gray_700,
+
+                                          textTransform: "capitalize",
+
+                                          fontSize: [12, 12, 18],
+                                          lineHeight: ["14px", "14px", "22px"],
+                                          fontWeight: [600, 600, 400],
+                                        })
+                                      }
+                                    >
+                                      {factory.factory?.occupier_name}
+                                    </div>
+                                    <div
+                                      css={(theme) =>
+                                        mq({
+                                          textAlign: "left",
+                                          color: theme.colors.Gray_700,
+                                          textTransform: "capitalize",
+                                          fontSize: [12, 12, 18],
+                                          lineHeight: ["14px", "14px", "22px"],
+                                          fontWeight: [600, 600, 400],
+                                        })
+                                      }
+                                    >
+                                      {factory.state}
+                                    </div>
+                                    <div
+                                      css={(theme) =>
+                                        mq({
+                                          textAlign: "left",
+                                          color: theme.colors.Gray_700,
+                                          fontSize: [12, 12, 18],
+                                          lineHeight: ["14px", "14px", "22px"],
+                                          fontWeight: [600, 600, 400],
+                                        })
+                                      }
+                                    >
+                                      {formatDateToCustom(factory.createdAt)}
+                                    </div>
+                                  </div>
+                                ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <div
+                              css={{
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {" "}
+                              <div
+                                css={{
+                                  margin: "50px 0px",
+                                }}
+                              >
+                                <img
+                                  css={mq({
+                                    width: [50, 50, 100],
+                                    height: [50, 50, 100],
+                                  })}
+                                  src="/svg/dashboard/empty.svg"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
