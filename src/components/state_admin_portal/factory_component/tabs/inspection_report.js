@@ -252,9 +252,9 @@ const InspectionReportComp = () => {
 
     axios
       .patch(
-        `${main_url}/state-officer/factory/ammendments/cancel?id=${router.query.id}`,
+        `${main_url}/state-officer/factory/ammendments/cancel?id=${router.query.amm_id}`,
         {
-          id: router.query.id,
+          id: router.query.amm_id,
           // occupier_name: formData.occupier_name,
           reason: "Disorganized approach",
         },

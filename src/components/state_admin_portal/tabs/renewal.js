@@ -60,16 +60,7 @@ const RenewalComp = () => {
         });
       },
     },
-    // {
-    //   title: "Ongoing",
-    //   route: "ongoing",
-    //   state: () => {
-    //     setProgress({
-    //       min: 50,
-    //       max: 60,
-    //     });
-    //   },
-    // },
+
     {
       title: "Completed",
       route: "completed",
@@ -77,6 +68,16 @@ const RenewalComp = () => {
         setProgress({
           min: 60,
           max: 101,
+        });
+      },
+    },
+    {
+      title: "Canceled",
+      route: "canceled",
+      state: () => {
+        setProgress({
+          min: 50,
+          max: 60,
         });
       },
     },

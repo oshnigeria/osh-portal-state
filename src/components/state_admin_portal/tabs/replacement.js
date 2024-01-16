@@ -78,6 +78,17 @@ const ReplacementComp = () => {
         });
       },
     },
+    {
+      title: "Canceled",
+      route: "canceled",
+      state: () => {
+        //   setProgress({
+        //     min: 50,
+        //     max: 60,
+        //   });
+        console.log("ade");
+      },
+    },
   ];
 
   const table = [

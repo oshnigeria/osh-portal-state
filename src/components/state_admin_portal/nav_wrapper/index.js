@@ -89,6 +89,13 @@ const DashboadWrapperComp = (props) => {
       icon: "incident",
       active_icon: "incident_active",
     },
+    // {
+    //   title: "canceled",
+    //   route: "/dashboard/routine-inspections",
+    //   path: "dashboard/routine-inspections",
+    //   icon: "incident",
+    //   active_icon: "incident_active",
+    // },
   ];
   return (
     <div>
@@ -131,8 +138,8 @@ const DashboadWrapperComp = (props) => {
           <div>
             <img
               css={{
-                width: 268,
-                height: 52,
+                width: 260,
+                height: 50,
               }}
               src="/auth/fmle_logo_white.png"
             />
@@ -152,7 +159,7 @@ const DashboadWrapperComp = (props) => {
 
                   display: "flex",
                   alignItems: "center",
-                  marginBottom: 26,
+                  marginBottom: 16,
                   padding: "16px 36px",
                   cursor: "pointer",
                   borderRadius: 8,
@@ -167,6 +174,8 @@ const DashboadWrapperComp = (props) => {
                         ? theme.colors.Primary_500
                         : theme.colors.Primary_50,
                     fontWeight: router.pathname == `/${tab.path}` ? 600 : 500,
+                    fontSize: 16,
+                    textTransform: "capitalize",
                   })}
                 >
                   {tab.title}
@@ -178,7 +187,7 @@ const DashboadWrapperComp = (props) => {
           <div
             css={{
               position: "fixed",
-              bottom: 30,
+              bottom: 20,
               left: 60,
             }}
           >
@@ -234,7 +243,7 @@ const DashboadWrapperComp = (props) => {
               <div
                 css={(theme) => ({
                   color: theme.colors.Primary_50,
-                  fontSize: 20,
+                  fontSize: 18,
                   marginLeft: 16,
                   lineHeight: "24px",
                 })}
