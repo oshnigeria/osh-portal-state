@@ -7,11 +7,19 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import DashboadWrapperComp from "@/src/components/state_admin_portal/nav_wrapper";
 import facepaint from "facepaint";
-import EmployeeInfoComp from "@/src/components/state_admin_portal/factory_component/tabs/regsitration_components/employee_info_comp";
+import EmployeeInfoComp from "./regsitration_components/employee_info_comp";
+import toast, { Toaster } from "react-hot-toast";
+import { success_message, error_message } from "@/src/components/toasts";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+
+import DeclarationPopup from "./comps/declaration_popup";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const FacRoutineDetailsComp = () => {
   const router = useRouter();
+  const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [willAmmend, setWillAmmend] = useState(false);
   const fetcher = (url) =>
     axios
       .get(url, {
@@ -35,6 +43,13 @@ const FacRoutineDetailsComp = () => {
 
   return (
     <div>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+        }}
+      />
+
       {isLoading || error ? (
         <div
           css={{
@@ -108,7 +123,7 @@ const FacRoutineDetailsComp = () => {
                         })
                       }
                     >
-                      Occupier name
+                      Name of undertaking
                     </div>
                     <div
                       css={(theme) =>
@@ -120,7 +135,7 @@ const FacRoutineDetailsComp = () => {
                         })
                       }
                     >
-                      {single_report.data?.report?.factory?._occupier_name}
+                      {single_report.data?.report?.factory_name}
                     </div>
                   </div>
                   <div>
@@ -133,7 +148,7 @@ const FacRoutineDetailsComp = () => {
                         })
                       }
                     >
-                      State of occupier
+                      Postal Address of Factory
                     </div>
                     <div
                       css={(theme) =>
@@ -145,188 +160,7 @@ const FacRoutineDetailsComp = () => {
                         })
                       }
                     >
-                      {single_report.data?.report?.factory?.state}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Phone number of occupier
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.factory.phone_number}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Date of Expiration of CoR
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {/* {single_factory.data.factory._occupier_name} */}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Postal address of occupier
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.factory?.postal_address}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Registration Status
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.factory?.progress}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Precise address of occupier
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.factory?.address}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Company Registration number
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {
-                        single_report.data?.report?.factory
-                          .company_registration_no
-                      }
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Date of occupation
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {
-                        single_report.data?.report?.factory
-                          .date_operations_started
-                      }
+                      {single_report.data?.report?.postal_address}
                     </div>
                   </div>
                   <div>
@@ -351,10 +185,57 @@ const FacRoutineDetailsComp = () => {
                         })
                       }
                     >
-                      {
-                        single_report.data?.report?.factory?.inspection_report
-                          ?.nature_of_work_done
+                      {single_report.data?.report?.nature_of_work}
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
                       }
+                    >
+                      Precise address of Factory
+                    </div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      {single_report.data?.report?.location}
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Inspection date
+                    </div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      {single_report.data?.report?.inspection_date}
                     </div>
                   </div>
                 </div>
@@ -366,7 +247,11 @@ const FacRoutineDetailsComp = () => {
                 margin: "48px 0px",
               }}
             ></div>
-            <div>
+            <div
+              css={{
+                width: "80%",
+              }}
+            >
               <div
                 css={(theme) =>
                   mq({
@@ -379,151 +264,13 @@ const FacRoutineDetailsComp = () => {
                 Employee Information
               </div>
               <EmployeeInfoComp
-                adult_male={
-                  single_report.data?.report?.factory.night_shift_employees
-                    .adult.male
-                }
+                adult_male={single_report.data?.report?.no_of_male_employees}
                 adult_female={
-                  single_report.data?.report?.factory.night_shift_employees
-                    .adult.female
-                }
-                youths_male={
-                  single_report.data?.report?.factory.night_shift_employees
-                    .youth.male
-                }
-                youths_female={
-                  single_report.data?.report?.factory.night_shift_employees
-                    .youth.female
+                  single_report.data?.report?.no_of_female_employees
                 }
               />
             </div>
 
-            <div
-              css={{
-                marginTop: 48,
-              }}
-            >
-              <div
-                css={(theme) =>
-                  mq({
-                    color: theme.colors.Gray_400,
-                    lineHeight: "20px",
-                    fontSize: [14, 14, 20],
-                  })
-                }
-              >
-                Employee shift Information
-              </div>
-
-              <div
-                css={{
-                  marginTop: 24,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_500,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Morning shift
-                </div>
-
-                <EmployeeInfoComp
-                  adult_male={
-                    single_report.data?.report?.factory.morning_shift_employees
-                      .adult.male
-                  }
-                  adult_female={
-                    single_report.data?.report?.factory.morning_shift_employees
-                      .adult.female
-                  }
-                  youths_male={
-                    single_report.data?.report?.factory.morning_shift_employees
-                      .youth.male
-                  }
-                  youths_female={
-                    single_report.data?.report?.factory.morning_shift_employees
-                      .youth.female
-                  }
-                />
-              </div>
-              <div
-                css={{
-                  marginTop: 24,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_500,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Afternoon shift
-                </div>
-
-                <EmployeeInfoComp
-                  adult_male={
-                    single_report.data?.report?.factory
-                      .afternoon_shift_employees.adult.male
-                  }
-                  adult_female={
-                    single_report.data?.report?.factory
-                      .afternoon_shift_employees.adult.female
-                  }
-                  youths_male={
-                    single_report.data?.report?.factory
-                      .afternoon_shift_employees.youth.male
-                  }
-                  youths_female={
-                    single_report.data?.report?.factory
-                      .afternoon_shift_employees.youth.female
-                  }
-                />
-              </div>
-              <div
-                css={{
-                  marginTop: 24,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_500,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Evening shift
-                </div>
-
-                <EmployeeInfoComp
-                  adult_male={
-                    single_report.data?.report?.factory.night_shift_employees
-                      .adult.male
-                  }
-                  adult_female={
-                    single_report.data?.report?.factory.night_shift_employees
-                      .adult.female
-                  }
-                  youths_male={
-                    single_report.data?.report?.factory.night_shift_employees
-                      .youth.male
-                  }
-                  youths_female={
-                    single_report.data?.report?.factory.night_shift_employees
-                      .youth.female
-                  }
-                />
-              </div>
-            </div>
             <div
               css={{
                 marginTop: 48,
@@ -549,7 +296,7 @@ const FacRoutineDetailsComp = () => {
                     })
                   }
                 >
-                  Will mechanical power machine be used?
+                  Inspection Summary
                 </div>
                 <div
                   css={(theme) =>
@@ -560,11 +307,10 @@ const FacRoutineDetailsComp = () => {
                       fontSize: [14, 14, 20],
                     })
                   }
-                >
-                  {single_report.data?.report?.factory?.use_mechanical_power
-                    ? "Yes"
-                    : "No"}
-                </div>
+                  dangerouslySetInnerHTML={{
+                    __html: single_report.data?.report?.inspection_summary,
+                  }}
+                ></div>
               </div>
               <div
                 css={{
@@ -580,7 +326,7 @@ const FacRoutineDetailsComp = () => {
                     })
                   }
                 >
-                  What type of mechanical power is used/ intended to be used
+                  Health and Safety Report
                 </div>
                 <div
                   css={(theme) =>
@@ -591,572 +337,164 @@ const FacRoutineDetailsComp = () => {
                       fontSize: [14, 14, 20],
                     })
                   }
-                >
-                  {single_report.data?.report?.factory?.use_mechanical_power
-                    ? "Yes"
-                    : "No"}
-                </div>
-              </div>
-              {single_report.data?.report?.factory?.mechanical_power && (
-                <div
-                  css={{
-                    marginTop: 48,
+                  dangerouslySetInnerHTML={{
+                    __html: single_report.data?.report?.inspection_summary,
                   }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    What type of mechanical power is used/ intended to be used
-                  </div>
-                  <div>
-                    <ul>
-                      {Object.keys(
-                        single_report.data?.report?.factory?.mechanical_power
-                      )
-                        .filter(
-                          (key) =>
-                            single_report.data?.report?.factory
-                              ?.mechanical_power[key] === true
-                        )
-                        .map((key) => (
-                          <li
-                            key={key}
-                            css={(theme) =>
-                              mq({
-                                marginTop: 12,
-                                color: theme.colors.Gray_700,
-                                lineHeight: "20px",
-                                fontSize: [14, 14, 20],
-                                textTransform: "capitalize",
-                              })
-                            }
-                          >
-                            <div
-                              css={{
-                                display: single_report.data?.report?.factory
-                                  ?.mechanical_power[key]
-                                  ? "block"
-                                  : "none",
-                                marginTop: 12,
-                              }}
-                            >
-                              {key.replace(/_/g, " ")}
-                            </div>
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
-              <div
-                css={{
-                  marginTop: 48,
-                  marginBottom: 48,
-                }}
-              >
-                <div
-                  css={(theme) => ({
-                    width: "80%",
-
-                    borderBottom: `1px solid ${theme.colors.Gray_200}`,
-                  })}
                 ></div>
-              </div>
-
-              <div>
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Are boilers going to be used?
-                  </div>
-                  <div
-                    css={(theme) =>
-                      mq({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                  >
-                    {single_report.data?.report?.factory?.use_boiler
-                      ? "Yes"
-                      : "No"}
-                  </div>
-                </div>
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Type, description and distinctive number
-                  </div>
-                  <div
-                    css={(theme) =>
-                      mq({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        single_report.data?.report?.factory?.boiler_description,
-                    }}
-                  ></div>
-                </div>
-
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Country and year of manufacture
-                  </div>
-                  <div
-                    css={(theme) =>
-                      mq({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                  >
-                    {
-                      single_report.data?.report?.factory
-                        ?.country_and_year_of_manufacture
-                    }
-                  </div>
-                </div>
-
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Date of last thorough test and examination and name &
-                    address of the examiner
-                  </div>
-                  <div
-                    css={(theme) =>
-                      mq({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        single_report.data?.report?.factory?.examination_report,
-                    }}
-                  ></div>
-                </div>
-
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Maximum permissible working pressure in kg/sq Cm
-                  </div>
-                  <div
-                    css={(theme) =>
-                      mq({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                  >
-                    {single_report.data?.report?.factory?.working_pressure}
-                  </div>
-                </div>
-
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_500,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Location in the factory (indicate also the linear distance
-                    to the nearest workroom)
-                  </div>
-                  <div
-                    css={(theme) =>
-                      mq({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                  >
-                    {single_report.data?.report?.factory?.address}
-                  </div>
-                </div>
-
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_400,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Type of fuel to be used
-                  </div>
-                  <div
-                    css={(theme) =>
-                      mq({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                  >
-                    {single_report.data?.report?.factory?.fuel_type}
-                  </div>
-                </div>
-
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <div
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_400,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Particulars of boiler attendants
-                  </div>
-                  <div
-                    css={(theme) =>
-                      mq({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
-                      })
-                    }
-                  >
-                    {single_report.data?.report?.factory?.boiler_attendants}
-                  </div>
-                </div>
               </div>
               <div
                 css={{
                   marginTop: 48,
-                  marginBottom: 48,
                 }}
               >
                 <div
-                  css={(theme) => ({
-                    width: "80%",
-
-                    borderBottom: `1px solid ${theme.colors.Gray_200}`,
-                  })}
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_500,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                >
+                  Recomendations
+                </div>
+                <div
+                  css={(theme) =>
+                    mq({
+                      marginTop: 12,
+                      color: theme.colors.Gray_700,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                  dangerouslySetInnerHTML={{
+                    __html: single_report.data?.report?.recommendations,
+                  }}
                 ></div>
               </div>
-              {single_report.data?.report?.factory?.tools && (
+              {/* <div
+                css={{
+                  marginTop: 48,
+                }}
+              >
+                <div
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                >
+                  Comment
+                </div>
                 <div
                   css={{
-                    marginTop: 48,
+                    marginTop: 20,
                   }}
                 >
-                  <div
+                  <textarea
+                    rows={8}
                     css={(theme) =>
                       mq({
-                        color: theme.colors.Gray_400,
-                        lineHeight: "20px",
+                        padding: "12px 14px",
+                        width: ["100%", "100%", 450],
                         fontSize: [14, 14, 20],
+                        color: theme.colors.Gray_400,
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_200}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
                       })
                     }
+                    placeholder=""
+                    type="text"
+                    onChange={(e) => setComment(e.target.value)}
+                    value={comment}
+                  />
+
+                  <div
+                    css={{
+                      marginTop: 48,
+                      display: "flex",
+                      justifyContent: "left",
+                    }}
                   >
-                    Equipment available
-                  </div>
-                  <div>
-                    <ul>
-                      {Object.keys(
-                        single_report.data?.report?.factory?.tools
-                      ).map((key) => (
-                        <li
-                          key={key}
-                          css={(theme) =>
-                            mq({
-                              marginTop: 12,
-                              color: theme.colors.Gray_700,
-                              lineHeight: "20px",
-                              fontSize: [14, 14, 20],
-                              textTransform: "capitalize",
-                            })
-                          }
-                        >
+                    <button
+                      css={(theme) =>
+                        mq({
+                          height: [40, 40, 56],
+                          borderRadius: 30,
+                          width: [140, 140, 356],
+                          //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                          padding: "16px 24px",
+                          fontSize: [12, 12, 16],
+                          cursor: "pointer",
+                          marginRight: 20,
+                          fontWeight: 600,
+                          lineHeight: "17px",
+                          border: "none",
+                          display: "flex",
+                          justifyContent: "center",
+                          color: "#fff",
+                          backgroundColor: theme.colors.Primary_500,
+                        })
+                      }
+                      type="submit"
+                      onClick={() => {
+                        handleSubmit();
+                      }}
+                    >
+                      <div
+                        css={{
+                          display: "flex",
+                          marginTop: 4,
+                          alignItems: "center",
+                        }}
+                      >
+                        {loading ? (
                           <div
                             css={{
-                              display: single_report.data?.report?.factory
-                                ?.tools[key]
-                                ? "block"
-                                : "none",
-                              marginTop: 12,
+                              display: "flex",
+                              justifyContent: "center",
                             }}
                           >
-                            {key.replace(/_/g, " ")}
+                            {" "}
+                            <div
+                              css={{
+                                width: 24,
+                                height: 24,
+                              }}
+                            >
+                              <img src="/svg/loader/loader.svg" />
+                            </div>
                           </div>
-                        </li>
-                      ))}
-                    </ul>
+                        ) : (
+                          <div>Send comment</div>
+                        )}
+                      </div>
+                    </button>
                   </div>
                 </div>
-              )}
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Give brief particulars
-                </div>
-                <div
-                  css={(theme) =>
-                    mq({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                      textTransform: "capitalize",
-                    })
-                  }
-                  dangerouslySetInnerHTML={{
-                    __html: single_report.data?.report?.factory?.particulars,
-                  }}
-                ></div>
-              </div>
-
-              <div
-                css={{
-                  marginTop: 48,
-                  marginBottom: 48,
-                }}
-              >
-                <div
-                  css={(theme) => ({
-                    width: "80%",
-
-                    borderBottom: `1px solid ${theme.colors.Gray_200}`,
-                  })}
-                ></div>
-              </div>
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Has the premises previously been used as a factory?
-                </div>
-                <div
-                  css={(theme) =>
-                    mq({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                      textTransform: "capitalize",
-                    })
-                  }
-                >
-                  {single_report.data?.report?.factory
-                    ?.previously_used_as_factory
-                    ? "Yes"
-                    : "No"}
-                </div>
-              </div>
-
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  State the name of previous occupier, nature of processes
-                  carried out and CoR number
-                </div>
-                <div
-                  css={(theme) =>
-                    mq({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                      textTransform: "capitalize",
-                    })
-                  }
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      single_report.data?.report?.factory?.previous_occupier,
-                  }}
-                ></div>
-              </div>
-              <div
-                css={{
-                  marginTop: 48,
-                  marginBottom: 48,
-                }}
-              >
-                <div
-                  css={(theme) => ({
-                    width: "80%",
-
-                    borderBottom: `1px solid ${theme.colors.Gray_200}`,
-                  })}
-                ></div>
-              </div>
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Other documents/ information submitted in support of this
-                  application
-                </div>
-                <div
-                  css={(theme) =>
-                    mq({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                      textTransform: "capitalize",
-                    })
-                  }
-                  dangerouslySetInnerHTML={{
-                    __html: single_report.data?.report?.factory?.other_document,
-                  }}
-                ></div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       )}
-      <div
+      {/* <div
         css={{
           marginTop: 64,
           display: "flex",
@@ -1186,7 +524,7 @@ const FacRoutineDetailsComp = () => {
           type="submit"
           onClick={() => {
             // factory_details.add_factory_details(formData);
-            factory.set_tab("Document verification");
+            setWillAmmend(true);
           }}
         >
           <div
@@ -1195,7 +533,7 @@ const FacRoutineDetailsComp = () => {
               alignItems: "center",
             }}
           >
-            <div>Verify & continue</div>
+            <div>Continue</div>
             <div
               css={{
                 marginLeft: 8,
@@ -1211,7 +549,71 @@ const FacRoutineDetailsComp = () => {
             </div>
           </div>
         </button>
-      </div>
+      </div> */}
+      <AnimatePresence initial={false}>
+        {willAmmend && (
+          <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                ease: "easeInOut",
+                duration: 0.4,
+              }}
+              css={{
+                position: "fixed",
+                width: "100vw",
+                height: "100vh",
+                // zIndex: 2,
+                zIndex: 3,
+                backgroundColor: "rgb(0,0,0,0.1)",
+                right: 0,
+                top: 0,
+                opacity: 0,
+              }}
+              onClick={() => setWillAmmend(false)}
+            >
+              {" "}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 900 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 900 }}
+              transition={{
+                ease: "easeInOut",
+                // duration: 0.4,
+              }}
+              id="location"
+              css={(theme) => ({
+                position: "fixed",
+                width: ["90vw", 524, 524],
+                height: 427,
+                borderRadius: 14,
+                zIndex: 5,
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                margin: "auto",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fff",
+              })}
+            >
+              {/* <CreateRiderAccount close={() => router.back()} /> */}
+              <DeclarationPopup
+                close={() => setWillAmmend(false)}
+                loading={isLoading}
+                ammend={() => {
+                  handleSubmitApprove();
+                }}
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

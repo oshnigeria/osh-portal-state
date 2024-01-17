@@ -260,7 +260,9 @@ const RenewalComp = () => {
               <div>
                 {router.query.tab === "canceled" ? (
                   <div>
-                    {factory?.data?.renewals?.length >= 1 ? (
+                    {factory?.data?.renewals?.filter(
+                      (item) => item.has_been_cancelled === true
+                    ).length >= 1 ? (
                       <div>
                         <div
                           css={{
@@ -520,7 +522,9 @@ const RenewalComp = () => {
                       </div>
                     ) : (
                       <div>
-                        {factory?.data?.renewals?.length >= 1 ? (
+                        {factory?.data?.renewals?.filter(
+                          (item) => item.has_been_cancelled !== true
+                        ).length >= 1 ? (
                           <div>
                             <div
                               css={{

@@ -265,7 +265,9 @@ const AmmendmentComp = () => {
               <div>
                 {router.query.tab === "canceled" ? (
                   <div>
-                    {factory?.data?.ammendments?.length >= 1 ? (
+                    {factory?.data?.ammendments?.filter(
+                      (item) => item.has_been_cancelled === true
+                    ).length >= 1 ? (
                       <div>
                         <div
                           css={{
@@ -525,7 +527,9 @@ const AmmendmentComp = () => {
                       </div>
                     ) : (
                       <div>
-                        {factory?.data?.ammendments?.length >= 1 ? (
+                        {factory?.data?.ammendments?.filter(
+                          (item) => item.has_been_cancelled !== true
+                        ).length >= 1 ? (
                           <div>
                             <div
                               css={{

@@ -175,6 +175,7 @@ const ReplacementComp = () => {
             css={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
+
               rowGap: 0,
               columnGap: 64,
               width: "60%",
@@ -264,7 +265,9 @@ const ReplacementComp = () => {
               <div>
                 {router.query.tab === "canceled" ? (
                   <div>
-                    {factory?.data?.replacements?.length >= 1 ? (
+                    {factory?.data?.replacements?.filter(
+                      (item) => item.has_been_cancelled === true
+                    ).length >= 1 ? (
                       <div>
                         <div
                           css={{
@@ -510,7 +513,9 @@ const ReplacementComp = () => {
                       </div>
                     ) : (
                       <div>
-                        {factory?.data?.replacements?.length >= 1 ? (
+                        {factory?.data?.replacements?.filter(
+                          (item) => item.has_been_cancelled !== true
+                        ).length >= 1 ? (
                           <div>
                             <div
                               css={{

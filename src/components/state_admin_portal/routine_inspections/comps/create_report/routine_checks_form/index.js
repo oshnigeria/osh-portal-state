@@ -130,7 +130,12 @@ const CreateRoutineReportComp = () => {
         console.log(response?.data);
 
         console.log("fac");
-        setFactory(response?.data?.data?.factory?._id);
+        if (response?.data?.factory === null) {
+          setFactory(null);
+        } else {
+          setFactory(response?.data?.data?.factory?._id);
+        }
+
         setState(response?.data?.data?.factory?.state);
         setLoading(false);
       })
@@ -143,7 +148,7 @@ const CreateRoutineReportComp = () => {
     // console.log("ade");
   };
 
-  const create_routine_report = (
+  const create_routine_report_fac = (
     factory,
     factory_name,
     postal_address,
@@ -153,8 +158,8 @@ const CreateRoutineReportComp = () => {
     nature_of_work,
     inspection_date,
     inspection_summary,
-    recommendations,
-    state
+    recommendations
+    // state
   ) => {
     setLoading(true);
 
@@ -166,13 +171,13 @@ const CreateRoutineReportComp = () => {
           factory_name,
           postal_address,
           location,
-          no_of_male_employees,
-          no_of_female_employees,
+          no_of_male_employees: Number(no_of_male_employees),
+          no_of_female_employees: Number(no_of_female_employees),
           nature_of_work,
           inspection_date,
           inspection_summary,
           recommendations,
-          state,
+          // state,
         },
         {
           headers: {
@@ -183,7 +188,58 @@ const CreateRoutineReportComp = () => {
       )
       .then(function (response) {
         success_message(response?.data.message);
-        // router.push("/");
+        router.push("/dashboard/routine-inspections?tab=pending");
+        console.log(response);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        error_message(error?.response?.data?.message);
+
+        setLoading(false);
+      });
+
+    // console.log("ade");
+  };
+  const create_routine_report = (
+    factory_name,
+    postal_address,
+    location,
+    no_of_male_employees,
+    no_of_female_employees,
+    nature_of_work,
+    inspection_date,
+    inspection_summary,
+    recommendations
+    // state
+  ) => {
+    setLoading(true);
+
+    axios
+      .post(
+        `${main_url}/state-officer/routine-check`,
+        {
+          // factory,
+          factory_name,
+          postal_address,
+          location,
+          no_of_male_employees: Number(no_of_male_employees),
+          no_of_female_employees: Number(no_of_female_employees),
+          nature_of_work,
+          inspection_date,
+          inspection_summary,
+          recommendations,
+          // state,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get(cookies_id)}`,
+          },
+        }
+      )
+      .then(function (response) {
+        success_message(response?.data.message);
+        router.push("/dashboard/routine-inspections?tab=pending");
         console.log(response);
         setLoading(false);
       })
@@ -204,19 +260,34 @@ const CreateRoutineReportComp = () => {
         console.log(err);
       };
     } finally {
-      create_routine_report(
-        factory,
-        factory_name,
-        postal_address,
-        address,
-        male_emp,
-        female_emp,
-        natureOfWorkDone,
-        inspectionDate,
-        inspectionSummary,
-        recommendations,
-        state
-      );
+      if (factory) {
+        create_routine_report_fac(
+          factory,
+          factory_name,
+          postal_address,
+          address,
+          male_emp,
+          female_emp,
+          natureOfWorkDone,
+          inspectionDate,
+          inspectionSummary,
+          recommendations
+          // state
+        );
+      } else {
+        create_routine_report(
+          factory_name,
+          postal_address,
+          address,
+          male_emp,
+          female_emp,
+          natureOfWorkDone,
+          inspectionDate,
+          inspectionSummary,
+          recommendations
+          // state
+        );
+      }
     }
   };
 
