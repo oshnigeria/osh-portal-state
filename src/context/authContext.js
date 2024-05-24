@@ -19,13 +19,13 @@ const AuthProvider = ({ children }) => {
     } else {
       setIsloggedin(false);
     }
-  }, []);
+  }, [token]);
 
   const set_token = (token) => {
-    // Cookies.set(`${cookies_id}`, `${response.data.token}`, {
-    //   expires: 1,
-    // });
-    // setToken(token);
+    Cookies.set(`${cookies_id}`, `${token}`, {
+      expires: 1,
+    });
+    setToken(token);
     setIsloggedin(true);
   };
 

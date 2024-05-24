@@ -1513,7 +1513,6 @@ const InspectionReportComp = () => {
                 position: "fixed",
                 width: ["90vw", 524, 524],
                 height: 427,
-                overflowY: "scroll",
 
                 borderRadius: 14,
                 zIndex: 5,
@@ -1531,6 +1530,9 @@ const InspectionReportComp = () => {
               {/* <CreateRiderAccount close={() => router.back()} /> */}
               <DeclarationPopup
                 close={() => setWillAllowEdit(false)}
+                content={
+                  "Once you’ve submitted, your amendment will be processed and your will be notified for inspection"
+                }
                 ammend={() => {
                   handle_will_allow_edit_submit();
                 }}

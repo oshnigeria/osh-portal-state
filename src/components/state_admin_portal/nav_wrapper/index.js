@@ -9,6 +9,8 @@ import useSWR, { useSWRConfig } from "swr";
 import { useEffect, useContext } from "react";
 import facepaint from "facepaint";
 import { AuthContext } from "@/src/context/authContext";
+import { decodeToken } from "react-jwt";
+
 import MobileNav from "./mobile_nav";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
@@ -33,10 +35,7 @@ const DashboadWrapperComp = (props) => {
     data: user,
     error,
     isLoading,
-  } = useSWR(
-    `${main_url}/account/repo/user/${jwt.decode(Cookies.get(cookies_id))?.id}`,
-    fetcher
-  );
+  } = useSWR(`${main_url}/state-officer/info`, fetcher);
   // console.log(user?.data.user.role);
   // useEffect(() => {
   //   if (Cookies.get(cookies_id)) {
@@ -45,6 +44,25 @@ const DashboadWrapperComp = (props) => {
   //     router.push("/");
   //   }
   // }, []);
+  console.log(user);
+  useEffect(() => {
+    if (
+      decodeToken(Cookies.get(cookies_id)) &&
+      decodeToken(Cookies.get(cookies_id)).exp
+    ) {
+      // Convert the expiration time to seconds
+      const expirationTimeInSeconds = decodeToken(Cookies.get(cookies_id));
+
+      // Get the current time in seconds
+      const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+
+      // Check if the token has expired
+      if (expirationTimeInSeconds < currentTimeInSeconds) {
+        // Token has expired, perform logout action
+        auth.remove_token();
+      }
+    }
+  }, []);
 
   const tabs = [
     {
@@ -195,27 +213,54 @@ const DashboadWrapperComp = (props) => {
               <div
                 css={{
                   marginBottom: 12,
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  router.push("/profile");
                 }}
               >
                 <div
-                  css={(theme) => ({
-                    fontSize: 16,
-                    lineHeight: "24px",
-                    color: theme.colors.Gray_25,
-                    fontWeight: 500,
-                  })}
+                  css={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
                 >
-                  {user?.data.user.username}
-                </div>
-                <div
-                  css={(theme) => ({
-                    fontSize: 12,
-                    lineHeight: "24px",
-                    color: theme.colors.Gray_25,
-                    fontWeight: 500,
-                  })}
-                >
-                  {user?.data.user.email}
+                  <div
+                    css={{
+                      marginRight: 8,
+                    }}
+                  >
+                    <img
+                      css={{
+                        width: 45,
+                        height: 45,
+                      }}
+                      src="/auth/user.png"
+                    />
+                  </div>
+                  <div>
+                    <div
+                      css={(theme) => ({
+                        fontSize: 16,
+                        lineHeight: "24px",
+                        color: theme.colors.Gray_25,
+                        fontWeight: 500,
+                      })}
+                    >
+                      {user?.data.state_officer.name}
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        fontSize: 12,
+                        lineHeight: "24px",
+                        color: theme.colors.Gray_25,
+                        fontWeight: 500,
+                      })}
+                    >
+                      {user?.data.state_officer.email}
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

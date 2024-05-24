@@ -8,10 +8,14 @@ import React, { useState, useContext, useEffect } from "react";
 import DashboadWrapperComp from "../nav_wrapper";
 import { main_url, cookies_id } from "@/src/details";
 import facepaint from "facepaint";
-
+import { AuthContext } from "@/src/context/authContext";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const NewRegistrationComp = () => {
+  const auth = useContext(AuthContext);
+  // console.log("auth.dec_token");
+  // console.log(auth);
+  // console.log("auth.dec_token");
   const [progress, setProgress] = useState({
     min: 0,
     max: 50,

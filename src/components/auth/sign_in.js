@@ -41,10 +41,10 @@ const SignInComp = () => {
         console.log(response.data);
 
         success_message(response?.data.message);
-        Cookies.set(`${cookies_id}`, `${response.data.token}`, {
-          expires: 1,
-        });
-        authen.set_token();
+        // Cookies.set(`${cookies_id}`, `${response.data.token}`, {
+        //   expires: 1,
+        // });
+        authen.set_token(response.data.token);
         setLoading(false);
         setTimeout(function () {
           router.push("/");
