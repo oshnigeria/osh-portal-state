@@ -5,18 +5,34 @@ import { main_url, cookies_id } from "@/src/details";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import axios from "axios";
-import useSWR, { useSWRConfig } from "swr";
-import { useEffect, useContext } from "react";
+import useSWR, { useSWRConfig, mutate } from "swr";
+import { useEffect, useContext, useState } from "react";
 import facepaint from "facepaint";
 import { AuthContext } from "@/src/context/authContext";
 import { decodeToken } from "react-jwt";
 import DashboadWrapperComp from "../nav_wrapper";
+import ChangeImage from "./popup/change_image";
+import ChangeName from "./popup/change_name";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 const StateProfileComp = (props) => {
+  const [willAmmend, setWillAmmend] = useState(false);
+  const [willChangeName, setWillChangeName] = useState(false);
+  const [willChangeImage, setWillChangeImage] = useState(false);
+
   const router = useRouter();
   const auth = useContext(AuthContext);
+
+  const handleChangeName = () => {
+    setWillChangeName(true);
+  };
+
+  const handleChangeImage = () => {
+    setWillChangeImage(true);
+  };
   const fetcher = (url) =>
     axios
       .get(url, {
@@ -213,8 +229,12 @@ const StateProfileComp = (props) => {
                           fontSize: [16, 16, 16],
                           lineHeight: "28px",
                           fontWeight: 700,
+                          cursor: "pointer",
                         })
                       }
+                      onClick={() => {
+                        handleChangeName();
+                      }}
                     >
                       Change
                     </div>
@@ -269,8 +289,12 @@ const StateProfileComp = (props) => {
                             fontSize: [16, 16, 16],
                             lineHeight: "28px",
                             fontWeight: 700,
+                            cursor: "pointer",
                           })
                         }
+                        onClick={() => {
+                          handleChangeImage();
+                        }}
                       >
                         Add
                       </div>
@@ -282,6 +306,143 @@ const StateProfileComp = (props) => {
           </div>
         </div>
       </div>
+      <AnimatePresence initial={false}>
+        {willChangeName && (
+          <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                ease: "easeInOut",
+                duration: 0.4,
+              }}
+              css={{
+                position: "fixed",
+                width: "100vw",
+                height: "100vh",
+                // zIndex: 2,
+                zIndex: 3,
+                backgroundColor: "rgb(0,0,0,0.1)",
+                right: 0,
+                top: 0,
+                opacity: 0,
+              }}
+              onClick={() => setWillChangeName(false)}
+            >
+              {" "}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 900 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 900 }}
+              transition={{
+                ease: "easeInOut",
+                // duration: 0.4,
+              }}
+              id="location"
+              css={(theme) => ({
+                position: "fixed",
+                width: ["90vw", 524, 524],
+                height: 427,
+                overflowY: "scroll",
+
+                borderRadius: 14,
+                zIndex: 5,
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                margin: "auto",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fff",
+              })}
+            >
+              {/* <CreateRiderAccount close={() => router.back()} /> */}
+              <ChangeName
+                close={() => {
+                  setWillChangeName(false),
+                    mutate(`${main_url}/state-officer/info`);
+                }}
+                ammend={() => {
+                  state_report();
+                }}
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence initial={false}>
+        {willChangeImage && (
+          <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                ease: "easeInOut",
+                duration: 0.4,
+              }}
+              css={{
+                position: "fixed",
+                width: "100vw",
+                height: "100vh",
+                // zIndex: 2,
+                zIndex: 3,
+                backgroundColor: "rgb(0,0,0,0.1)",
+                right: 0,
+                top: 0,
+                opacity: 0,
+              }}
+              onClick={() => setWillChangeImage(false)}
+            >
+              {" "}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 900 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 900 }}
+              transition={{
+                ease: "easeInOut",
+                // duration: 0.4,
+              }}
+              id="location"
+              css={(theme) => ({
+                position: "fixed",
+                width: ["90vw", 524, 524],
+                height: 427,
+                overflowY: "scroll",
+
+                borderRadius: 14,
+                zIndex: 5,
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                margin: "auto",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fff",
+              })}
+            >
+              {/* <CreateRiderAccount close={() => router.back()} /> */}
+              <ChangeImage
+                close={() => {
+                  setWillChangeImage(false),
+                    mutate(`${main_url}/state-officer/info`);
+                }}
+                ammend={() => {
+                  state_report();
+                }}
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </DashboadWrapperComp>
   );
 };

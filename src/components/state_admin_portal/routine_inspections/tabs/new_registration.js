@@ -76,6 +76,8 @@ const NewRegistrationComp = () => {
       },
     },
   ];
+
+  console.log(routine_checks);
   useEffect(() => {
     router.push("?tab=pending");
   }, []);
@@ -87,7 +89,10 @@ const NewRegistrationComp = () => {
       title: "State",
     },
     {
-      title: "Reg. date",
+      title: "Date Issued",
+    },
+    {
+      title: "Status",
     },
   ];
 
@@ -100,6 +105,25 @@ const NewRegistrationComp = () => {
     });
 
     return formattedDate;
+  }
+
+  function getStatusColors(status) {
+    const colors = {
+      pending: {
+        backgroundColor: "#FEF0C7",
+        fontColor: "#DC6803",
+      },
+      completed: {
+        backgroundColor: "#D1E5DD",
+        fontColor: "#166854",
+      },
+      cancelled: {
+        backgroundColor: "#F1D4CB",
+        fontColor: "#FE5B4E",
+      },
+    };
+
+    return colors[status] || null;
   }
   return (
     <DashboadWrapperComp>
@@ -193,7 +217,7 @@ const NewRegistrationComp = () => {
             }}
             src="/svg/factory/add.svg"
           />
-          <div>Add New Report</div>
+          <div>New Report</div>
         </button>
       </div>
 
@@ -208,87 +232,6 @@ const NewRegistrationComp = () => {
           })
         }
       >
-        <div
-          css={(theme) =>
-            mq({
-              marginTop: [28, 28, 62],
-              border: "none",
-              borderBottom: [0, 0, `1px solid ${theme.colors.Gray_200}`],
-              padding: "0px 66px",
-              paddingBottom: 16,
-            })
-          }
-        >
-          <div
-            css={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              rowGap: 0,
-              columnGap: 64,
-              width: "60%",
-              height: "auto",
-            }}
-          >
-            {tabs.map((tab) => (
-              <div
-                css={{
-                  width: "100%",
-                  height: "100%",
-                  position: "relative",
-                  cursor: "pointer",
-                }}
-                key={tab.title}
-                onClick={() => {
-                  tab.state();
-                  router.push(`?tab=${tab.route}`);
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      fontSize: [10, 10, 20],
-                      fontWeight: 600,
-                      display: "flex",
-                      alignItems: "end",
-                      justifyContent: "center",
-                      textAlign: "center",
-                      color:
-                        router.query.tab == `${tab.route}`
-                          ? theme.colors.Primary_500
-                          : theme.colors.Primary_50,
-                    })
-                  }
-                >
-                  {tab.title}
-                </div>
-                <div
-                  css={{
-                    position: "absolute",
-                    bottom: -16,
-                    left: 0,
-                    right: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    // width: "100%",
-                  }}
-                >
-                  <div
-                    css={(theme) => ({
-                      display:
-                        router.query.tab == `${tab.route}` ? "block" : "none",
-                      height: 4,
-                      width: 72,
-
-                      borderRadius: "4px 4px 0px 0px",
-
-                      backgroundColor: theme.colors.Primary_500,
-                    })}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
         <div>
           <div>
             {isLoading ? (
@@ -310,11 +253,7 @@ const NewRegistrationComp = () => {
               </div>
             ) : (
               <div>
-                {routine_checks?.data?.reports.filter(
-                  (item) =>
-                    item.progress >= progress.min &&
-                    item.progress <= progress.max
-                ).length >= 1 ? (
+                {routine_checks?.data?.reports.length >= 1 ? (
                   <div>
                     <div
                       css={{
@@ -325,7 +264,7 @@ const NewRegistrationComp = () => {
                       <div
                         css={{
                           display: "grid",
-                          gridTemplateColumns: "repeat(3, 1fr)",
+                          gridTemplateColumns: `repeat(${table.length}, 1fr)`,
 
                           rowGap: 0,
                           columnGap: 64,
@@ -359,7 +298,7 @@ const NewRegistrationComp = () => {
                             key={factory._id}
                             css={(theme) => ({
                               display: "grid",
-                              gridTemplateColumns: "repeat(3, 1fr)",
+                              gridTemplateColumns: `repeat(${table.length}, 1fr)`,
                               cursor: "pointer",
                               rowGap: 0,
                               columnGap: 64,
@@ -412,6 +351,29 @@ const NewRegistrationComp = () => {
                               }
                             >
                               {formatDateToCustom(factory.inspection_date)}
+                            </div>
+
+                            <div>
+                              <div
+                                css={(theme) =>
+                                  mq({
+                                    textAlign: "left",
+                                    color: getStatusColors(factory.status)
+                                      .fontColor,
+                                    textTransform: "capitalize",
+                                    fontSize: [10, 10, 10],
+                                    lineHeight: ["14px", "14px", "22px"],
+                                    padding: "4px 30px",
+                                    fontWeight: [600, 600, 600],
+                                    backgroundColor: getStatusColors(
+                                      factory.status
+                                    ).backgroundColor,
+                                    borderRadius: 8,
+                                  })
+                                }
+                              >
+                                {factory.status}
+                              </div>
                             </div>
                           </div>
                         ))}
