@@ -48,7 +48,7 @@ const ChangeName = (props) => {
     setLoading(true);
     if (true) {
       const formData = new FormData();
-      formData.append("signature", signature.data.url);
+      // formData.append("signature", signature.data.url);
       formData.append("name", name);
       axios
         .patch(

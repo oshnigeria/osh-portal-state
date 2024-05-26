@@ -13,7 +13,10 @@ import DeclarationPopup from "../../routine_check_details/tabs/comps/declaration
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { main_url, cookies_id } from "@/src/details";
-
+import ImprovementNoticeComp from "../../../notice/improvement";
+import CautionaryNoticeComp from "../../../notice/cautionary";
+import WarningNoticeComp from "../../../notice/warning";
+import ProhibitionNoticeComp from "../../../notice/prohibition";
 import facepaint from "facepaint";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
@@ -46,6 +49,8 @@ const CreateRoutineReportComp = () => {
 
   console.log(single_factory?.data.factory);
   const [value, setValue] = useState("");
+  const [notif_type, setNotif_type] = useState("");
+
   const [cert_no, setCert_no] = useState("");
 
   const [willAmmend, setWillAmmend] = useState(false);
@@ -330,6 +335,13 @@ const CreateRoutineReportComp = () => {
 
     // console.log("ade");
   };
+
+  const notice_list = [
+    "Send Improvement Notice",
+    "Send Cautionary Notice",
+    "Send Warning Notice",
+    "Send Prohibition Notice",
+  ];
   return (
     <div
       css={{
@@ -1015,11 +1027,128 @@ const CreateRoutineReportComp = () => {
                     />
                   </div>
                 </div>
+
+                <div
+                  css={{
+                    marginTop: 68,
+                  }}
+                >
+                  <select
+                    css={(theme) =>
+                      mq({
+                        padding: "12px 14px",
+                        width: ["100%", "100%", "70%"],
+                        fontSize: [14, 14, 18],
+                        color: theme.colors.Gray_400,
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
+                    // {...register("state", { required: true })}
+                    placeholder=""
+                    type="text"
+                    onChange={(e) => setNotif_type(e.target.value)}
+                    value={notif_type}
+                  >
+                    <option
+                      css={{
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      Send Notice
+                    </option>
+                    {notice_list.map((state) => (
+                      <option
+                        css={{
+                          textTransform: "capitalize",
+                        }}
+                        value={state}
+                      >
+                        {state}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div
+                  css={(theme) => ({
+                    marginTop: 48,
+                    backgroundColor: theme.colors.Primary_25,
+                    width: "90%",
+                  })}
+                >
+                  {notif_type === "Send Improvement Notice" && (
+                    <div
+                      css={(theme) =>
+                        mq({
+                          backgroundColor: theme.colors.Primary_25,
+                          padding: ["14px 16px", "14px 16px", "30px 40px"],
+                          borderRadius: 16,
+                        })
+                      }
+                    >
+                      <ImprovementNoticeComp />
+                    </div>
+                  )}
+                  {notif_type === "Send Cautionary Notice" && (
+                    <div
+                      css={(theme) =>
+                        mq({
+                          backgroundColor: theme.colors.Primary_25,
+                          padding: ["14px 16px", "14px 16px", "30px 40px"],
+                          borderRadius: 16,
+                        })
+                      }
+                    >
+                      <CautionaryNoticeComp />
+                    </div>
+                  )}
+                  {notif_type === "Send Warning Notice" && (
+                    <div
+                      css={(theme) =>
+                        mq({
+                          backgroundColor: theme.colors.Primary_25,
+                          padding: ["14px 16px", "14px 16px", "30px 40px"],
+                          borderRadius: 16,
+                        })
+                      }
+                    >
+                      <WarningNoticeComp />
+                    </div>
+                  )}
+                  {notif_type === "Send Prohibition Notice" && (
+                    <div
+                      css={(theme) =>
+                        mq({
+                          backgroundColor: theme.colors.Primary_25,
+                          padding: ["14px 16px", "14px 16px", "30px 40px"],
+                          borderRadius: 16,
+                        })
+                      }
+                    >
+                      <ProhibitionNoticeComp />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div
+        {/* <div
           css={{
             marginTop: 64,
             display: "flex",
@@ -1092,7 +1221,7 @@ const CreateRoutineReportComp = () => {
               </div>
             )}
           </button>
-        </div>
+        </div> */}
       </div>
       <AnimatePresence initial={false}>
         {willAmmend && (

@@ -63,7 +63,7 @@ const ChangeImage = (props) => {
     if (true) {
       const formData = new FormData();
       formData.append("signature", signature_image.file);
-      formData.append("name", signature?.data?.name);
+      // formData.append("name", signature?.data?.name);
       axios
         .patch(`${main_url}/state-officer/info`, formData, {
           headers: {

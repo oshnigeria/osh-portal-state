@@ -16,6 +16,7 @@ const NewRegistrationComp = () => {
     min: 0,
     max: 50,
   });
+  const [search, setSearch] = useState("");
 
   const fetcher = (url) =>
     axios
@@ -181,6 +182,145 @@ const NewRegistrationComp = () => {
       </div>
       <div
         css={mq({
+          marginTop: 50,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          padding: ["16px 24px", "16px 24px", 0],
+        })}
+      >
+        <div
+          css={{
+            display: "flex",
+          }}
+        >
+          <div
+            css={mq({
+              width: 38,
+              height: 38,
+              border: "1px solid #1A7D65",
+              borderRadius: 12,
+              display: ["flex", "flex", "none"],
+              justifyContent: "center",
+              alignItems: "center",
+            })}
+          >
+            <img
+              css={{
+                width: 16,
+                height: 16,
+              }}
+              src="/svg/dashboard/search.svg"
+            />
+          </div>
+          <div
+            css={mq({
+              width: 38,
+              height: 38,
+              border: "1px solid #1A7D65",
+              borderRadius: 12,
+              display: ["flex", "flex", "none"],
+              justifyContent: "center",
+              alignItems: "center",
+              marginLeft: 10,
+            })}
+          >
+            <img
+              css={{
+                width: 16,
+                height: 16,
+              }}
+              src="/svg/dashboard/filter.svg"
+            />
+          </div>
+          <div
+            css={mq({
+              position: "relative",
+              display: ["none", "none", "block"],
+            })}
+          >
+            <input
+              css={(theme) => ({
+                padding: "16px 16px",
+                paddingLeft: 42,
+                marginRight: 32,
+                width: 252,
+                fontSize: 16,
+                color: theme.colors.Primary_500,
+                backgroundColor: "transparent",
+                outline: "none",
+                borderRadius: 30,
+                border: `1px solid ${theme.colors.Primary_500}`,
+                ":focus": {
+                  padding: "16px 16px",
+                  paddingLeft: 42,
+
+                  border: `1px solid ${theme.colors.Primary_500}`,
+
+                  color: theme.colors.Gray_500,
+                },
+                ":placeholder ": {
+                  padding: "16px 16px",
+                  paddingLeft: 42,
+                  border: "none",
+                  border: `1px solid ${theme.colors.Primary_500}`,
+
+                  color: theme.colors.Gray_500,
+                },
+              })}
+              placeholder="Search files"
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+            />
+            <img
+              css={{
+                position: "absolute",
+                bottom: 16,
+                left: 16,
+                width: 24,
+                height: 24,
+              }}
+              src="/svg/dashboard/search.svg"
+            />
+          </div>
+        </div>
+        <button
+          css={(theme) =>
+            mq({
+              width: 200,
+              height: 56,
+              borderRadius: 30,
+              padding: ["16px 22px", "16px 22px", "16px 24px"],
+              fontSize: [14, 14, 14],
+              fontWeight: 600,
+              lineHeight: "17px",
+              border: "none",
+              color: theme.colors.Gray_50,
+              backgroundColor: theme.colors.Primary_500,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+            })
+          }
+          onClick={() => {
+            router.push("/create-inspection-report");
+          }}
+        >
+          <img
+            css={{
+              width: 24,
+              height: 24,
+              marginRight: 16,
+            }}
+            src="/svg/factory/add.svg"
+          />
+          <div>New Report</div>
+        </button>
+      </div>
+      {/* <div
+        css={mq({
           display: "flex",
           justifyContent: "right",
           marginTop: [0, 0, 58],
@@ -219,7 +359,7 @@ const NewRegistrationComp = () => {
           />
           <div>New Report</div>
         </button>
-      </div>
+      </div> */}
 
       <div
         css={(theme) =>
@@ -288,12 +428,10 @@ const NewRegistrationComp = () => {
                     </div>
                     <div>
                       {routine_checks?.data?.reports
-                        .filter(
-                          (item) =>
-                            item.progress >= progress.min &&
-                            item.progress <= progress.max
+                        ?.filter((item) =>
+                          item.factory_name.toLowerCase().includes(search)
                         )
-                        ?.map((factory) => (
+                        .map((factory) => (
                           <div
                             key={factory._id}
                             css={(theme) => ({
@@ -353,7 +491,13 @@ const NewRegistrationComp = () => {
                               {formatDateToCustom(factory.inspection_date)}
                             </div>
 
-                            <div>
+                            <div
+                              css={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            >
                               <div
                                 css={(theme) =>
                                   mq({
