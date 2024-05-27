@@ -4,11 +4,12 @@ import useSWR, { useSWRConfig, mutate } from "swr";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useState, useContext, useEffect } from "react";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 
 import DashboadWrapperComp from "../../nav_wrapper";
 import { main_url, cookies_id } from "@/src/details";
 import facepaint from "facepaint";
-
+import CheckFactory from "../comps/create_report/popup/check_factory";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const NewRegistrationComp = () => {
@@ -17,6 +18,7 @@ const NewRegistrationComp = () => {
     max: 50,
   });
   const [search, setSearch] = useState("");
+  const [willCheck, setWillcheck] = useState(false);
 
   const fetcher = (url) =>
     axios
@@ -305,7 +307,7 @@ const NewRegistrationComp = () => {
             })
           }
           onClick={() => {
-            router.push("/create-inspection-report");
+            setWillcheck(true);
           }}
         >
           <img
@@ -553,6 +555,70 @@ const NewRegistrationComp = () => {
           </div>
         </div>
       </div>
+      <AnimatePresence initial={false}>
+        {willCheck && (
+          <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                ease: "easeInOut",
+                duration: 0.4,
+              }}
+              css={{
+                position: "fixed",
+                width: "100vw",
+                height: "100vh",
+                // zIndex: 2,
+                zIndex: 3,
+                backgroundColor: "rgb(0,0,0,0.1)",
+                right: 0,
+                top: 0,
+                opacity: 0,
+              }}
+              onClick={() => setWillcheck(false)}
+            >
+              {" "}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 900 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 900 }}
+              transition={{
+                ease: "easeInOut",
+                // duration: 0.4,
+              }}
+              id="location"
+              css={(theme) => ({
+                position: "fixed",
+                width: ["90vw", 524, 524],
+                height: 500,
+                borderRadius: 14,
+                zIndex: 5,
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                margin: "auto",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fff",
+              })}
+            >
+              {/* <CreateRiderAccount close={() => router.back()} /> */}
+              <CheckFactory
+                close={() => setWillcheck(false)}
+                // loading={isLoading}
+                procees={() => {
+                  router.push("/create-inspection-report");
+                }}
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </DashboadWrapperComp>
   );
 };

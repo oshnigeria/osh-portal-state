@@ -45,17 +45,26 @@ const CreateRoutineReportComp = () => {
     data: single_factory,
     error,
     isLoading,
-  } = useSWR(`${main_url}/state-officer/factory/${router.query.id}`, fetcher);
+  } = useSWR(
+    router.query.factory_id
+      ? `${main_url}/state-officer/factory/${router.query.factory_id}`
+      : null,
+    fetcher
+  );
 
   console.log(single_factory?.data.factory);
   const [value, setValue] = useState("");
   const [notif_type, setNotif_type] = useState("");
 
-  const [cert_no, setCert_no] = useState("");
+  const [cert_no, setCert_no] = useState(
+    isLoading || error ? "" : single_factory?.data?.factory?.cert_no
+  );
 
   const [willAmmend, setWillAmmend] = useState(false);
   const [factory, setFactory] = useState("");
-  const [factory_name, setFactory_name] = useState("");
+  const [factory_name, setFactory_name] = useState(
+    isLoading || error ? "" : single_factory?.data?.factory?.occupier_name
+  );
   const [postal_address, setPostal_address] = useState("");
   const [phone_number, setPhone_number] = useState("");
   const [address, setAddress] = useState("");
@@ -1090,7 +1099,7 @@ const CreateRoutineReportComp = () => {
                     ))}
                   </select>
                 </div>
-                <div
+                {/* <div
                   css={(theme) => ({
                     marginTop: 48,
                     backgroundColor: theme.colors.Primary_25,
@@ -1149,12 +1158,12 @@ const CreateRoutineReportComp = () => {
                       <ProhibitionNoticeComp />
                     </div>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </div>
-        {/* <div
+        <div
           css={{
             marginTop: 64,
             display: "flex",
@@ -1227,7 +1236,7 @@ const CreateRoutineReportComp = () => {
               </div>
             )}
           </button>
-        </div> */}
+        </div>
       </div>
       <AnimatePresence initial={false}>
         {willAmmend && (
