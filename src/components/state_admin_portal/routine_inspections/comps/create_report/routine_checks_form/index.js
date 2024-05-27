@@ -113,7 +113,10 @@ const CreateRoutineReportComp = () => {
     "image",
     "video",
   ];
-
+  const getNoticeType = (name) => {
+    const notice = notice_list.find((notice) => notice.name === name);
+    return notice ? notice.type : undefined;
+  };
   const check_fac_cert_no = (id) => {
     setLoading(true);
 
@@ -182,6 +185,7 @@ const CreateRoutineReportComp = () => {
           inspection_date,
           inspection_summary,
           recommendations,
+          letter_type: getNoticeType(notif_type),
           // state,
         },
         {
@@ -215,6 +219,7 @@ const CreateRoutineReportComp = () => {
     inspection_date,
     inspection_summary,
     recommendations
+
     // state
   ) => {
     setLoading(true);
@@ -233,6 +238,7 @@ const CreateRoutineReportComp = () => {
           inspection_date,
           inspection_summary,
           recommendations,
+          letter_type: getNoticeType(notif_type),
           // state,
         },
         {
@@ -337,10 +343,10 @@ const CreateRoutineReportComp = () => {
   };
 
   const notice_list = [
-    "Send Improvement Notice",
-    "Send Cautionary Notice",
-    "Send Warning Notice",
-    "Send Prohibition Notice",
+    { name: "Send Improvement Notice", type: "IMPROVEMENT-NOTICE" },
+    { name: "Send Cautionary Notice", type: "CAUTIONARY-NOTICE" },
+    { name: "Send Warning Notice", type: "WARNING-NOTICE" },
+    { name: "Send Prohibition Notice", type: "PROHIBITION-NOTICE" },
   ];
   return (
     <div
@@ -1077,9 +1083,9 @@ const CreateRoutineReportComp = () => {
                         css={{
                           textTransform: "capitalize",
                         }}
-                        value={state}
+                        value={state.name}
                       >
-                        {state}
+                        {state.name}
                       </option>
                     ))}
                   </select>

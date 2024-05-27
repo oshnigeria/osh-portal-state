@@ -11,7 +11,7 @@ import EmployeeInfoComp from "./regsitration_components/employee_info_comp";
 import toast, { Toaster } from "react-hot-toast";
 import { success_message, error_message } from "@/src/components/toasts";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
-
+import FactoryDocComp from "@/src/components/factoryDetailsComp";
 import DeclarationPopup from "./comps/declaration_popup";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
@@ -40,7 +40,7 @@ const FacRoutineDetailsComp = () => {
     `${main_url}/inventory/factory/routine-check?id=${router.query.id}`,
     fetcher
   );
-
+  console.log(single_report);
   return (
     <div>
       <Toaster
@@ -372,6 +372,33 @@ const FacRoutineDetailsComp = () => {
                   }}
                 ></div>
               </div>
+              {/* <div
+                css={{
+                  marginTop: 48,
+                }}
+              >
+                <div
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_500,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                >
+                  Notice generated
+                </div>
+                <div>
+                  <FactoryDocComp
+                        name={doc.name}
+                        doc_type={doc.doc_type}
+                        type={doc.file_type}
+                        factory_id={router.query.id}
+                        file_key={doc.src}
+                      />
+                </div>
+              </div> */}
+
               {/* <div
                 css={{
                   marginTop: 48,
