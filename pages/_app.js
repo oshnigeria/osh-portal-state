@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@emotion/react";
 import { AuthProvider } from "@/src/context/authContext";
 import { FactoryProvider } from "@/src/context/factoryContext";
-
+import { RoutineChecksProvider } from "@/src/context/routineChecksContext";
 const theme = {
   colors: {
     overlay: "#1D293980",
@@ -88,7 +88,9 @@ export default function App({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <FactoryProvider>
-          <Component {...pageProps} />
+          <RoutineChecksProvider>
+            <Component {...pageProps} />
+          </RoutineChecksProvider>
         </FactoryProvider>
       </AuthProvider>
     </ThemeProvider>

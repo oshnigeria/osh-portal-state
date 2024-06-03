@@ -17,6 +17,7 @@ import ImprovementNoticeComp from "../../../notice/improvement";
 import CautionaryNoticeComp from "../../../notice/cautionary";
 import WarningNoticeComp from "../../../notice/warning";
 import ProhibitionNoticeComp from "../../../notice/prohibition";
+import { RoutineChecksContext } from "@/src/context/routineChecksContext";
 import facepaint from "facepaint";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
@@ -28,6 +29,8 @@ const CreateRoutineReportComp = () => {
   if (typeof window !== "undefined") null;
   const router = useRouter();
   const auth = useContext(AuthContext);
+  const notice = useContext(RoutineChecksContext);
+
   console.log(auth.dec_token);
   const fetcher = (url) =>
     axios
@@ -70,6 +73,7 @@ const CreateRoutineReportComp = () => {
   const [address, setAddress] = useState("");
   const [male_emp, setMale_emp] = useState("");
   const [female_emp, setFemale_emp] = useState("");
+  const [ref_number, setRef_number] = useState("");
 
   const [natureOfWorkDone, setNatureOfWorkDone] = useState(""); // Required
   const [inspectionDate, setInspectionDate] = useState("");
@@ -122,6 +126,11 @@ const CreateRoutineReportComp = () => {
     "image",
     "video",
   ];
+
+  console.log("notice.notice_details");
+  console.log(notice.notice_details);
+  console.log("notice.notice_details");
+
   const getNoticeType = (name) => {
     const notice = notice_list.find((notice) => notice.name === name);
     return notice ? notice.type : undefined;
@@ -195,6 +204,8 @@ const CreateRoutineReportComp = () => {
           inspection_summary,
           recommendations,
           letter_type: getNoticeType(notif_type),
+          reference_number: ref_number,
+          ...notice.notice_details,
           // state,
         },
         {
@@ -930,7 +941,72 @@ const CreateRoutineReportComp = () => {
                     </span>
                   )}
                 </div>
+                <div
+                  css={{
+                    marginTop: 48,
+                  }}
+                >
+                  <label
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
+                  >
+                    Reference Number
+                  </label>
+                  <div
+                    css={{
+                      marginTop: 20,
+                    }}
+                  >
+                    <input
+                      css={(theme) =>
+                        mq({
+                          padding: "12px 14px",
+                          width: ["100%", "100%", "70%"],
+                          fontSize: [14, 14, 18],
+                          color: theme.colors.Gray_400,
+                          border: `1px solid ${theme.colors.Gray_200}`,
+                          borderRadius: 8,
 
+                          ":focus": {
+                            outline: "none",
+                            border: `1px solid ${theme.colors.Gray_400}`,
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_800,
+                          },
+                          ":placeholder ": {
+                            outline: "none",
+                            border: "none",
+
+                            padding: "12px 14px",
+                            color: theme.colors.Gray_400,
+                          },
+                        })
+                      }
+                      {...register("ref_number", { required: false })}
+                      placeholder=""
+                      type="text"
+                      onChange={(e) => setRef_number(e.target.value)}
+                      value={ref_number}
+                    />
+                  </div>
+                  {errors.ref_number && (
+                    <span
+                      css={{
+                        fontSize: 12,
+                        marginTop: 12,
+                        color: "red",
+                      }}
+                    >
+                      * this field is required
+                    </span>
+                  )}
+                </div>
                 <div
                   css={{
                     marginTop: 48,
@@ -1099,7 +1175,7 @@ const CreateRoutineReportComp = () => {
                     ))}
                   </select>
                 </div>
-                {/* <div
+                <div
                   css={(theme) => ({
                     marginTop: 48,
                     backgroundColor: theme.colors.Primary_25,
@@ -1129,7 +1205,13 @@ const CreateRoutineReportComp = () => {
                         })
                       }
                     >
-                      <CautionaryNoticeComp />
+                      <CautionaryNoticeComp
+                        factory_name={
+                          factory_name ??
+                          single_factory?.data?.factory?.occupier_name
+                        }
+                        postal_address={postal_address}
+                      />
                     </div>
                   )}
                   {notif_type === "Send Warning Notice" && (
@@ -1158,7 +1240,7 @@ const CreateRoutineReportComp = () => {
                       <ProhibitionNoticeComp />
                     </div>
                   )}
-                </div> */}
+                </div>
               </div>
             </div>
           </div>

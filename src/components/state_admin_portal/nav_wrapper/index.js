@@ -44,7 +44,7 @@ const DashboadWrapperComp = (props) => {
   //     router.push("/");
   //   }
   // }, []);
-  console.log(user);
+  // console.log(user);
   useEffect(() => {
     if (
       decodeToken(Cookies.get(cookies_id)) &&

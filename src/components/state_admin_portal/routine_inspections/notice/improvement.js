@@ -9,30 +9,21 @@ import useSWR, { useSWRConfig } from "swr";
 import { error_message, success_message } from "@/src/components/toasts";
 import { useRouter } from "next/router";
 import facepaint from "facepaint";
+import { RoutineChecksContext } from "@/src/context/routineChecksContext";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const ImprovementNoticeComp = (props) => {
-  const [old_password, setOld_password] = useState("");
-  const [name, setName] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [factory_name, setFactory_name] = useState(props.factory_name ?? "");
+  const [postal_address, setPostal_address] = useState(
+    props.postal_address ?? ""
+  );
+  const [ref_number, setRef_number] = useState("");
+  const [improvement, setImprovements] = useState("");
+  const [inspectionDate, setInspectionDate] = useState("");
+  const [saved, setSaved] = useState(false);
 
-  const [password, setPassword] = useState("");
-  const [confirm_password, setConfirm_Password] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [signature_image, setSignature_image] = useState({
-    file: null,
-    filename: "",
-  });
-  const handleFileChange = (e, doc_type) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
+  const notice = useContext(RoutineChecksContext);
 
-    const uploadedFilename = file.name;
-    setSignature_image({ file, filename: uploadedFilename });
-
-    // const fileType = file.type;
-    // setSelectedFileType(fileType);
-  };
   const router = useRouter();
   const fetcher = (url) =>
     axios
@@ -46,49 +37,20 @@ const ImprovementNoticeComp = (props) => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  const {
-    data: signature,
-    error,
-    isLoading,
-  } = useSWR(`${main_url}/state-officer/info`, fetcher);
-  console.log(signature?.data?.name);
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const change_password = () => {
-    setLoading(true);
-    if (true) {
-      const formData = new FormData();
-      formData.append("signature", signature_image.file);
-      formData.append("name", signature?.data?.name);
-      axios
-        .patch(`${main_url}/state-officer/info`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${Cookies.get(cookies_id)}`,
-          },
-        })
-        .then(function (response) {
-          console.log(response.data);
-          success_message(response.data.message);
-          setLoading(false);
-          setName("");
-          props.close();
-          // router.push("/signin");
-        })
-        .catch(function (error) {
-          console.log(error);
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-      error_message("Password doesn't match");
-    }
-
-    // console.log("ade");
+  const handleNoticeDetails = () => {
+    notice.add_notice_details({
+      previous_notice_reference_number: ref_number,
+      areas_to_improve: improvement,
+      date_of_last_inspection: inspectionDate,
+    });
+    setSaved(true);
   };
   return (
     <div>
@@ -204,8 +166,8 @@ const ImprovementNoticeComp = (props) => {
                     }
                     placeholder=""
                     type="text"
-                    // onChange={(e) => setFactory_name(e.target.value)}
-                    // value={factory_name}
+                    onChange={(e) => setFactory_name(e.target.value)}
+                    value={factory_name}
                   />
                 </div>
               </div>
@@ -258,8 +220,8 @@ const ImprovementNoticeComp = (props) => {
                     }
                     placeholder=""
                     type="text"
-                    // onChange={(e) => setFactory_name(e.target.value)}
-                    // value={factory_name}
+                    onChange={(e) => setPostal_address(e.target.value)}
+                    value={postal_address}
                   />
                 </div>
               </div>
@@ -312,8 +274,8 @@ const ImprovementNoticeComp = (props) => {
                     }
                     placeholder=""
                     type="text"
-                    // onChange={(e) => setFactory_name(e.target.value)}
-                    // value={factory_name}
+                    onChange={(e) => setRef_number(e.target.value)}
+                    value={ref_number}
                   />
                 </div>
               </div>
@@ -366,8 +328,8 @@ const ImprovementNoticeComp = (props) => {
                     }
                     placeholder=""
                     type="text"
-                    // onChange={(e) => setFactory_name(e.target.value)}
-                    // value={factory_name}
+                    onChange={(e) => setImprovements(e.target.value)}
+                    value={improvement}
                   />
                 </div>
               </div>
@@ -421,8 +383,8 @@ const ImprovementNoticeComp = (props) => {
                     {...register("inspection_date", { required: true })}
                     placeholder=""
                     type="date"
-                    // onChange={(e) => setInspectionDate(e.target.value)}
-                    // value={inspectionDate}
+                    onChange={(e) => setInspectionDate(e.target.value)}
+                    value={inspectionDate}
                   />
                 </div>
                 {errors.inspection_date && (
@@ -440,6 +402,40 @@ const ImprovementNoticeComp = (props) => {
             </div>
           </div>
         </div>
+      </div>
+      <div
+        css={{
+          marginTop: 20,
+        }}
+      >
+        <button
+          css={(theme) =>
+            mq({
+              height: [40, 40, 56],
+              borderRadius: 30,
+              width: ["auto", "auto", 156],
+              //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+              padding: ["12px 16px", "12px 16px", "12px 16px"],
+              fontSize: [12, 12, 16],
+              cursor: "pointer",
+              marginRight: 20,
+              fontWeight: 600,
+              lineHeight: "17px",
+              border: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#fff",
+              backgroundColor: theme.colors.Primary_500,
+            })
+          }
+          type="submit"
+          onClick={() => {
+            handleNoticeDetails();
+          }}
+        >
+          <div>{saved ? "Saved" : "Save"}</div>
+        </button>
       </div>
     </div>
   );
