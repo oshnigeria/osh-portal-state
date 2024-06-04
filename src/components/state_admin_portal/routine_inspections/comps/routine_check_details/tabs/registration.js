@@ -13,6 +13,9 @@ import { success_message, error_message } from "@/src/components/toasts";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import FactoryDocComp from "@/src/components/factoryDetailsComp";
 import DeclarationPopup from "./comps/declaration_popup";
+import CautionaryCertComp from "../../../certs/cautionary";
+import WarningCertComp from "../../../certs/warning";
+import ProhibitionCertComp from "../../../certs/prohibition";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const FacRoutineDetailsComp = () => {
@@ -69,310 +72,354 @@ const FacRoutineDetailsComp = () => {
           </div>
         </div>
       ) : (
-        <div
-          css={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            css={(theme) =>
-              mq({
-                marginTop: [24, 24, 54],
-
-                border: [0, 0, `1px solid ${theme.colors.Primary_100}`],
-                padding: ["16px 16px", "16px 16px", "50px 32px"],
-                width: "90%",
-                borderRadius: 8,
-              })
-            }
-          >
-            <div
-              css={(theme) =>
-                mq({
-                  fontSize: [16, 16, 32],
-                  color: theme.colors.Gray_700,
-                  textTransform: "capitalize",
-                })
-              }
-            >
-              Factory information
-            </div>
-
+        <div>
+          {router.query.view_cart ? (
             <div>
-              <div
-                css={mq({
-                  marginTop: [24, 24, 48],
-                })}
-              >
-                <div
-                  css={{
-                    display: "grid",
-                    gridTemplateColumns: `repeat(2, 1fr)`,
-                    rowGap: 48,
-                    columnGap: 50,
-                  }}
-                >
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Name of undertaking
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.factory_name}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Postal Address of Factory
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.postal_address}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Nature of work
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.nature_of_work}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Precise address of Factory
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.location}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          color: theme.colors.Gray_400,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      Inspection date
-                    </div>
-                    <div
-                      css={(theme) =>
-                        mq({
-                          marginTop: 12,
-                          color: theme.colors.Gray_700,
-                          lineHeight: "20px",
-                          fontSize: [14, 14, 20],
-                        })
-                      }
-                    >
-                      {single_report.data?.report?.inspection_date}
-                    </div>
-                  </div>
-                </div>
+              <div>
+                {single_report.data?.report?.letter_type ===
+                  "WARNING-NOTICE" && (
+                  <WarningCertComp
+                    address={single_report.data?.report?.location}
+                    ref_number={single_report.data?.report?.reference_number}
+                  />
+                )}
+              </div>
+
+              <div>
+                {single_report.data?.report?.letter_type ===
+                  "PROHIBITION-NOTICE" && (
+                  <ProhibitionCertComp
+                    inspection_date={
+                      single_report.data?.report?.inspection_date
+                    }
+                    factory_name={single_report.data?.report?.factory_name}
+                    address={single_report.data?.report?.location}
+                    ref_number={single_report.data?.report?.reference_number}
+                  />
+                )}
+              </div>
+
+              <div>
+                {single_report.data?.report?.letter_type ===
+                  "CAUTIONARY-NOTICE" && (
+                  <CautionaryCertComp
+                    inspection_date={
+                      single_report.data?.report?.inspection_date
+                    }
+                    factory_name={single_report.data?.report?.factory_name}
+                    address={single_report.data?.report?.location}
+                    ref_number={single_report.data?.report?.reference_number}
+                  />
+                )}
               </div>
             </div>
+          ) : (
             <div
               css={{
-                borderBottom: "1px solid #EAECF0",
-                margin: "48px 0px",
-              }}
-            ></div>
-            <div
-              css={{
-                width: "80%",
+                display: "flex",
+                justifyContent: "center",
               }}
             >
               <div
                 css={(theme) =>
                   mq({
-                    color: theme.colors.Gray_400,
-                    lineHeight: "20px",
-                    fontSize: [14, 14, 20],
+                    marginTop: [24, 24, 54],
+
+                    border: [0, 0, `1px solid ${theme.colors.Primary_100}`],
+                    padding: ["16px 16px", "16px 16px", "50px 32px"],
+                    width: "90%",
+                    borderRadius: 8,
                   })
                 }
               >
-                Employee Information
-              </div>
-              <EmployeeInfoComp
-                adult_male={single_report.data?.report?.no_of_male_employees}
-                adult_female={
-                  single_report.data?.report?.no_of_female_employees
-                }
-              />
-            </div>
+                <div
+                  css={(theme) =>
+                    mq({
+                      fontSize: [16, 16, 32],
+                      color: theme.colors.Gray_700,
+                      textTransform: "capitalize",
+                    })
+                  }
+                >
+                  Factory information
+                </div>
 
-            <div
-              css={{
-                marginTop: 48,
-                marginBottom: 48,
-              }}
-            >
-              <div
-                css={(theme) => ({
-                  width: "80%",
+                <div>
+                  <div
+                    css={mq({
+                      marginTop: [24, 24, 48],
+                    })}
+                  >
+                    <div
+                      css={{
+                        display: "grid",
+                        gridTemplateColumns: `repeat(2, 1fr)`,
+                        rowGap: 48,
+                        columnGap: 50,
+                      }}
+                    >
+                      <div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          Name of undertaking
+                        </div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          {single_report.data?.report?.factory_name}
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          Postal Address of Factory
+                        </div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          {single_report.data?.report?.postal_address}
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          Nature of work
+                        </div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          {single_report.data?.report?.nature_of_work}
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          Precise address of Factory
+                        </div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          {single_report.data?.report?.location}
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          Inspection date
+                        </div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          {single_report.data?.report?.inspection_date}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  css={{
+                    borderBottom: "1px solid #EAECF0",
+                    margin: "48px 0px",
+                  }}
+                ></div>
+                <div
+                  css={{
+                    width: "80%",
+                  }}
+                >
+                  <div
+                    css={(theme) =>
+                      mq({
+                        color: theme.colors.Gray_400,
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
+                      })
+                    }
+                  >
+                    Employee Information
+                  </div>
+                  <EmployeeInfoComp
+                    adult_male={
+                      single_report.data?.report?.no_of_male_employees
+                    }
+                    adult_female={
+                      single_report.data?.report?.no_of_female_employees
+                    }
+                  />
+                </div>
 
-                  borderBottom: `1px solid ${theme.colors.Gray_200}`,
-                })}
-              ></div>
-            </div>
-            <div>
-              <div>
                 <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_500,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Inspection Summary
-                </div>
-                <div
-                  css={(theme) =>
-                    mq({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                  dangerouslySetInnerHTML={{
-                    __html: single_report.data?.report?.inspection_summary,
+                  css={{
+                    marginTop: 48,
+                    marginBottom: 48,
                   }}
-                ></div>
-              </div>
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_500,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
                 >
-                  Health and Safety Report
+                  <div
+                    css={(theme) => ({
+                      width: "80%",
+
+                      borderBottom: `1px solid ${theme.colors.Gray_200}`,
+                    })}
+                  ></div>
                 </div>
-                <div
-                  css={(theme) =>
-                    mq({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                  dangerouslySetInnerHTML={{
-                    __html: single_report.data?.report?.inspection_summary,
-                  }}
-                ></div>
-              </div>
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <div
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_500,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Recomendations
-                </div>
-                <div
-                  css={(theme) =>
-                    mq({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                  dangerouslySetInnerHTML={{
-                    __html: single_report.data?.report?.recommendations,
-                  }}
-                ></div>
-              </div>
-              {/* <div
+                <div>
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_500,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Inspection Summary
+                    </div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                      dangerouslySetInnerHTML={{
+                        __html: single_report.data?.report?.inspection_summary,
+                      }}
+                    ></div>
+                  </div>
+                  <div
+                    css={{
+                      marginTop: 48,
+                    }}
+                  >
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_500,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Health and Safety Report
+                    </div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                      dangerouslySetInnerHTML={{
+                        __html: single_report.data?.report?.inspection_summary,
+                      }}
+                    ></div>
+                  </div>
+                  <div
+                    css={{
+                      marginTop: 48,
+                    }}
+                  >
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_500,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Recomendations
+                    </div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          marginTop: 12,
+                          color: theme.colors.Gray_700,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                      dangerouslySetInnerHTML={{
+                        __html: single_report.data?.report?.recommendations,
+                      }}
+                    ></div>
+                  </div>
+                  {/* <div
                 css={{
                   marginTop: 48,
                 }}
@@ -399,7 +446,7 @@ const FacRoutineDetailsComp = () => {
                 </div>
               </div> */}
 
-              {/* <div
+                  {/* <div
                 css={{
                   marginTop: 48,
                 }}
@@ -517,66 +564,98 @@ const FacRoutineDetailsComp = () => {
                   </div>
                 </div>
               </div> */}
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
-      {/* <div
-        css={{
-          marginTop: 64,
-          display: "flex",
-          justifyContent: "right",
-        }}
-      >
-        <button
-          css={(theme) =>
-            mq({
-              height: [40, 40, 56],
-              borderRadius: 30,
-              width: ["auto", "auto", 356],
-              //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-              padding: ["12px 16px", "12px 16px", "16px 24px"],
-              fontSize: [12, 12, 20],
-              cursor: "pointer",
-              marginRight: 20,
-              fontWeight: 600,
-              lineHeight: "17px",
-              border: "none",
-              display: "flex",
-              justifyContent: "center",
-              color: "#fff",
-              backgroundColor: theme.colors.Primary_500,
-            })
-          }
-          type="submit"
-          onClick={() => {
-            // factory_details.add_factory_details(formData);
-            setWillAmmend(true);
+
+      {single_report.data?.report?.letter_type !== "IMPROVEMENT-NOTICE" && (
+        <div
+          css={{
+            marginTop: 64,
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <div
-            css={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <div>Continue</div>
-            <div
-              css={{
-                marginLeft: 8,
+          {router.query.view_cart && (
+            <button
+              css={(theme) =>
+                mq({
+                  height: [40, 40, 56],
+                  borderRadius: 30,
+                  width: ["auto", "auto", 356],
+                  //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                  padding: ["12px 16px", "12px 16px", "16px 24px"],
+                  fontSize: [12, 12, 20],
+                  cursor: "pointer",
+                  marginRight: 20,
+                  fontWeight: 600,
+                  lineHeight: "17px",
+                  border: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#fff",
+                  backgroundColor: theme.colors.Primary_500,
+                })
+              }
+              type="submit"
+              onClick={() => {
+                // factory_details.add_factory_details(formData);
+                router.back();
               }}
             >
-              <img
+              <div
                 css={{
-                  width: 24,
-                  height: 24,
+                  display: "flex",
+                  alignItems: "center",
                 }}
-                src="/svg/registration/left_arrow.svg"
-              />
-            </div>
-          </div>
-        </button>
-      </div> */}
+              >
+                <div>Back</div>
+              </div>
+            </button>
+          )}
+          {single_report.data?.report?.letter_type && (
+            <button
+              css={(theme) =>
+                mq({
+                  height: [40, 40, 56],
+                  borderRadius: 30,
+                  width: ["auto", "auto", 356],
+                  //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                  padding: ["12px 16px", "12px 16px", "16px 24px"],
+                  fontSize: [12, 12, 20],
+                  cursor: "pointer",
+                  marginRight: 20,
+                  fontWeight: 600,
+                  lineHeight: "17px",
+                  border: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#fff",
+                  backgroundColor: theme.colors.Primary_500,
+                })
+              }
+              type="submit"
+              onClick={() => {
+                // factory_details.add_factory_details(formData);
+                router.push(`${router.asPath}?view_cart=true`);
+              }}
+            >
+              <div
+                css={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <div>View Certificate</div>
+              </div>
+            </button>
+          )}
+        </div>
+      )}
+
       <AnimatePresence initial={false}>
         {willAmmend && (
           <div>

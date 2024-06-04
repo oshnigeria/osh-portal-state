@@ -160,6 +160,7 @@ const RoutineCheckDetailsComp = () => {
             </div> */}
           </div>
           {factory.tab === steps[0].title && <FacRoutineDetailsComp />}
+
           {/* {factory.tab === steps[1].title && <DocumentUploadTab />}
             {factory.tab === steps[2].title && <VerifyPaymentTab />}
             {factory.tab === steps[3].title && <InspectionReportComp />} */}
