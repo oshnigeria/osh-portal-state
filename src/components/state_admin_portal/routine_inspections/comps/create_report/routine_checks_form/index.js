@@ -204,8 +204,11 @@ const CreateRoutineReportComp = () => {
           inspection_summary,
           recommendations,
           letter_type: getNoticeType(notif_type),
-          reference_number: ref_number,
+
           ...notice.notice_details,
+
+          // ...notice.notice_details,
+
           // state,
         },
         {
@@ -259,6 +262,8 @@ const CreateRoutineReportComp = () => {
           inspection_summary,
           recommendations,
           letter_type: getNoticeType(notif_type),
+          ...notice.notice_details,
+
           // state,
         },
         {
@@ -941,72 +946,7 @@ const CreateRoutineReportComp = () => {
                     </span>
                   )}
                 </div>
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <label
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_400,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Reference Number
-                  </label>
-                  <div
-                    css={{
-                      marginTop: 20,
-                    }}
-                  >
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
 
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      {...register("ref_number", { required: false })}
-                      placeholder=""
-                      type="text"
-                      onChange={(e) => setRef_number(e.target.value)}
-                      value={ref_number}
-                    />
-                  </div>
-                  {errors.ref_number && (
-                    <span
-                      css={{
-                        fontSize: 12,
-                        marginTop: 12,
-                        color: "red",
-                      }}
-                    >
-                      * this field is required
-                    </span>
-                  )}
-                </div>
                 <div
                   css={{
                     marginTop: 48,
@@ -1192,7 +1132,13 @@ const CreateRoutineReportComp = () => {
                         })
                       }
                     >
-                      <ImprovementNoticeComp />
+                      <ImprovementNoticeComp
+                        factory_name={
+                          factory_name ??
+                          single_factory?.data?.factory?.occupier_name
+                        }
+                        postal_address={postal_address}
+                      />
                     </div>
                   )}
                   {notif_type === "Send Cautionary Notice" && (
@@ -1224,7 +1170,13 @@ const CreateRoutineReportComp = () => {
                         })
                       }
                     >
-                      <WarningNoticeComp />
+                      <WarningNoticeComp
+                        factory_name={
+                          factory_name ??
+                          single_factory?.data?.factory?.occupier_name
+                        }
+                        postal_address={postal_address}
+                      />
                     </div>
                   )}
                   {notif_type === "Send Prohibition Notice" && (
@@ -1237,7 +1189,13 @@ const CreateRoutineReportComp = () => {
                         })
                       }
                     >
-                      <ProhibitionNoticeComp />
+                      <ProhibitionNoticeComp
+                        factory_name={
+                          factory_name ??
+                          single_factory?.data?.factory?.occupier_name
+                        }
+                        postal_address={postal_address}
+                      />
                     </div>
                   )}
                 </div>

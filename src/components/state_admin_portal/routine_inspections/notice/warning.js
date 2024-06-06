@@ -53,6 +53,7 @@ const WarningNoticeComp = (props) => {
       sections_of_contraction: section_of_contraction,
       date_of_last_inspection: inspectionDate,
       warning_notice_title: warning_title,
+      previous_notice_reference_number: ref_number,
     });
     setSaved(true);
   };
@@ -232,7 +233,72 @@ const WarningNoticeComp = (props) => {
                   />
                 </div>
               </div>
+              <div
+                css={{
+                  marginTop: 48,
+                }}
+              >
+                <label
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                >
+                  Reference Number
+                </label>
+                <div
+                  css={{
+                    marginTop: 20,
+                  }}
+                >
+                  <input
+                    css={(theme) =>
+                      mq({
+                        padding: "12px 14px",
+                        width: ["100%", "100%", "100%"],
+                        fontSize: [14, 14, 18],
+                        color: theme.colors.Gray_400,
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
 
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
+                    placeholder=""
+                    type="text"
+                    onChange={(e) => setRef_number(e.target.value)}
+                    value={ref_number}
+                  />
+                </div>
+                <div
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 14],
+                      marginTop: 8,
+                    })
+                  }
+                >
+                  Input Null is the is no prior notice
+                </div>
+              </div>
               <div
                 css={{
                   marginTop: 48,
