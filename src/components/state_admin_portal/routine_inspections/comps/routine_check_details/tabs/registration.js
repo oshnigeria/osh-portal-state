@@ -81,6 +81,8 @@ const FacRoutineDetailsComp = () => {
                   <WarningCertComp
                     address={single_report.data?.report?.location}
                     ref_number={single_report.data?.report?.reference_number}
+                    notice_type={single_report.data?.report?.letter_type}
+                    inspec_date={single_report.data?.report?.inspection_date}
                   />
                 )}
               </div>
@@ -95,6 +97,8 @@ const FacRoutineDetailsComp = () => {
                     factory_name={single_report.data?.report?.factory_name}
                     address={single_report.data?.report?.location}
                     ref_number={single_report.data?.report?.reference_number}
+                    notice_type={single_report.data?.report?.letter_type}
+                    inspec_date={single_report.data?.report?.inspection_date}
                   />
                 )}
               </div>
@@ -109,6 +113,8 @@ const FacRoutineDetailsComp = () => {
                     factory_name={single_report.data?.report?.factory_name}
                     address={single_report.data?.report?.location}
                     ref_number={single_report.data?.report?.reference_number}
+                    notice_type={single_report.data?.report?.letter_type}
+                    inspec_date={single_report.data?.report?.inspection_date}
                   />
                 )}
               </div>

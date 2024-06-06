@@ -215,7 +215,7 @@ const CautionaryCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        Date:
+                        Date: {props?.inspec_date}
                       </div>
                       <div
                         css={{
@@ -315,7 +315,7 @@ const CautionaryCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE: {router.query.notice_type}
+                      NOTICE: {props.notice_type}
                     </div>
                     <div
                       css={{
@@ -333,7 +333,7 @@ const CautionaryCertComp = (props) => {
                           }}
                         >
                           We refer to our letter dated Date of previous letter
-                          fills here with Ref. No: Reference number fills here
+                          fills here with Ref. No: {props?.ref_number} here
                           requesting you to register your premises in accordance
                           with section 2 and 3 of the Factories Act 2004 in
                           which you failed to comply. This is in pursuance of

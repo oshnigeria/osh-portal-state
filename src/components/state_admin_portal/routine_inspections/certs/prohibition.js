@@ -245,7 +245,7 @@ const ProhibitionCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        Date:
+                        Date: {props?.inspec_date}
                       </div>
                       <div
                         css={{
@@ -345,7 +345,7 @@ const ProhibitionCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE: {router.query.notice_type}
+                      NOTICE: {props.notice_type}
                     </div>
                     <div
                       css={{

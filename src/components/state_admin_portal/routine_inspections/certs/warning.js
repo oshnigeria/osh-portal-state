@@ -245,7 +245,7 @@ const WarningCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        Date:
+                        Date: {props?.inspec_date}
                       </div>
                       <div
                         css={{
@@ -334,7 +334,7 @@ const WarningCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE: {router.query.notice_type}
+                      NOTICE: {props.notice_type}
                     </div>
                     <div
                       css={{
