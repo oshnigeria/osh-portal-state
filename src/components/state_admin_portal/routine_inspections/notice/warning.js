@@ -50,7 +50,7 @@ const WarningNoticeComp = (props) => {
   const handleNoticeDetails = () => {
     notice.add_notice_details({
       warning_stage: warning_stage,
-      sections_of_contraction: section_of_contraction,
+      sections_of_contraventions: section_of_contraction,
       date_of_last_inspection: inspectionDate,
       warning_notice_title: warning_title,
       previous_notice_reference_number: ref_number,

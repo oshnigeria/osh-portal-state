@@ -395,6 +395,7 @@ const FacRoutineDetailsComp = () => {
                       }}
                     ></div>
                   </div>
+
                   <div
                     css={{
                       marginTop: 48,
@@ -425,6 +426,38 @@ const FacRoutineDetailsComp = () => {
                       }}
                     ></div>
                   </div>
+                  {single_report.data?.report?.has_contraventions && (
+                    <div
+                      css={{
+                        marginTop: 48,
+                      }}
+                    >
+                      <div
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_500,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                          })
+                        }
+                      >
+                        Sections of Contraventions
+                      </div>
+                      <div
+                        css={(theme) =>
+                          mq({
+                            marginTop: 12,
+                            color: theme.colors.Gray_700,
+                            lineHeight: "20px",
+                            fontSize: [14, 14, 20],
+                            textTransform: "capitalize",
+                          })
+                        }
+                      >
+                        {single_report.data?.report?.sections_of_contraventions}
+                      </div>
+                    </div>
+                  )}
                   {/* <div
                 css={{
                   marginTop: 48,

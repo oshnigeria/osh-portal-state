@@ -433,11 +433,7 @@ const NewRegistrationComp = () => {
                         ?.filter((item) =>
                           item.factory_name.toLowerCase().includes(search)
                         )
-                        .sort(
-                          (a, b) =>
-                            new Date(b.inspection_date) -
-                            new Date(a.inspection_date)
-                        )
+
                         .map((factory) => (
                           <div
                             key={factory._id}
