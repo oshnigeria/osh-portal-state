@@ -168,7 +168,12 @@ const InspectionReportComp = () => {
       )
       .then(function (response) {
         console.log(response.data);
-        router.push("/");
+        if (router.query.type) {
+          router.push(`/${router.query.type}`);
+        } else {
+          router.push("/");
+        }
+
         setLoading(false);
         success_message(response?.data.message);
         setWillAmmend(false);
@@ -223,6 +228,11 @@ const InspectionReportComp = () => {
         // addDocuments(response.data.data.factory._id);
         success_message(response.data.message);
         mutate(`${main_url}/account/user/factory/${router.query.id}`);
+        if (router.query.type) {
+          router.push(`/${router.query.type}`);
+        } else {
+          router.push("/");
+        }
 
         setLoading(false);
       })
@@ -273,6 +283,11 @@ const InspectionReportComp = () => {
         // addDocuments(response.data.data.factory._id);
         success_message(response.data.message);
         mutate(`${main_url}/account/user/factory/${router.query.id}`);
+        if (router.query.type) {
+          router.push(`/${router.query.type}`);
+        } else {
+          router.push("/");
+        }
 
         setLoading(false);
       })
