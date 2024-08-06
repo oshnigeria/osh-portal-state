@@ -998,7 +998,7 @@ const CreateRoutineReportComp = () => {
                       })
                     }
                   >
-                    Health and safty report
+                    Health and safety report
                   </label>
                   <div
                     css={{

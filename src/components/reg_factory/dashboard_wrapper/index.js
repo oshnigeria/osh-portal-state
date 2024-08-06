@@ -311,11 +311,11 @@ const DashboadWrapperComp = (props) => {
         </div>
 
         <div
-          css={{
-            position: "fixed",
-            bottom: 30,
-            left: 60,
-          }}
+        // css={{
+        //   position: "fixed",
+        //   bottom: 30,
+        //   left: 60,
+        // }}
         >
           {isLoading ? null : (
             <div

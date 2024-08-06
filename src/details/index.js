@@ -3,4 +3,6 @@ export const main_url =
     ? "https://sbxapi.oshnigeria.org"
     : "https://api.oshnigeria.org";
 
+// export const main_url = "https://api.oshnigeria.org";
+
 export const cookies_id = "oshnigeria_state_cookies";
