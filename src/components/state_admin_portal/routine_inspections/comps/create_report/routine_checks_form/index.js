@@ -409,7 +409,7 @@ const CreateRoutineReportComp = () => {
               })
             }
           >
-            Inspection Form
+            Inspection Report
           </div>
           <div
             css={mq({
@@ -961,7 +961,7 @@ const CreateRoutineReportComp = () => {
                       })
                     }
                   >
-                    Inspectionn summary
+                    Inspection summary
                   </label>
                   <div
                     css={{
@@ -1035,7 +1035,7 @@ const CreateRoutineReportComp = () => {
                       })
                     }
                   >
-                    Recomendations
+                    Recommendations
                   </label>
                   <div
                     css={{
