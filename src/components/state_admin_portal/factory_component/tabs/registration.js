@@ -212,7 +212,7 @@ const FactoryRegistration = () => {
                             })
                           }
                         >
-                          {/* {single_factory.data.factory._occupier_name} */}
+                          {single_factory.data.factory?.period_of_validity ?? "5 years"}
                         </div>
                       </div>
                       <div>
@@ -262,7 +262,7 @@ const FactoryRegistration = () => {
                             })
                           }
                         >
-                          {single_factory.data.factory.progress}
+                           {single_factory.data.factory.progress === 100 ? "Approved" : "Yet to be approved"}
                         </div>
                       </div>
                       <div>
