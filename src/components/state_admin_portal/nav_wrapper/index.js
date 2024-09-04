@@ -164,7 +164,7 @@ const DashboadWrapperComp = (props) => {
           </div>
           <div
             css={{
-              marginTop: 30,
+              marginTop: 20,
             }}
           >
             {tabs.map((tab) => (
@@ -205,7 +205,7 @@ const DashboadWrapperComp = (props) => {
           <div
             css={{
               position: "fixed",
-              bottom: 20,
+              bottom: 4,
               left: 60,
             }}
           >
