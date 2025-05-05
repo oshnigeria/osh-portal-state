@@ -607,6 +607,19 @@ const InspectionReportComp = () => {
                     >
                       Adults 
                     </div>
+                    <div css={{
+                      display:"flex",
+                      justifyContent:"space-between"
+                    }}>
+                   
+                        <div>
+                        <div css={theme =>({
+fontSize:12,
+ color: theme.colors.Gray_400,
+ marginBottom:4
+                        })}>
+                          (Male)
+                        </div>
                     <input
                       css={(theme) =>
                         mq({
@@ -639,7 +652,15 @@ const InspectionReportComp = () => {
                         single_factory?.data?.factory?.total_employees?.adult
                           ?.male
                       }
-                    />
+                    /></div>
+                      <div>
+                      <div css={theme =>({
+fontSize:12,
+ color: theme.colors.Gray_400,
+ marginBottom:4
+                        })}>
+                          (Female)
+                        </div>
                     <input
                       css={(theme) =>
                         mq({
@@ -672,7 +693,7 @@ const InspectionReportComp = () => {
                         single_factory?.data?.factory?.total_employees?.adult
                           ?.female
                       }
-                    />
+                    /></div></div>
                   </div>
 
                   <div
@@ -694,6 +715,18 @@ const InspectionReportComp = () => {
                     >
                       Youths
                     </div>
+                    <div css={{
+                      display:"flex",
+                      justifyContent:"space-between"
+                    }}>
+                      <div>
+                        <div css={theme =>({
+fontSize:12,
+ color: theme.colors.Gray_400,
+ marginBottom:4
+                        })}>
+                          (Male)
+                        </div>
                     <input
                       css={(theme) =>
                         mq({
@@ -726,7 +759,15 @@ const InspectionReportComp = () => {
                         single_factory?.data?.factory?.total_employees?.youth
                           ?.male
                       }
-                    />
+                    /></div>
+                      <div>
+                      <div css={theme =>({
+fontSize:12,
+ color: theme.colors.Gray_400,
+ marginBottom:4
+                        })}>
+                          (Female)
+                        </div>
                     <input
                       css={(theme) =>
                         mq({
@@ -759,7 +800,7 @@ const InspectionReportComp = () => {
                         single_factory?.data?.factory?.total_employees?.youth
                           ?.female
                       }
-                    />
+                    /></div></div>
                   </div>
 
                   <div
