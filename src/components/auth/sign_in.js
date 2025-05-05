@@ -248,7 +248,7 @@ const SignInComp = () => {
                     </span>
                   )}
                 </div>
-                <div
+                {/* <div
                   css={(theme) =>
                     mq({
                       color: theme.colors.Primary_500,
@@ -260,7 +260,7 @@ const SignInComp = () => {
                   }
                 >
                   Forgot password?
-                </div>
+                </div> */}
                 <div
                   css={mq({
                     marginTop: 72,

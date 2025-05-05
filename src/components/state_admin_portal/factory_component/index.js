@@ -194,8 +194,8 @@ const FactoryPageComp = () => {
                 {steps.map((step) => (
                   <div
                     key={step.title}
-                    css={(theme) => ({
-                      padding: "14px 28px",
+                    css={(theme) => mq({
+                      padding: ["12px 14px","14px 28px","14px 28px"],
                       backgroundColor:
                         factory.tab === step.title
                           ? theme.colors.Primary_500

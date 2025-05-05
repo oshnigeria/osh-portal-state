@@ -605,7 +605,7 @@ const InspectionReportComp = () => {
                         })
                       }
                     >
-                      Adults
+                      Adults 
                     </div>
                     <input
                       css={(theme) =>
@@ -971,7 +971,7 @@ const InspectionReportComp = () => {
                       })
                     }
                   >
-                    Inspectionn summary
+                    Inspection summary
                   </label>
                   <div
                     css={{
@@ -1008,7 +1008,7 @@ const InspectionReportComp = () => {
                       })
                     }
                   >
-                    Health and safty report
+                    Health and safety report
                   </label>
                   <div
                     css={{
@@ -1202,6 +1202,7 @@ const InspectionReportComp = () => {
             marginTop: 64,
             display: "flex",
             justifyContent: "space-between",
+            marginBottom: 200
           }}
         >
           <div>
@@ -1376,6 +1377,7 @@ const InspectionReportComp = () => {
                 justifyContent: "center",
                 color: "#fff",
                 backgroundColor: theme.colors.Primary_500,
+                
               })
             }
             type="submit"
