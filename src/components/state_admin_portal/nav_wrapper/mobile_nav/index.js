@@ -16,7 +16,26 @@ const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const MobileNav = () => {
   const [options, setOptions] = useState(false);
   const auth = useContext(AuthContext);
+  const router = useRouter();
+const fetcher = (url) =>
+    axios
+      .get(url, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get(cookies_id)}`,
+        },
+      })
+      .then((res) => res.data)
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
+  const {
+    data: user,
+    error,
+    isLoading,
+  } = useSWR(`${main_url}/state-officer/info`, fetcher);
+  console.log(user?.data.state_officer)
   const menu = [
     // {
     //   title: "Settings",
@@ -134,13 +153,16 @@ const MobileNav = () => {
                     backgroundColor: "#fff",
                   })}
                 >
-                  <div
-                    css={{
-                      padding: "24px 44px",
+                  {
+                    isLoading ? null :  <div
+                    css={theme => ({
+                      padding: "16px 16px",
                       cursor: "pointer",
-                      display: "flex",
-                    }}
-                    onClick={() => auth.remove_token()}
+                      border:"none",
+                      borderBottom:`1px solid ${theme.colors.Gray_100}`
+                      // display: "flex",
+                    })}
+                    onClick={() => router.push('/profile')}
                   >
                     <div
                       css={{
@@ -156,15 +178,15 @@ const MobileNav = () => {
                       />
                     </div>
                     <div>
-                      <div
+                      {/* <div
                         css={(theme) => ({
                           fontSize: 12,
                           fontWeight: 500,
                           color: theme.colors.Gray_500,
                         })}
                       >
-                        John Doe
-                      </div>
+                         {user?.data.state_officer.name}
+                      </div> */}
                       <div
                         css={(theme) => ({
                           fontSize: 10,
@@ -173,15 +195,17 @@ const MobileNav = () => {
                           lineHeight: "18px",
                         })}
                       >
-                        jogndoe@gmail.com
+                         {user?.data.state_officer.email}
                       </div>
                     </div>
                   </div>
+                  }
+                 
 
                   {menu.map((menu_option) => (
                     <div
                       css={{
-                        padding: "24px 44px",
+                        padding: "16px 16px",
                         cursor: "pointer",
                         display: "flex",
                         alignItems: "center",
