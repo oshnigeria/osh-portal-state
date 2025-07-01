@@ -111,9 +111,8 @@ const RoutineInspectionDocComp = (props) => {
                     >
                       <a
                         href={
-                          router.query.type === "incident"
-                            ? `${main_url}/inventory/incident/wr/file?incident_id=${props.factory_id}&file_key=${props.file_key}&doc_type=${props.doc_type}`
-                            : `${main_url}/inventory/factory/wr/file?factory_id=${props.factory_id}&file_key=${props.file_key}&doc_type=${props.doc_type}`
+                          
+                            `${props.url}`
                         }
                         target="blank"
                         css={(theme) => ({

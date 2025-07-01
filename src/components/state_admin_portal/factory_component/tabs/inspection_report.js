@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
@@ -13,10 +13,12 @@ import DeclarationPopup from "./comps/declaration_popup";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { main_url, cookies_id } from "@/src/details";
+import ReactToPrint from "react-to-print";
 
 import facepaint from "facepaint";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
@@ -24,6 +26,7 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
 const InspectionReportComp = () => {
   if (typeof window !== "undefined") null;
   const router = useRouter();
+  const componentRef = useRef();
 
   const fetcher = (url) =>
     axios
@@ -42,6 +45,12 @@ const InspectionReportComp = () => {
     error,
     isLoading,
   } = useSWR(`${main_url}/state-officer/factory/${router.query.id}`, fetcher);
+
+    const {
+    data: user,
+    error:user_error,
+    isLoading: user_isLoading,
+  } = useSWR(`${main_url}/state-officer/info`, fetcher);
 
   console.log(single_factory?.data.factory);
   const [value, setValue] = useState("");
@@ -311,7 +320,7 @@ const InspectionReportComp = () => {
   return (
     <div
       css={{
-        display: "center",
+        display: "flex",
         justifyContent: "center",
       }}
     >
@@ -334,6 +343,11 @@ const InspectionReportComp = () => {
             })
           }
         >
+          <div css={{
+            display:"flex",
+            justifyContent:"space-between",
+            alignItems:"center"
+          }}>
           <div
             css={(theme) =>
               mq({
@@ -345,9 +359,70 @@ const InspectionReportComp = () => {
           >
             Inspection Form
           </div>
-          <div
+          <ReactToPrint
+                onBeforePrint={() => null}
+                onAfterPrint={() => null}
+                trigger={() => (
+                  <button
+                css={(theme) =>
+                  mq({
+                    height: [40, 40, 56],
+                    borderRadius: 30,
+                    width: ["auto", "auto", 156],
+                    //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                    padding: ["12px 16px", "12px 16px", "16px 24px"],
+                    fontSize: [12, 12, 16],
+                    cursor: "pointer",
+                    marginRight: 20,
+                    fontWeight: 600,
+                    lineHeight: "17px",
+                    border: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#fff",
+                    backgroundColor: theme.colors.Gray_900,
+                  })
+                }
+                type="submit"
+                // onClick={() => {
+                //   setWillCancel(true);
+                // }}
+              >
+                 <div
+                    css={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                     
+                    >
+                      Print Form
+                    </div>
+                    {/* <div
+                  css={{
+                    marginLeft: 8,
+                  }}
+                >
+                  <img
+                    css={mq({
+                      width: [14, 14, 24],
+                      height: [14, 14, 24],
+                    })}
+                    src="/svg/registration/left_arrow.svg"
+                  />
+                </div> */}
+                  </div>
+              </button>
+                )}
+                content={() => componentRef.current}
+              />
+            
+          </div>
+          <div ref={componentRef}
             css={mq({
               marginTop: [24, 24, 80],
+              padding:"0px 16px"
             })}
           >
             <div>
@@ -1236,7 +1311,125 @@ fontSize:12,
                 </div> */}
               </div>
             </div>
+             <div css={{
+            marginTop:44
+          }}>
+             <div
+            css={(theme) =>
+              mq({
+                fontSize: [16, 16, 22],
+                color: theme.colors.Gray_700,
+                textTransform: "capitalize",
+              })
+            }
+          >
+            State Officer Details
           </div>
+          <div>
+            <div css={{
+              marginTop:16
+            }}>
+              {user_isLoading ? null : (
+                <div
+                  css={{
+                    marginBottom: 12,
+                  }}
+                >
+                  <div
+                    css={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "70%",
+                    }}
+                  >
+                    <div>
+                      <div
+                        css={(theme) =>
+                          mq({
+                            color: theme.colors.Gray_400,
+                            fontSize: [16, 16, 16],
+                            lineHeight: "28px",
+                            fontWeight: 400,
+                          })
+                        }
+                      >
+                        Signatory name
+                      </div>
+                      <div>
+                        <div>
+                          <div
+                            css={(theme) =>
+                              mq({
+                                color: theme.colors.Gray_700,
+                                fontSize: [16, 16, 16],
+                                lineHeight: "28px",
+                                fontWeight: 700,
+                              })
+                            }
+                          >
+                            {user?.data.state_officer.email}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  
+                  </div>
+
+                  <div
+                    // css={{
+                    //   marginTop: 16,
+                    // }}
+                  >
+                    <div
+                      css={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "70%",
+                      }}
+                    >
+                      <div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              fontSize: [16, 16, 16],
+                              lineHeight: "28px",
+                              fontWeight: 400,
+                            })
+                          }
+                        >
+                          Signature
+                        </div>
+                        <div css={{
+                          marginTop:8
+                        }}>
+                          <div
+                            css={{
+                              marginRight: 8,
+                            }}
+                          >
+                            <img
+                              css={{
+                                width: 45,
+                                height: 45,
+                              }}
+                              src={user?.data.state_officer.signature_image}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                     
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          </div>
+          </div>
+         
         </div>
         <div
           css={{

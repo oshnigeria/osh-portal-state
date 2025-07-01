@@ -133,7 +133,7 @@ success_message(res.data.message);
                           factory_id={router.query.id}
                           file_key={doc.src}
                           delete={() => delete_docs(doc._id)}
-                          
+                        url={doc.url}
                         />
                       </div>
                     ))}
