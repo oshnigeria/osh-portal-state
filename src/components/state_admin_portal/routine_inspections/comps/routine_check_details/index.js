@@ -9,7 +9,10 @@ import DashboadWrapperComp from "../../../nav_wrapper";
 import facepaint from "facepaint";
 import EmployeeInfoComp from "../../../factory_component/tabs/regsitration_components/employee_info_comp";
 import FacRoutineDetailsComp from "./tabs/registration";
+import FacRoutineDocumentUploadTab from "./tabs/document";
 import { FactoryContext } from "@/src/context/factoryContext";
+import toast, { Toaster } from "react-hot-toast";
+
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const RoutineCheckDetailsComp = () => {
@@ -60,6 +63,12 @@ const RoutineCheckDetailsComp = () => {
   ];
   return (
     <DashboadWrapperComp>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+        }}
+      />
       {isLoading ? (
         <div
           css={{
@@ -161,8 +170,8 @@ const RoutineCheckDetailsComp = () => {
           </div>
           {factory.tab === steps[0].title && <FacRoutineDetailsComp />}
 
-          {/* {factory.tab === steps[1].title && <DocumentUploadTab />}
-            {factory.tab === steps[2].title && <VerifyPaymentTab />}
+          {factory.tab === steps[1].title && <FacRoutineDocumentUploadTab />}
+            {/* {factory.tab === steps[2].title && <VerifyPaymentTab />}
             {factory.tab === steps[3].title && <InspectionReportComp />} */}
         </div>
       )}

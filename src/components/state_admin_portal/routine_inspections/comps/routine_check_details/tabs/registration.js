@@ -16,6 +16,10 @@ import DeclarationPopup from "./comps/declaration_popup";
 import CautionaryCertComp from "../../../certs/cautionary";
 import WarningCertComp from "../../../certs/warning";
 import ProhibitionCertComp from "../../../certs/prohibition";
+import AddRoutineCheckDoc from "../../popup/add_document";
+
+import { FactoryContext } from "@/src/context/factoryContext";
+
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const FacRoutineDetailsComp = () => {
@@ -23,6 +27,8 @@ const FacRoutineDetailsComp = () => {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [willAmmend, setWillAmmend] = useState(false);
+    const [toggle_add_doc, setToggleAddDoc] = useState(false);
+
   const fetcher = (url) =>
     axios
       .get(url, {
@@ -44,14 +50,18 @@ const FacRoutineDetailsComp = () => {
     fetcher
   );
   console.log(single_report);
+
+    const factory = useContext(FactoryContext);
+
+    const handle_document_page = () =>{
+      factory.set_tab("Document verification")
+    }
+  const handle_add_document = () =>{
+      setToggleAddDoc(true)
+    }
   return (
     <div>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          duration: 3000,
-        }}
-      />
+      
 
       {isLoading || error ? (
         <div
@@ -694,7 +704,74 @@ const FacRoutineDetailsComp = () => {
           )}
         </div>
       )}
-
+      <div css={{
+        display:"flex",
+        justifyContent:"space-between",
+          marginTop:24
+      }}>
+<button
+          css={(theme) =>
+            mq({
+              width: 200,
+              height: 56,
+              borderRadius: 30,
+              padding: ["16px 22px", "16px 22px", "16px 24px"],
+              fontSize: [14, 14, 14],
+              fontWeight: 600,
+              lineHeight: "17px",
+              border: "none",
+              color: theme.colors.Gray_50,
+              backgroundColor: theme.colors.Primary_500,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+            
+            })
+          }
+          onClick={() => {
+            handle_document_page();
+          }}
+        >
+         
+          <div>View Documents</div>
+        </button>
+        <button
+          css={(theme) =>
+            mq({
+              width: 200,
+              height: 56,
+              borderRadius: 30,
+              padding: ["16px 22px", "16px 22px", "16px 24px"],
+              fontSize: [14, 14, 14],
+              fontWeight: 600,
+              lineHeight: "17px",
+              border: "none",
+              color: theme.colors.Gray_50,
+              backgroundColor: theme.colors.Primary_500,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+             
+            })
+          }
+          onClick={() => {
+          handle_add_document()
+          }}
+        >
+          <img
+            css={{
+              width: 24,
+              height: 24,
+              marginRight: 16,
+            }}
+            src="/svg/factory/add.svg"
+          />
+          <div>Add Document</div>
+        </button>
+      </div>
+  
       <AnimatePresence initial={false}>
         {willAmmend && (
           <div>
@@ -759,6 +836,70 @@ const FacRoutineDetailsComp = () => {
           </div>
         )}
       </AnimatePresence>
+        <AnimatePresence initial={false}>
+          {toggle_add_doc && (
+            <div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 0.4,
+                }}
+                css={{
+                  position: "fixed",
+                  width: "100vw",
+                  height: "100vh",
+                  // zIndex: 2,
+                  zIndex: 3,
+                  backgroundColor: "rgb(0,0,0,0.1)",
+                  right: 0,
+                  top: 0,
+                  opacity: 0,
+                }}
+                onClick={() => {
+                  // setAdd_factory(false);
+                  setToggleAddDoc(false);
+                }}
+              >
+                {" "}
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{
+                  ease: "easeInOut",
+                  // duration: 0.4,
+                }}
+                id="location"
+                css={(theme) => ({
+                  position: "fixed",
+                  overflowY: "scroll",
+                  overflowX: "hidden",
+
+                  width: 525,
+                  height: 600,
+                  borderRadius: 14,
+                  zIndex: 5,
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  margin: "auto",
+                  // display: "flex",
+                  // justifyContent: "center",
+                  backgroundColor: "#fff",
+                })}
+              >
+                {/* <CreateRiderAccount close={() => router.back()} /> */}
+                <AddRoutineCheckDoc close={() => setToggleAddDoc(false)} doc_page={() => handle_document_page()} />
+                {/* <div>ade</div> */}
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
     </div>
   );
 };

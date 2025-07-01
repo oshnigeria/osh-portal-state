@@ -320,6 +320,7 @@ const NewRegistrationComp = () => {
           />
           <div>New Report</div>
         </button>
+
       </div>
       {/* <div
         css={mq({

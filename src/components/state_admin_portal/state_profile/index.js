@@ -51,7 +51,18 @@ const StateProfileComp = (props) => {
     error,
     isLoading,
   } = useSWR(`${main_url}/state-officer/info`, fetcher);
-  // console.log(user?.data.user.role);
+
+
+    const {
+    data: state_user_signature,
+    error: state_user_error,
+    isLoading: state_user_isloading,
+  } = useSWR(`${main_url}/state-officer/signature/image?key=${user?.data.state_officer._id}`, fetcher);
+
+    console.log("state_user_signature");
+
+  console.log(state_user_signature);
+  
   // useEffect(() => {
   //   if (Cookies.get(cookies_id)) {
   //     router.push("/dashboard/registration");
@@ -216,7 +227,7 @@ const StateProfileComp = (props) => {
                               })
                             }
                           >
-                            {user?.data.state_officer.name}
+                            {user?.data.state_officer.email}
                           </div>
                         </div>
                       </div>

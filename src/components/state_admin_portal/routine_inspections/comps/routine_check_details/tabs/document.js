@@ -8,14 +8,17 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { FactoryContext } from "@/src/context/factoryContext";
 import FactoryDocComp from "@/src/components/factoryDetailsComp";
+import RoutineInspectionDocComp from "../routine_inspection_docs";
 import AmmendedDocumentUploaded from "./comps/ammendment_info/document";
 import RenewalDocumentUploaded from "./comps/renewal_info/document";
 import ReplacementDocumentUploaded from "./comps/replacement_info/document";
+import { success_message } from "@/src/components/toasts";
+import toast, { Toaster } from "react-hot-toast";
 
 import facepaint from "facepaint";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
-const DocumentUploadTab = () => {
+const FacRoutineDocumentUploadTab = () => {
   const router = useRouter();
   const factory = useContext(FactoryContext);
   const fetcher = (url) =>
@@ -30,25 +33,38 @@ const DocumentUploadTab = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  const {
-    data: single_factory,
-    error,
-    isLoading,
-  } = useSWR(`${main_url}/state-officer/factory/${router.query.id}`, fetcher);
+ 
 
   const {
-    data: single_factory_doc,
-    error: doc_error,
-    isLoading: doc_isLoading,
+    data: single_report,
+    error,
+    isLoading,
   } = useSWR(
-    isLoading
-      ? null
-      : `${main_url}/state-officer/factory-docs?factory_id=${router.query.id}`,
+    `${main_url}/inventory/factory/routine-check?id=${router.query.id}`,
     fetcher
   );
 
-  console.log(single_factory_doc);
-  console.log(single_factory);
+
+   const delete_docs = (id) => {
+    
+    axios
+      .delete(`${main_url}/state-officer/factory/routine-check/doc?routine_check_doc_id=${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get(cookies_id)}`,
+        },
+      })
+      .then((res) => {console.log(res.data)
+success_message(res.data.message);
+        mutate(`${main_url}/inventory/factory/routine-check?id=${router.query.id}`)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    // console.log("ade");
+  };
+  console.log(single_report);
   if (router.query.type === "ammendment") return <AmmendedDocumentUploaded />;
   if (router.query.type === "renewal") return <RenewalDocumentUploaded />;
   if (router.query.type === "replacement")
@@ -56,13 +72,14 @@ const DocumentUploadTab = () => {
 
   return (
     <div>
+       
       <div
         css={{
           display: "flex",
           justifyContent: "center",
         }}
       >
-        {doc_isLoading ? (
+        {isLoading ? (
           <div
             css={{
               display: "flex",
@@ -96,24 +113,27 @@ const DocumentUploadTab = () => {
                 borderRadius: 8,
               })}
             >
-              {single_factory_doc.data.docs.filter(
-                (word) => word.doc_type !== "payment_reciept"
-              ).length ? (
+              {single_report.data.docs
+              .length ? (
                 <div
                   css={{
                     display: "flex",
                     flexWrap: "wrap",
                   }}
                 >
-                  {single_factory_doc.data.docs
-                    .filter((word) => word.doc_type !== "payment_reciept")
+                  {single_report.data.docs
+                    // .filter((word) => word.doc_type !== "payment_reciept")
                     .map((doc) => (
-                      <div key={doc._id}>
-                        <FactoryDocComp
-                          name={doc.name}
+                      <div key={doc._id} css={{
+                        marginRight:8
+                      }}>
+                        <RoutineInspectionDocComp
+                          name={doc.title}
                           doc_type={doc.doc_type}
                           factory_id={router.query.id}
                           file_key={doc.src}
+                          delete={() => delete_docs(doc._id)}
+                          
                         />
                       </div>
                     ))}
@@ -174,7 +194,7 @@ const DocumentUploadTab = () => {
                 type="submit"
                 onClick={() => {
                   // factory_details.add_factory_details(formData);
-                  factory.set_tab("Payment verification");
+                  factory.set_tab("Factory information");
                 }}
               >
                 <div
@@ -183,7 +203,7 @@ const DocumentUploadTab = () => {
                     alignItems: "center",
                   }}
                 >
-                  <div>Verify & continue</div>
+                  <div>Back to Report</div>
                   <div
                     css={{
                       marginLeft: 8,
@@ -207,4 +227,4 @@ const DocumentUploadTab = () => {
   );
 };
 
-export default DocumentUploadTab;
+export default FacRoutineDocumentUploadTab;
