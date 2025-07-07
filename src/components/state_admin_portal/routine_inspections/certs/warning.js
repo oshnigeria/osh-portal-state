@@ -400,6 +400,23 @@ const WarningCertComp = (props) => {
                           and provide a safe working environment for all
                           operations.
                         </div>
+                        <div>
+                            <div
+                            css={{
+                              fontWeight: 600,
+                               marginBottom: 8,
+                            }}
+                          >
+                            Sections of Contraventions
+                          </div>
+                          <div
+                            css={{
+                              fontSize: 12,
+                            }}
+                          >
+                            {props.sections_of_contraventions}
+                          </div>
+                        </div>
                       </div>
                     </div>
 

@@ -95,6 +95,7 @@ const FacRoutineDetailsComp = () => {
                     ref_number={single_report.data?.report?.reference_number}
                     notice_type={single_report.data?.report?.letter_type}
                     inspec_date={single_report.data?.report?.inspection_date}
+                    sections_of_contraventions={single_report.data?.report?.sections_of_contraventions}
                   />
                 )}
               </div>
@@ -127,6 +128,8 @@ const FacRoutineDetailsComp = () => {
                     ref_number={single_report.data?.report?.reference_number}
                     notice_type={single_report.data?.report?.letter_type}
                     inspec_date={single_report.data?.report?.inspection_date}
+                    areas_to_improve={single_report.data?.report?.areas_to_improve}
+
                   />
                 )}
               </div>
@@ -631,6 +634,10 @@ const FacRoutineDetailsComp = () => {
           }}
         >
           {router.query.view_cart && (
+            <div css={{
+              display:"flex",
+              justifyContent:"space-between"
+            }}>
             <button
               css={(theme) =>
                 mq({
@@ -666,6 +673,51 @@ const FacRoutineDetailsComp = () => {
                 <div>Back</div>
               </div>
             </button>
+            
+              <ReactToPrint
+                onBeforePrint={() => null}
+                onAfterPrint={() => null}
+                trigger={() => (
+                  <button
+                      css={(theme) =>
+                mq({
+                  height: [40, 40, 56],
+                  borderRadius: 30,
+                  width: ["auto", "auto", 356],
+                  //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                  padding: ["12px 16px", "12px 16px", "16px 24px"],
+                  fontSize: [12, 12, 20],
+                  cursor: "pointer",
+                  marginRight: 20,
+                  fontWeight: 600,
+                  lineHeight: "17px",
+                  border: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#fff",
+                  backgroundColor: theme.colors.Primary_500,
+                })
+                    }
+                    type="submit"
+                    // onClick={() => {
+                    //   factory_details.add_factory_details(formData);
+                    //   factory.set_tab("Upload document");
+                    // }}
+                  >
+                    <div
+                      css={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: 4,
+                      }}
+                    >
+                      <div>Print Report</div>
+                    </div>
+                  </button>
+                )}
+                content={() => componentRef.current}
+              />
+            </div>
           )}
           {single_report.data?.report?.letter_type && (
             <div>
@@ -678,7 +730,8 @@ const FacRoutineDetailsComp = () => {
             
 
               
-            </div> :    <button
+            </div> :
+            <button
               css={(theme) =>
                 mq({
                   height: [40, 40, 56],

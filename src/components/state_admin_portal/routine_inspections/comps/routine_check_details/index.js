@@ -104,7 +104,9 @@ const RoutineCheckDetailsComp = () => {
                   cursor: "pointer",
                   marginRight: [16, 16, 38],
                 })}
-                onClick={() => router.back()}
+                onClick={() => {router.back()
+                  factory.set_tab("Factory information")
+                }}
               >
                 <img
                   css={mq({

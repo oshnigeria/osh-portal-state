@@ -373,6 +373,23 @@ const CautionaryCertComp = (props) => {
                         >
                           4.  Thank you Yours faithfully,
                         </div>
+                          <div>
+                            <div
+                            css={{
+                              fontWeight: 600,
+                               marginBottom: 8,
+                            }}
+                          >
+                            Areas to Improve
+                          </div>
+                          <div
+                            css={{
+                              fontSize: 12,
+                            }}
+                          >
+                            {props.areas_to_improve}
+                          </div>
+                        </div>
                       </div>
                     </div>
 
