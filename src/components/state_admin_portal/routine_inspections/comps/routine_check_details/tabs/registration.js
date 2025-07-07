@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import axios from "axios";
 import { main_url, cookies_id } from "@/src/details";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import useSWR, { useSWRConfig, mutate } from "swr";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
@@ -17,6 +17,7 @@ import CautionaryCertComp from "../../../certs/cautionary";
 import WarningCertComp from "../../../certs/warning";
 import ProhibitionCertComp from "../../../certs/prohibition";
 import AddRoutineCheckDoc from "../../popup/add_document";
+import ReactToPrint from "react-to-print";
 
 import { FactoryContext } from "@/src/context/factoryContext";
 
@@ -28,6 +29,7 @@ const FacRoutineDetailsComp = () => {
   const [loading, setLoading] = useState(false);
   const [willAmmend, setWillAmmend] = useState(false);
     const [toggle_add_doc, setToggleAddDoc] = useState(false);
+  const componentRef = useRef();
 
   const fetcher = (url) =>
     axios
@@ -84,7 +86,7 @@ const FacRoutineDetailsComp = () => {
       ) : (
         <div>
           {router.query.view_cart ? (
-            <div>
+            <div ref={componentRef}>
               <div>
                 {single_report.data?.report?.letter_type ===
                   "WARNING-NOTICE" && (
@@ -666,7 +668,17 @@ const FacRoutineDetailsComp = () => {
             </button>
           )}
           {single_report.data?.report?.letter_type && (
-            <button
+            <div>
+              {
+                router.query.view_cart ?  <div
+              css={{
+              
+              }}
+            >
+            
+
+              
+            </div> :    <button
               css={(theme) =>
                 mq({
                   height: [40, 40, 56],
@@ -701,6 +713,10 @@ const FacRoutineDetailsComp = () => {
                 <div>View Certificate</div>
               </div>
             </button>
+              }
+          
+            
+           </div>
           )}
         </div>
       )}

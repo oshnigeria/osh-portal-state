@@ -14,6 +14,7 @@ import DashboadWrapperComp from "../nav_wrapper";
 import ChangeImage from "./popup/change_image";
 import ChangeName from "./popup/change_name";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import toast, { Toaster } from "react-hot-toast";
 
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
@@ -144,6 +145,12 @@ const StateProfileComp = (props) => {
 
   return (
     <DashboadWrapperComp>
+       <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 3000,
+              }}
+            />
       <div
         css={(theme) =>
           mq({
@@ -227,7 +234,7 @@ const StateProfileComp = (props) => {
                               })
                             }
                           >
-                            {user?.data.state_officer.email}
+                            {user?.data.state_officer.name}
                           </div>
                         </div>
                       </div>
