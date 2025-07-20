@@ -855,7 +855,8 @@ const FacRoutineDetailsComp = () => {
                 )}
                 content={() => componentRef.current}
               />
-              {single_report.data?.report?.letter_type !== "IMPROVEMENT-NOTICE" && <button
+              {/* {single_report.data?.report?.letter_type !== "IMPROVEMENT-NOTICE" && 
+              <button
               css={(theme) =>
                 mq({
                   height: [40, 40, 56],
@@ -889,7 +890,7 @@ const FacRoutineDetailsComp = () => {
               >
                 <div>View Certificate</div>
               </div>
-            </button>}
+            </button>} */}
                   
       </div>
           
