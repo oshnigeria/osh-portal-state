@@ -15,7 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 import facepaint from "facepaint";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
-const CautionaryCertComp = (props) => {
+const ImprovementCertComp = (props) => {
   const [value, setValue] = useState("");
   const [willAmmend, setWillAmmend] = useState(false);
   const router = useRouter();
@@ -333,22 +333,10 @@ const CautionaryCertComp = (props) => {
                             fontSize: 12,
                           }}
                         >
-                          {/* We refer to our letter dated Date of {" "} {" "} <span css={{
-                            fontWeight:600
-                          }}> {"  "}{props.previous_date}</span> with Ref. No:  <span css={{
-                            fontWeight:600
-                          }}>{props?.ref_number} </span>
-                          requesting you to register your premises in accordance
-                          with section 2 and 3 of the Factories Act 2004 in
-                          which you failed to comply. This is in pursuance of
-                          the provision of section 17(3c) of the Constitution of
-                          the Federal Republic of Nigeria and the mandate of the
-                          Federal Ministry of Labour and Employment on
-                          protection of Health, Safety and Welfare of persons at
-                          Work. */}
+                         
 
 
-                          Refer to our letter dated <span css={{
+                          {/* Refer to our letter dated <span css={{
                             fontWeight:600
                           }}> {"  "}{props.previous_date}</span> with Ref. No.  <span css={{
                             fontWeight:600
@@ -361,55 +349,20 @@ Following your failure to comply since <span css={{
                             fontWeight:600
                           }}> {"  "}{props.previous_date}</span>  you are by this notice required to rectify the contravention(s) within no of weeks fill in weeks or you will be sanctioned. 
 
-Kindly regard this as a CAUTION to comply with the provisions of the Factories Act CAP F1 LAW OF FEDERAL REPUBLIC OF NIGERIA 2004 to protect Health, Safety and Welfare of workers.
+Kindly regard this as a CAUTION to comply with the provisions of the Factories Act CAP F1 LAW OF FEDERAL REPUBLIC OF NIGERIA 2004 to protect Health, Safety and Welfare of workers. */}
+
+
+During our visit to your premises on <span css={{
+                            fontWeight:600
+                          }}> {"  "}{props.previous_date}</span> , the following contravention(s) of the Factories Act F1 Law of the Federal Republic of Nigeria was/were noticed; <span css={{
+                            fontWeight:600
+                          }}>{props?.areas_to_improve}. </span> 
+
+Please you are hereby advised to rectify the contravention(s) within no of weeks fill in weeks and notify this office in writing. 
+ 
+Kindly regard this as an IMPROVEMENT NOTICE to comply with the provisions of the Factories Act CAP F1 LAW OF FEDERAL REPUBLIC OF NIGERIA 2004 to protect Health, Safety and Welfare of workers.
                         </div>
-                        {/* <div
-                          css={{
-                            marginBottom: 8,
-                            fontSize: 12,
-                          }}
-                        >
-                          2. Following your failure to comply since Date of
-                          previous letter fills here. I have been directed to
-                          serve you with a cautionary letter due to your
-                          deliberate failure to register your premises with the
-                          Director of Factories of the Federation. You are
-                          advised to make effort and comply for the sake of a
-                          harmonious relationship.
-                        </div>
-                        <div
-                          css={{
-                            marginBottom: 8,
-                            fontSize: 12,
-                          }}
-                        >
-                          3. Looking forward to a favourable response
-                        </div>
-                        <div
-                          css={{
-                            marginBottom: 8,
-                            fontSize: 12,
-                          }}
-                        >
-                          4.  Thank you Yours faithfully,
-                        </div> */}
-                          {/* <div>
-                            <div
-                            css={{
-                              fontWeight: 600,
-                               marginBottom: 8,
-                            }}
-                          >
-                            Areas to Improve
-                          </div>
-                          <div
-                            css={{
-                              fontSize: 12,
-                            }}
-                          >
-                            {props.areas_to_improve}
-                          </div>
-                        </div> */}
+                       
                       </div>
                     </div>
 
@@ -469,4 +422,4 @@ Kindly regard this as a CAUTION to comply with the provisions of the Factories A
   );
 };
 
-export default CautionaryCertComp;
+export default ImprovementCertComp;

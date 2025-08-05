@@ -175,6 +175,8 @@ const CreateRoutineReportComp = () => {
   };
 
   const create_routine_report_fac = (
+    cert_no,
+    phone_number,
     factory,
     factory_name,
     postal_address,
@@ -184,7 +186,8 @@ const CreateRoutineReportComp = () => {
     nature_of_work,
     inspection_date,
     inspection_summary,
-    recommendations
+    recommendations,
+    
     // state
   ) => {
     setLoading(true);
@@ -193,6 +196,8 @@ const CreateRoutineReportComp = () => {
       .post(
         `${main_url}/state-officer/routine-check`,
         {
+          certificate_no: cert_no,
+          telephone:phone_number,
           factory,
           factory_name,
           postal_address,
@@ -233,6 +238,8 @@ const CreateRoutineReportComp = () => {
     // console.log("ade");
   };
   const create_routine_report = (
+    cert_no,
+    phone_number,
     factory_name,
     postal_address,
     location,
@@ -252,6 +259,8 @@ const CreateRoutineReportComp = () => {
         `${main_url}/state-officer/routine-check`,
         {
           // factory,
+           certificate_no: cert_no,
+            telephone:phone_number,
           factory_name,
           postal_address,
           location,
@@ -298,6 +307,8 @@ const CreateRoutineReportComp = () => {
     } finally {
       if (factory) {
         create_routine_report_fac(
+         cert_no,
+         phone_number,
           factory,
           factory_name,
           postal_address,
@@ -307,11 +318,14 @@ const CreateRoutineReportComp = () => {
           natureOfWorkDone,
           inspectionDate,
           inspectionSummary,
-          recommendations
+          recommendations,
+           
           // state
         );
       } else {
         create_routine_report(
+           cert_no,
+           phone_number,
           factory_name,
           postal_address,
           address,
@@ -320,7 +334,8 @@ const CreateRoutineReportComp = () => {
           natureOfWorkDone,
           inspectionDate,
           inspectionSummary,
-          recommendations
+          recommendations,
+         
           // state
         );
       }

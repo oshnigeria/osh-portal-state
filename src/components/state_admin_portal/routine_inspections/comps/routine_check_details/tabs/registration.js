@@ -10,12 +10,13 @@ import facepaint from "facepaint";
 import EmployeeInfoComp from "./regsitration_components/employee_info_comp";
 import toast, { Toaster } from "react-hot-toast";
 import { success_message, error_message } from "@/src/components/toasts";
-import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout, color } from "framer-motion";
 import FactoryDocComp from "@/src/components/factoryDetailsComp";
 import DeclarationPopup from "./comps/declaration_popup";
 import CautionaryCertComp from "../../../certs/cautionary";
 import WarningCertComp from "../../../certs/warning";
 import ProhibitionCertComp from "../../../certs/prohibition";
+import ImprovementCertComp from "../../../certs/improvements";
 import AddRoutineCheckDoc from "../../popup/add_document";
 import ReactToPrint from "react-to-print";
 
@@ -96,6 +97,7 @@ const FacRoutineDetailsComp = () => {
                     notice_type={single_report.data?.report?.letter_type}
                     inspec_date={single_report.data?.report?.inspection_date}
                     sections_of_contraventions={single_report.data?.report?.sections_of_contraventions}
+                    previous_date={single_report.data?.report?.date_of_last_inspection}
                   />
                 )}
               </div>
@@ -129,7 +131,25 @@ const FacRoutineDetailsComp = () => {
                     notice_type={single_report.data?.report?.letter_type}
                     inspec_date={single_report.data?.report?.inspection_date}
                     areas_to_improve={single_report.data?.report?.areas_to_improve}
+ previous_date={single_report.data?.report?.date_of_last_inspection}
+                  />
+                )}
+              </div>
 
+                  <div>
+                {single_report.data?.report?.letter_type ===
+                  "IMPROVEMENT-NOTICE" && (
+                  <ImprovementCertComp
+                    inspection_date={
+                      single_report.data?.report?.inspection_date
+                    }
+                    factory_name={single_report.data?.report?.factory_name}
+                    address={single_report.data?.report?.location}
+                    ref_number={single_report.data?.report?.reference_number}
+                    notice_type={single_report.data?.report?.letter_type}
+                    inspec_date={single_report.data?.report?.inspection_date}
+                    areas_to_improve={single_report.data?.report?.areas_to_improve}
+ previous_date={single_report.data?.report?.date_of_last_inspection}
                   />
                 )}
               </div>
@@ -154,6 +174,11 @@ const FacRoutineDetailsComp = () => {
                   })
                 }
               >
+                <div css={{
+                  display:"flex",
+                  justifyContent:"space-between",
+                  alignItems:"center"
+                }}>
                 <div
                   css={(theme) =>
                     mq({
@@ -163,9 +188,21 @@ const FacRoutineDetailsComp = () => {
                     })
                   }
                 >
-                  Factory information
+                  Inspection Report
                 </div>
-
+ <div
+                  css={(theme) =>
+                    mq({
+                        fontSize: [14, 14, 16],
+                      color: theme.colors.Success_700,
+                      textTransform: "capitalize",
+                      fontWeight:600,
+                      
+                    })
+                  }
+                >
+                   Form LAB|F|9
+                </div></div>
                 <div>
                   <div
                     css={mq({
@@ -303,6 +340,56 @@ const FacRoutineDetailsComp = () => {
                           }
                         >
                           {single_report.data?.report?.inspection_date}
+                        </div>
+                      </div>
+                           <div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          Certificate Number
+                        </div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          {single_report.data?.report?.certificate_no}
+                        </div>
+                      </div>
+                           <div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              color: theme.colors.Gray_400,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          Phone Number
+                        </div>
+                        <div
+                          css={(theme) =>
+                            mq({
+                              marginTop: 12,
+                              color: theme.colors.Gray_700,
+                              lineHeight: "20px",
+                              fontSize: [14, 14, 20],
+                            })
+                          }
+                        >
+                          {single_report.data?.report?.telephone}
                         </div>
                       </div>
                     </div>
@@ -708,8 +795,8 @@ const FacRoutineDetailsComp = () => {
           )}
         </div>
       )}
-
-      {single_report.data?.report?.letter_type !== "IMPROVEMENT-NOTICE" && (
+{/* {single_report.data?.report?.letter_type !== "IMPROVEMENT-NOTICE"} */}
+      {true && (
         <div
           css={{
             marginTop: 64,
@@ -855,7 +942,7 @@ const FacRoutineDetailsComp = () => {
                 )}
                 content={() => componentRef.current}
               />
-              {/* {single_report.data?.report?.letter_type !== "IMPROVEMENT-NOTICE" && 
+              {true && 
               <button
               css={(theme) =>
                 mq({
@@ -890,7 +977,7 @@ const FacRoutineDetailsComp = () => {
               >
                 <div>View Certificate</div>
               </div>
-            </button>} */}
+            </button>}
                   
       </div>
           
