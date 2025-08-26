@@ -87,7 +87,11 @@ const FacRoutineDetailsComp = () => {
       ) : (
         <div>
           {router.query.view_cart ? (
-            <div ref={componentRef}>
+            <div ref={componentRef} 
+            
+            
+            
+            >
               <div>
                 {single_report.data?.report?.letter_type ===
                   "WARNING-NOTICE" && (
@@ -891,7 +895,7 @@ const FacRoutineDetailsComp = () => {
                         marginTop: 4,
                       }}
                     >
-                      <div>Print Report</div>
+                      <div>Print</div>
                     </div>
                   </button>
                 )}
@@ -946,7 +950,7 @@ const FacRoutineDetailsComp = () => {
                 )}
                 content={() => componentRef.current}
               />
-              {true && 
+              {single_report.data?.report?.letter_type == ("IMPROVEMENT-NOTICE" || "CAUTIONARY-NOTICE") && 
               <button
               css={(theme) =>
                 mq({

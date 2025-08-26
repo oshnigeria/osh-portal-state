@@ -156,6 +156,9 @@ const ImprovementCertComp = (props) => {
               /> */}
 
               <div
+            //   css={theme => ({
+              
+            // })}
                 css={(theme) =>
                   mq({
                     width: ["100%", "100%", 598],
@@ -170,11 +173,18 @@ const ImprovementCertComp = (props) => {
                     display: "flex",
                     justifyContent: "center",
                     fontFamily: "Times New Roman",
-                    backgroundImage: "url('/cert/coat_of_arms_light.png')",
-                    objectFit: "cover",
-                    backgroundPosition: "center center",
+                    // backgroundImage: "url('/cert/coat_of_arms_light.png')",
+                    // objectFit: "cover",
+                    // backgroundPosition: "center center",
 
+                    // backgroundRepeat: "no-repeat",
+                     backgroundPosition: "center center",
+ background:theme.colors.Primary_25,
+ background: "linear-gradient(90deg,#D1E5E0 0%, rgba(255, 255, 255, 1) 50%, #D1E5E0 100%)",
                     backgroundRepeat: "no-repeat",
+                    //   width: "100vw",
+                  
+                    border: "20px inset #66A898",
                     //   width: "100vw",
                     height: "100vh",
                   })}

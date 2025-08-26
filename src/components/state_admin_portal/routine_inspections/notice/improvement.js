@@ -56,7 +56,7 @@ const ImprovementNoticeComp = (props) => {
     setSaved(true);
   };
   return (
-    <div>
+    <div >
       <div
         css={(theme) => ({
           display: "grid",
