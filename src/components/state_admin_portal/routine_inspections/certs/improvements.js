@@ -5,7 +5,7 @@ import React, { useState, useContext, useRef } from "react";
 import axios from "axios";
 
 import ReactToPrint from "react-to-print";
-import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout, color } from "framer-motion";
 import useSWR, { useSWRConfig, mutate } from "swr";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -13,6 +13,7 @@ import { main_url, cookies_id } from "@/src/details";
 import { success_message, error_message } from "@/src/components/toasts";
 import toast, { Toaster } from "react-hot-toast";
 import facepaint from "facepaint";
+import moment from "moment";
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const ImprovementCertComp = (props) => {
@@ -198,29 +199,45 @@ const ImprovementCertComp = (props) => {
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 10,
+                          fontSize: 14,
                           textAlign: "right",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
                         }}
                       >
-                        Ref No: {props?.ref_number}
+                        Ref No:{" "}
+                        <span
+                          css={(theme) => ({
+                            fontWeight: 600,
+                            color: theme.colors.Warning_700,
+                          })}
+                        >
+                          {props?.ref_number}
+                        </span>
                       </div>
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 10,
+                          fontSize: 14,
                           textAlign: "right",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
                         }}
                       >
-                        Date: {props?.inspec_date}
+                        Date:{" "}
+                        <span
+                          css={(theme) => ({
+                            color: theme.colors.Warning_700,
+                            fontWeight: 600,
+                          })}
+                        >
+                          {props?.inspec_date}
+                        </span>
                       </div>
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           fontWeight: 700,
@@ -228,10 +245,22 @@ const ImprovementCertComp = (props) => {
                       >
                         The Managing Director,
                       </div>
+
+                      <div
+                        css={{
+                          fontSize: 14,
+                          textAlign: "left",
+                          fontFamily: "Times New Roman",
+
+                          // fontWeight: 700,
+                        }}
+                      >
+                        {props.factory_name},
+                      </div>
                       <div
                         css={{
                           marginBottom: 20,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
@@ -243,7 +272,7 @@ const ImprovementCertComp = (props) => {
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
@@ -292,14 +321,17 @@ const ImprovementCertComp = (props) => {
                     >
                       FACTORIES ACT CAP F1 L.F.N 2004
                     </div>
-                     <div
-                      css={mq({
-                       marginTop: [10, 10, 10],
-                        fontSize: 12,
-                        textAlign: "center",
-                        fontFamily: "Times New Roman",
-                        fontWeight: 700,
-                      })}
+                    <div
+                      css={(theme) =>
+                        mq({
+                          marginTop: [10, 10, 10],
+                          fontSize: 16,
+                          textAlign: "center",
+                          fontFamily: "Times New Roman",
+                          fontWeight: 700,
+                          color: theme.colors.Warning_700,
+                        })
+                      }
                     >
                       {props.factory_name}
                     </div>
@@ -316,7 +348,14 @@ const ImprovementCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE: {props.notice_type}
+                      NOTICE:{" "}
+                      <span
+                        css={(theme) => ({
+                          color: theme.colors.Primary_700,
+                        })}
+                      >
+                        {props.notice_type}
+                      </span>
                     </div>
                     <div
                       css={{
@@ -330,39 +369,53 @@ const ImprovementCertComp = (props) => {
                         <div
                           css={{
                             marginBottom: 8,
-                            fontSize: 12,
+                            fontSize: 14,
+                            lineHeight:"20px"
                           }}
                         >
-                         
+                          
+                          During our visit to your premises on{" "}
+                          <span
+                            css={(theme) => ({
+                              fontWeight: 600,
+                              color: theme.colors.Primary_700,
+                            })}
+                          >
+                            {" "}
+                            {"  "}
+                            {props.previous_date}
+                          </span>{" "}
+                          , the following contravention(s) of the Factories Act
+                          F1 Law of the Federal Republic of Nigeria was/were
+                          noticed;{" "}
+                          <span
+                            css={(theme) => ({
+                              fontWeight: 600,
+                              color: theme.colors.Primary_700,
+                            })}
+                          >
+                            {props?.areas_to_improve}.{" "}
+                          </span>
+                          <p>
+                          Please you are hereby advised to rectify the
+                          contravention(s) within <span
+                            css={(theme) => ({
+                              fontWeight: 600,
+                              color: theme.colors.Primary_700,
+                            })}
+                          >{moment(props.date_created).format("YYYY-MM-DD")} <span css={{
+                            color:"#111"
+                          }}>-</span> {moment(props.date_created).add(props.weeks, "weeks").format("YYYY-MM-DD")} ({props.weeks } weeks)</span>  and
+                          notify this office in writing. </p>
 
-
-                          {/* Refer to our letter dated <span css={{
-                            fontWeight:600
-                          }}> {"  "}{props.previous_date}</span> with Ref. No.  <span css={{
-                            fontWeight:600
-                          }}>{props?.ref_number} </span> requesting you to address the following  <span css={{
-                            fontWeight:600
-                          }}>{props?.areas_to_improve}. </span>
-This is in pursuance of the provision of section 17(3c) of the constitution of the Federal Republic of Nigeria and mandate of THE FEDERAL MINISTRY OF LABOUR AND EMPLOYMENT on protection of health, Safety and Welfare of person at work. 
-
-Following your failure to comply since <span css={{
-                            fontWeight:600
-                          }}> {"  "}{props.previous_date}</span>  you are by this notice required to rectify the contravention(s) within no of weeks fill in weeks or you will be sanctioned. 
-
-Kindly regard this as a CAUTION to comply with the provisions of the Factories Act CAP F1 LAW OF FEDERAL REPUBLIC OF NIGERIA 2004 to protect Health, Safety and Welfare of workers. */}
-
-
-During our visit to your premises on <span css={{
-                            fontWeight:600
-                          }}> {"  "}{props.previous_date}</span> , the following contravention(s) of the Factories Act F1 Law of the Federal Republic of Nigeria was/were noticed; <span css={{
-                            fontWeight:600
-                          }}>{props?.areas_to_improve}. </span> 
-
-Please you are hereby advised to rectify the contravention(s) within no of weeks fill in weeks and notify this office in writing. 
- 
-Kindly regard this as an IMPROVEMENT NOTICE to comply with the provisions of the Factories Act CAP F1 LAW OF FEDERAL REPUBLIC OF NIGERIA 2004 to protect Health, Safety and Welfare of workers.
+                          <p>
+                            Kindly regard this as
+                          an IMPROVEMENT NOTICE to comply with the provisions of
+                          the Factories Act CAP F1 LAW OF FEDERAL REPUBLIC OF
+                          NIGERIA 2004 to protect Health, Safety and Welfare of
+                          workers.
+                          </p>
                         </div>
-                       
                       </div>
                     </div>
 
@@ -390,24 +443,25 @@ Kindly regard this as an IMPROVEMENT NOTICE to comply with the provisions of the
                           />
                         </div>
                         <div
-                          css={{
+                          css={(theme) => ({
                             marginTop: 8,
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: 700,
                             textAlign: "center",
-                          }}
+                            color: theme.colors.Primary_700,
+                          })}
                         >
                           {user?.data.state_officer.name}
                         </div>
                         <div
-                          css={{
+                          css={(theme) => ({
                             marginTop: 8,
-                            fontSize: 12,
+                            fontSize: 14,
                             textAlign: "center",
                             fontStyle: "italic",
-                          }}
+                          })}
                         >
-                          Director of the factories of the federation
+                          Head of Factories, {user?.data.state_officer.state}
                         </div>
                       </div>
                     </div>

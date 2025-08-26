@@ -225,32 +225,42 @@ const WarningCertComp = (props) => {
                         }}
                       ></div>
 
-                      <div
+                     <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 10,
+                          fontSize: 14,
                           textAlign: "right",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
                         }}
                       >
-                        Ref No: {props?.ref_number}
+                        Ref No:  <span
+                          css={(theme) => ({
+                            fontWeight: 600,
+                            color: theme.colors.Warning_700,
+                          })}
+                        >{props?.ref_number}</span>
                       </div>
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 10,
+                          fontSize: 14,
                           textAlign: "right",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
                         }}
                       >
-                        Date: {props?.inspec_date}
+                        Date: <span
+                          css={(theme) => ({
+                            fontWeight: 600,
+                            color: theme.colors.Warning_700,
+                          })}
+                        >{props?.inspec_date}</span>
                       </div>
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           fontWeight: 700,
@@ -258,10 +268,21 @@ const WarningCertComp = (props) => {
                       >
                         The Managing Director,
                       </div>
+                       <div
+                        css={{
+                          fontSize: 14,
+                          textAlign: "left",
+                          fontFamily: "Times New Roman",
+
+                          // fontWeight: 700,
+                        }}
+                      >
+                        {props.factory_name},
+                      </div>
                       <div
                         css={{
                           marginBottom: 20,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
@@ -273,7 +294,7 @@ const WarningCertComp = (props) => {
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
@@ -283,29 +304,9 @@ const WarningCertComp = (props) => {
                       </div>
                     </div>
 
-                    <div
-                      css={{
-                        textAlign: "center",
-                        marginTop: 20,
-                        fontFamily: "Times New Roman",
-                        fontWeight: 700,
-                        fontSize: 12,
-                      }}
-                    >
-                      FEDERAL REPUBLIC OF NIGERIA
-                    </div>
-                    <div
-                      css={{
-                        textAlign: "center",
-                        marginTop: 4,
-                        fontFamily: "Times New Roman",
-
-                        fontSize: 12,
-                        fontStyle: "italic",
-                      }}
-                    >
-                      The Factories Act, CAP F1 LFN 2004
-                    </div>
+                    
+                    
+                    
                     <div
                       css={(theme) =>
                         mq({
@@ -321,11 +322,25 @@ const WarningCertComp = (props) => {
                     >
                       FACTORIES ACT CAP F1 L.F.N 2004
                     </div>
-                    <div
+                       <div
+                      css={(theme) =>
+                        mq({
+                          marginTop: [10, 10, 10],
+                          fontSize: 16,
+                          textAlign: "center",
+                          fontFamily: "Times New Roman",
+                          fontWeight: 700,
+                          color: theme.colors.Warning_700,
+                        })
+                      }
+                    >
+                      {props.factory_name}
+                    </div>
+                     <div
                       css={(theme) =>
                         mq({
                           textAlign: "center",
-                          marginTop: [14, 14, 18],
+                          marginTop: [10, 10, 10],
                           fontFamily: "Times New Roman",
                           color: theme.colors.Primary_400,
                           fontSize: [14, 14, 18],
@@ -334,7 +349,11 @@ const WarningCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE: {props.notice_type}
+                      NOTICE: <span
+                        css={(theme) => ({
+                          color: theme.colors.Primary_700,
+                        })}
+                      >{props.notice_type}</span>
                     </div>
                     <div
                       css={{
@@ -348,7 +367,8 @@ const WarningCertComp = (props) => {
                         <div
                           css={{
                             marginBottom: 8,
-                            fontSize: 12,
+                                fontSize: 14,
+                            lineHeight:"20px"
                           }}
                         >
                           It has been brought to the attention of the Director
@@ -366,7 +386,8 @@ const WarningCertComp = (props) => {
                         <div
                           css={{
                             marginBottom: 8,
-                            fontSize: 12,
+                               fontSize: 14,
+                            lineHeight:"20px"
                           }}
                         >
                           Considering the contravention(s) listed above and
@@ -385,7 +406,8 @@ const WarningCertComp = (props) => {
                         <div
                           css={{
                             marginBottom: 8,
-                            fontSize: 12,
+                                fontSize: 14,
+                            lineHeight:"20px"
                           }}
                         >
                           Kindly regard this as to {" "}
@@ -405,13 +427,15 @@ const WarningCertComp = (props) => {
                             css={{
                               fontWeight: 600,
                                marginBottom: 8,
+                               
                             }}
                           >
                             Sections of Contraventions
                           </div>
                           <div
                             css={{
-                              fontSize: 12,
+                                  fontSize: 14,
+                            lineHeight:"20px"
                             }}
                           >
                             {props.sections_of_contraventions}
@@ -446,7 +470,7 @@ const WarningCertComp = (props) => {
                         <div
                           css={{
                             marginTop: 8,
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: 700,
                             textAlign: "center",
                           }}
@@ -456,7 +480,7 @@ const WarningCertComp = (props) => {
                         <div
                           css={{
                             marginTop: 8,
-                            fontSize: 12,
+                            fontSize: 14,
                             textAlign: "center",
                             fontStyle: "italic",
                           }}

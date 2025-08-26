@@ -228,29 +228,45 @@ const ProhibitionCertComp = (props) => {
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 10,
+                          fontSize: 14,
                           textAlign: "right",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
                         }}
                       >
-                        Ref No: {props?.ref_number}
+                        Ref No:{" "}
+                        <span
+                          css={(theme) => ({
+                            fontWeight: 600,
+                            color: theme.colors.Warning_700,
+                          })}
+                        >
+                          {props?.ref_number}
+                        </span>
                       </div>
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 10,
+                          fontSize: 14,
                           textAlign: "right",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
                         }}
                       >
-                        Date: {props?.inspec_date}
+                        Date:{" "}
+                        <span
+                          css={(theme) => ({
+                            fontWeight: 600,
+                            color: theme.colors.Warning_700,
+                          })}
+                        >
+                          {props?.inspec_date}
+                        </span>
                       </div>
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           fontWeight: 700,
@@ -260,8 +276,19 @@ const ProhibitionCertComp = (props) => {
                       </div>
                       <div
                         css={{
+                          fontSize: 14,
+                          textAlign: "left",
+                          fontFamily: "Times New Roman",
+
+                          // fontWeight: 700,
+                        }}
+                      >
+                        {props.factory_name},
+                      </div>
+                      <div
+                        css={{
                           marginBottom: 20,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
@@ -273,7 +300,7 @@ const ProhibitionCertComp = (props) => {
                       <div
                         css={{
                           marginBottom: 8,
-                          fontSize: 12,
+                          fontSize: 14,
                           textAlign: "left",
                           fontFamily: "Times New Roman",
                           // fontWeight: 700,
@@ -283,7 +310,7 @@ const ProhibitionCertComp = (props) => {
                       </div>
                     </div>
 
-                    <div
+                    {/* <div
                       css={{
                         textAlign: "center",
                         marginTop: 20,
@@ -316,7 +343,7 @@ const ProhibitionCertComp = (props) => {
                       }}
                     >
                       The Factories Act, CAP F1 LFN 2004
-                    </div>
+                    </div> */}
                     <div
                       css={(theme) =>
                         mq({
@@ -335,8 +362,22 @@ const ProhibitionCertComp = (props) => {
                     <div
                       css={(theme) =>
                         mq({
+                          marginTop: [10, 10, 10],
+                          fontSize: 16,
                           textAlign: "center",
-                          marginTop: [14, 14, 18],
+                          fontFamily: "Times New Roman",
+                          fontWeight: 700,
+                          color: theme.colors.Warning_700,
+                        })
+                      }
+                    >
+                      {props.factory_name}
+                    </div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          textAlign: "center",
+                          marginTop: [10, 10, 10],
                           fontFamily: "Times New Roman",
                           color: theme.colors.Primary_400,
                           fontSize: [14, 14, 18],
@@ -345,7 +386,14 @@ const ProhibitionCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE: {props.notice_type}
+                      NOTICE:{" "}
+                      <span
+                        css={(theme) => ({
+                          color: theme.colors.Primary_700,
+                        })}
+                      >
+                        {props.notice_type}
+                      </span>
                     </div>
                     <div
                       css={{
@@ -359,60 +407,39 @@ const ProhibitionCertComp = (props) => {
                         <div
                           css={{
                             marginBottom: 8,
-                            fontSize: 12,
+                            fontSize: 14,
+                            lineHeight: "20px",
                           }}
                         >
-                          The attention of the Director of Factories of the
-                          Federation has been drawn to the reports of your
-                          continuous non-compliance to the provisions of the
-                          Factories Act CAP F1 Laws of the Federation of Nigeria
-                          (LFN), 2004 and other extant Labour Laws.
+                          Sequels to your non – compliance to the provision of
+                          section of the factories act and the contravention
+                          listed {props.sections_of_contraventions}here of the <span css={{
+                             fontWeight: 700,
+                          }}>FACTORIES ACT CAP F1 LAW OF FEDERAL
+                          REPUBLIC OF NIGERIA 2004 AND OTHER EXTANT LABOUR LAWS
+                          OF THE NATION</span>.
                         </div>
-                        <div
+                        <p
                           css={{
                             marginBottom: 8,
-                            fontSize: 12,
+                            fontSize: 14,
+                            lineHeight: "20px",
                           }}
                         >
-                          2. <strong>{props.inspection_date}</strong>, the
-                          Inspectors of Factories, led by the Director of
-                          Factories of the Federation were obstructed from
-                          carrying out their statutory functions; denying the
-                          Director and her Team access to the premises and this
-                          contravenes Section 65 (Obstructing Inspectors of
-                          Factories from carrying out their duties) of the
-                          Factories Act CAP F1 Laws of the Federation of Nigeria
-                          (LFN), 2004.
-                        </div>
-                        <div
+                         Your fill in the prohibited part is hereby prohibited from further operation, pending full compliance with the provision of the Factories Act Cap F1 L.F.N 2004 and other extant Labour laws.
+                        </p>
+                       
+                        <p
                           css={{
                             marginBottom: 8,
-                            fontSize: 12,
+                            fontSize: 14,
+                            lineHeight: "20px",
                           }}
                         >
-                          3. Your premises is hereby prohibited from further
-                          operations, pending full compliance with the
-                          provisions of the Factories Act CAP F1 Laws of the
-                          Federation of Nigeria (LFN), 2004.
-                        </div>
-                        <div
-                          css={{
-                            marginBottom: 8,
-                            fontSize: 12,
-                          }}
-                        >
-                          4.  Kindly note that, this serves as a Prohibition
-                          Notice.
-                        </div>
-                        <div
-                          css={{
-                            marginBottom: 8,
-                            fontSize: 12,
-                          }}
-                        >
-                          5.  Accept the assurances of the Honourable Minister's
-                          warm regards.
-                        </div>
+                       Kindly regard this as a <span css={{
+                             fontWeight: 700,
+                          }}>PROHIBITION NOTICE </span>
+                      </p>
                       </div>
                     </div>
 
@@ -442,7 +469,7 @@ const ProhibitionCertComp = (props) => {
                         <div
                           css={{
                             marginTop: 8,
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: 700,
                             textAlign: "center",
                           }}
@@ -452,7 +479,7 @@ const ProhibitionCertComp = (props) => {
                         <div
                           css={{
                             marginTop: 8,
-                            fontSize: 12,
+                            fontSize: 14,
                             textAlign: "center",
                             fontStyle: "italic",
                           }}
