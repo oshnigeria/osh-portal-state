@@ -405,7 +405,7 @@ const ImprovementCertComp = (props) => {
                             })}
                           >{moment(props.date_created).format("YYYY-MM-DD")} <span css={{
                             color:"#111"
-                          }}>-</span> {moment(props.date_created).add(props.weeks, "weeks").format("YYYY-MM-DD")} ({props.weeks } weeks)</span>  and
+                          }}>--</span> {moment(props.date_created).add(props.weeks, "weeks").format("YYYY-MM-DD")} ({props.weeks } weeks)</span>  and
                           notify this office in writing. </p>
 
                           <p>
