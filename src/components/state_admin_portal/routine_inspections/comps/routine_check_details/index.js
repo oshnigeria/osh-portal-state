@@ -39,7 +39,7 @@ const RoutineCheckDetailsComp = () => {
   );
   const factory = useContext(FactoryContext);
 
-  console.log(single_report);
+  // console.log(single_report);
 
   const steps = [
     {

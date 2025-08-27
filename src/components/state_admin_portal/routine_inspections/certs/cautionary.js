@@ -41,6 +41,17 @@ const CautionaryCertComp = (props) => {
     isLoading,
   } = useSWR(`${main_url}/state-officer/info`, fetcher);
 
+
+  const {
+    data: routine_details,
+    error: routine_error,
+    isLoading:routine_isloading,
+  } = useSWR(
+    `${main_url}/inventory/factory/routine-check?id=${router.query.id}`,
+    fetcher
+  );
+
+
   // console.log(user);
   function formatDateToCustom(inputDate) {
     const date = new Date(inputDate);
@@ -159,7 +170,7 @@ const CautionaryCertComp = (props) => {
                   mq({
                     width: ["100%", "100%", 598],
                     border: `1px solid ${theme.colors.Gray_100}`,
-                    height: 880,
+                    // height: 880,
                   })
                 }
               >
@@ -176,8 +187,9 @@ const CautionaryCertComp = (props) => {
                     //   width: "100vw",
                   
                     border: "20px inset #66A898",
+                      padding:"24px 0px"
                     //   width: "100vw",
-                    height: "100vh",
+                    // height: "100vh",
                   })}
                 >
                   <div
@@ -213,7 +225,7 @@ const CautionaryCertComp = (props) => {
                             color: theme.colors.Warning_700,
                           })}
                         >
-                          {props?.ref_number}
+                          {routine_details.data?.report?.reference_number}
                         </span>
                       </div>
                       <div
@@ -232,7 +244,7 @@ const CautionaryCertComp = (props) => {
                             color: theme.colors.Warning_700,
                           })}
                         >
-                          {props?.inspec_date}
+                          {routine_details.data?.report?.inspection_date}
                         </span>
                       </div>
                       <div
@@ -255,7 +267,7 @@ const CautionaryCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        {props.factory_name},
+                        {routine_details.data?.report?.factory_name},
                       </div>
                       <div
                         css={{
@@ -266,7 +278,7 @@ const CautionaryCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        {props.address}
+                        {routine_details.data?.report?.location}
                       </div>
 
                       <div
@@ -333,7 +345,7 @@ const CautionaryCertComp = (props) => {
                         })
                       }
                     >
-                      {props.factory_name}
+                      {routine_details.data?.report?.factory_name}
                     </div>
                     <div
                       css={(theme) =>
@@ -354,7 +366,7 @@ const CautionaryCertComp = (props) => {
                           color: theme.colors.Primary_700,
                         })}
                       >
-                        {props.notice_type}
+                        {routine_details.data?.report?.letter_type}
                       </span>
                     </div>
                     <div
@@ -383,7 +395,7 @@ const CautionaryCertComp = (props) => {
                           >
                             {" "}
                             {"  "}
-                            {props.previous_date}
+                            {routine_details.data?.report?.date_of_last_inspection}
                           </span>{" "}
                           with Ref. No.{" "}
                           <span
@@ -392,7 +404,7 @@ const CautionaryCertComp = (props) => {
                               color: theme.colors.Primary_700,
                             })}
                           >
-                            {props?.ref_number}{" "}
+                            {routine_details.data?.report?.reference_number}{" "}
                           </span>{" "}
                           requesting you to address the following{" "}
                           <span
@@ -401,7 +413,7 @@ const CautionaryCertComp = (props) => {
                               color: theme.colors.Primary_700,
                             })}
                           >
-                            {props?.areas_to_improve}.{" "}
+                            {routine_details.data?.report?.areas_to_improve}.{" "}
                           </span>
 
                           <p>
@@ -425,7 +437,7 @@ const CautionaryCertComp = (props) => {
                           >
                             {" "}
                             {"  "}
-                            {props.previous_date}
+                            {routine_details.data?.report?.date_of_last_inspection}
                           </span>{" "}
                           you are by this notice required to rectify the
                           contravention(s) within no of weeks fill in weeks or
@@ -458,7 +470,7 @@ const CautionaryCertComp = (props) => {
                           }}
                         >
                           <img
-                            src={user?.data.state_officer.signature_image}
+                            src={routine_details.data?.report?.state_officer_signature}
                             css={{
                               width: 60,
                               height: 20,
@@ -473,7 +485,7 @@ const CautionaryCertComp = (props) => {
                             textAlign: "center",
                           }}
                         >
-                          {user?.data.state_officer.name}
+                          {routine_details.data?.report?.state_officer_name}
                         </div>
                        <div
                           css={(theme) => ({

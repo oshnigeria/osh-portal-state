@@ -60,6 +60,17 @@ const ImprovementCertComp = (props) => {
     formState: { errors },
   } = useForm();
 
+
+    const {
+    data: routine_details,
+    error: routine_error,
+    isLoading:routine_isloading,
+  } = useSWR(
+    `${main_url}/inventory/factory/routine-check?id=${router.query.id}`,
+    fetcher
+  );
+
+
   const modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -132,7 +143,7 @@ const ImprovementCertComp = (props) => {
             width: "100%",
           }}
         >
-          <div
+          {routine_isloading || routine_error ? null :  <div
           // css={(theme) => ({
           //   marginTop: 54,
 
@@ -163,7 +174,7 @@ const ImprovementCertComp = (props) => {
                   mq({
                     width: ["100%", "100%", 598],
                     border: `1px solid ${theme.colors.Gray_100}`,
-                    height: 880,
+                    // height: 880,
                   })
                 }
               >
@@ -185,8 +196,9 @@ const ImprovementCertComp = (props) => {
                     //   width: "100vw",
                   
                     border: "20px inset #66A898",
+                    padding:"24px 0px"
                     //   width: "100vw",
-                    height: "100vh",
+                    // height: "100vh",
                   })}
                 >
                   <div
@@ -222,7 +234,7 @@ const ImprovementCertComp = (props) => {
                             color: theme.colors.Warning_700,
                           })}
                         >
-                          {props?.ref_number}
+                          {routine_details.data?.report?.reference_number}
                         </span>
                       </div>
                       <div
@@ -241,7 +253,7 @@ const ImprovementCertComp = (props) => {
                             fontWeight: 600,
                           })}
                         >
-                          {props?.inspec_date}
+                          {routine_details.data?.report?.inspection_date}
                         </span>
                       </div>
                       <div
@@ -265,7 +277,7 @@ const ImprovementCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        {props.factory_name},
+                        {routine_details.data?.report?.factory_name},
                       </div>
                       <div
                         css={{
@@ -276,7 +288,7 @@ const ImprovementCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        {props.address}
+                        {routine_details.data?.report?.location}
                       </div>
 
                       <div
@@ -343,7 +355,7 @@ const ImprovementCertComp = (props) => {
                         })
                       }
                     >
-                      {props.factory_name}
+                      {routine_details.data?.report?.factory_name}
                     </div>
                     <div
                       css={(theme) =>
@@ -364,7 +376,7 @@ const ImprovementCertComp = (props) => {
                           color: theme.colors.Primary_700,
                         })}
                       >
-                        {props.notice_type}
+                        {routine_details.data?.report?.letter_type}
                       </span>
                     </div>
                     <div
@@ -393,7 +405,7 @@ const ImprovementCertComp = (props) => {
                           >
                             {" "}
                             {"  "}
-                            {props.previous_date}
+                            {routine_details.data?.report?.date_of_last_inspection}
                           </span>{" "}
                           , the following contravention(s) of the Factories Act
                           F1 Law of the Federal Republic of Nigeria was/were
@@ -404,7 +416,7 @@ const ImprovementCertComp = (props) => {
                               color: theme.colors.Primary_700,
                             })}
                           >
-                            {props?.areas_to_improve}.{" "}
+                            {routine_details.data?.report?.areas_to_improve}.{" "}
                           </span>
                           <p>
                           Please you are hereby advised to rectify the
@@ -413,9 +425,9 @@ const ImprovementCertComp = (props) => {
                               fontWeight: 600,
                               color: theme.colors.Primary_700,
                             })}
-                          >{moment(props.date_created).format("YYYY-MM-DD")} <span css={{
+                          >{moment(routine_details.data?.report?.createdAt).format("YYYY-MM-DD")} <span css={{
                             color:"#111"
-                          }}>--</span> {moment(props.date_created).add(props.weeks, "weeks").format("YYYY-MM-DD")} ({props.weeks } weeks)</span>  and
+                          }}>--</span> {moment(routine_details.data?.report?.createdAt).add(routine_details.data?.report?.no_of_weeks_for_deadline, "weeks").format("YYYY-MM-DD")} ({routine_details.data?.report?.no_of_weeks_for_deadline} weeks)</span>  and
                           notify this office in writing. </p>
 
                           <p>
@@ -445,7 +457,7 @@ const ImprovementCertComp = (props) => {
                           }}
                         >
                           <img
-                            src={user?.data.state_officer.signature_image}
+                            src={routine_details.data?.report?.state_officer_signature}
                             css={{
                               width: 60,
                               height: 20,
@@ -461,7 +473,7 @@ const ImprovementCertComp = (props) => {
                             color: theme.colors.Primary_700,
                           })}
                         >
-                          {user?.data.state_officer.name}
+                          {routine_details.data?.report?.state_officer_name}
                         </div>
                         <div
                           css={(theme) => ({
@@ -479,7 +491,8 @@ const ImprovementCertComp = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>}
+         
         </div>
       )}
     </div>

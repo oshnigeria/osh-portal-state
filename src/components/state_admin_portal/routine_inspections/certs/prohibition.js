@@ -67,11 +67,22 @@ const ProhibitionCertComp = (props) => {
   const handleSubmitApprove = () => {
     zonal_approve_comments();
   };
-  const {
-    data: user,
+const {
+    data: single_factory,
     error,
     isLoading,
-  } = useSWR(`${main_url}/state-officer/info`, fetcher);
+  } = useSWR(`${main_url}/dosh/signature`, fetcher);
+
+     const {
+    data: routine_details,
+    error: routine_error,
+    isLoading:routine_isloading,
+  } = useSWR(
+    `${main_url}/inventory/factory/routine-check?id=${router.query.id}`,
+    fetcher
+  );
+
+
   function formatDateToCustom(inputDate) {
     const date = new Date(inputDate);
     const formattedDate = date.toLocaleDateString("en-GB", {
@@ -124,6 +135,8 @@ const ProhibitionCertComp = (props) => {
     "image",
     "video",
   ];
+    // console.log("Props:", props);
+
   return (
     <div
       css={{
@@ -161,7 +174,7 @@ const ProhibitionCertComp = (props) => {
             width: "100%",
           }}
         >
-          <div
+          {routine_isloading || routine_error ? null  : <div
           // css={(theme) => ({
           //   marginTop: 54,
 
@@ -189,7 +202,7 @@ const ProhibitionCertComp = (props) => {
                   mq({
                     width: ["100%", "100%", 598],
                     border: `1px solid ${theme.colors.Gray_100}`,
-                    height: 880,
+                    // height: 880,
                   })
                 }
               >
@@ -207,7 +220,8 @@ const ProhibitionCertComp = (props) => {
                   
                     border: "20px inset #66A898",
                     //   width: "100vw",
-                    height: "100vh",
+                    // height: "100vh",
+                      padding:"24px 0px"
                   })}
                 >
                   <div
@@ -243,7 +257,7 @@ const ProhibitionCertComp = (props) => {
                             color: theme.colors.Warning_700,
                           })}
                         >
-                          {props?.ref_number}
+                         {routine_details.data?.report?.reference_number}
                         </span>
                       </div>
                       <div
@@ -262,7 +276,7 @@ const ProhibitionCertComp = (props) => {
                             color: theme.colors.Warning_700,
                           })}
                         >
-                          {props?.inspec_date}
+                          {routine_details.data?.report?.inspection_date}
                         </span>
                       </div>
                       <div
@@ -285,7 +299,7 @@ const ProhibitionCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        {props.factory_name},
+                        {routine_details.data?.report?.factory_name},
                       </div>
                       <div
                         css={{
@@ -296,7 +310,7 @@ const ProhibitionCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        {props.address}
+                        {routine_details.data?.report?.location}
                       </div>
 
                       <div
@@ -373,7 +387,7 @@ const ProhibitionCertComp = (props) => {
                         })
                       }
                     >
-                      {props.factory_name}
+                      {routine_details.data?.report?.factory_name}
                     </div>
                     <div
                       css={(theme) =>
@@ -394,7 +408,7 @@ const ProhibitionCertComp = (props) => {
                           color: theme.colors.Primary_700,
                         })}
                       >
-                        {props.notice_type}
+                        {router.query.notice_type}
                       </span>
                     </div>
                     <div
@@ -415,7 +429,7 @@ const ProhibitionCertComp = (props) => {
                         >
                           Sequels to your non – compliance to the provision of
                           section of the factories act and the contravention
-                          listed {props.sections_of_contraventions}here of the <span css={{
+                           {routine_details.data?.report?.sections_of_contraventions}  of the <span css={{
                              fontWeight: 700,
                           }}>FACTORIES ACT CAP F1 LAW OF FEDERAL
                           REPUBLIC OF NIGERIA 2004 AND OTHER EXTANT LABOUR LAWS
@@ -461,7 +475,7 @@ const ProhibitionCertComp = (props) => {
                           }}
                         >
                           <img
-                            src={user?.data.state_officer.signature_image}
+                                   src={routine_details.data?.report?.dosh_signature}
                             css={{
                               width: 60,
                               height: 20,
@@ -476,7 +490,7 @@ const ProhibitionCertComp = (props) => {
                             textAlign: "center",
                           }}
                         >
-                          {user?.data.state_officer.name}
+                           {routine_details.data?.report?.dosh_name}
                         </div>
                         <div
                           css={{
@@ -486,7 +500,7 @@ const ProhibitionCertComp = (props) => {
                             fontStyle: "italic",
                           }}
                         >
-                          Director of the factories of the federation
+                          Director of factories of the federation
                         </div>
                       </div>
                     </div>
@@ -494,7 +508,8 @@ const ProhibitionCertComp = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>}
+          
         </div>
       )}
     </div>

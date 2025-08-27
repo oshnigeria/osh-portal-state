@@ -68,10 +68,19 @@ const WarningCertComp = (props) => {
     zonal_approve_comments();
   };
   const {
-    data: user,
+    data: single_factory,
     error,
     isLoading,
-  } = useSWR(`${main_url}/state-officer/info`, fetcher);
+  } = useSWR(`${main_url}/dosh/signature`, fetcher);
+
+   const {
+    data: routine_details,
+    error: routine_error,
+    isLoading:routine_isloading,
+  } = useSWR(
+    `${main_url}/inventory/factory/routine-check?id=${router.query.id}`,
+    fetcher
+  );
   function formatDateToCustom(inputDate) {
     const date = new Date(inputDate);
     const formattedDate = date.toLocaleDateString("en-GB", {
@@ -124,10 +133,12 @@ const WarningCertComp = (props) => {
     "image",
     "video",
   ];
+
+  // console.log("Props:", props.routine_details);
   return (
     <div
       css={{
-        display: "center",
+        // display: "center",
         justifyContent: "center",
       }}
     >
@@ -161,7 +172,7 @@ const WarningCertComp = (props) => {
             width: "100%",
           }}
         >
-          <div
+          {routine_isloading || routine_error ? null : <div
           // css={(theme) => ({
           //   marginTop: 54,
 
@@ -189,7 +200,7 @@ const WarningCertComp = (props) => {
                   mq({
                     width: ["100%", "100%", 598],
                     border: `1px solid ${theme.colors.Gray_100}`,
-                    height: 880,
+                    height: "auto",
                   })
                 }
               >
@@ -207,7 +218,8 @@ const WarningCertComp = (props) => {
                   
                     border: "20px inset #66A898",
                     //   width: "100vw",
-                    height: "100vh",
+                    // height: "100vh",
+                    padding:"24px 0px"
                   })}
                 >
                   <div
@@ -241,7 +253,7 @@ const WarningCertComp = (props) => {
                             fontWeight: 600,
                             color: theme.colors.Warning_700,
                           })}
-                        >{props?.ref_number}</span>
+                        >{routine_details.data?.report?.reference_number}</span>
                       </div>
                       <div
                         css={{
@@ -257,7 +269,7 @@ const WarningCertComp = (props) => {
                             fontWeight: 600,
                             color: theme.colors.Warning_700,
                           })}
-                        >{props?.inspec_date}</span>
+                        >{routine_details.data?.report?.inspection_date}</span>
                       </div>
                       <div
                         css={{
@@ -279,7 +291,7 @@ const WarningCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        {props.factory_name},
+                        {routine_details.data?.report?.factory_name},
                       </div>
                       <div
                         css={{
@@ -290,7 +302,7 @@ const WarningCertComp = (props) => {
                           // fontWeight: 700,
                         }}
                       >
-                        {props.address}
+                        {routine_details.data?.report?.location}
                       </div>
 
                       <div
@@ -336,7 +348,7 @@ const WarningCertComp = (props) => {
                         })
                       }
                     >
-                      {props.factory_name}
+                      {routine_details.data?.report?.factory_name}
                     </div>
                      <div
                       css={(theme) =>
@@ -355,7 +367,7 @@ const WarningCertComp = (props) => {
                         css={(theme) => ({
                           color: theme.colors.Primary_700,
                         })}
-                      >{props.notice_type}</span>
+                      >{router.query.notice_type}</span>
                     </div>
                     <div
                       css={{
@@ -440,7 +452,7 @@ const WarningCertComp = (props) => {
                             lineHeight:"20px"
                             }}
                           >
-                            {props.sections_of_contraventions}
+                            {routine_details.data?.report?.sections_of_contraventions}
                           </div>
                         </div>
                       </div>
@@ -462,7 +474,7 @@ const WarningCertComp = (props) => {
                           }}
                         >
                           <img
-                            src={user?.data.state_officer.signature_image}
+                           src={routine_details.data?.report?.dosh_signature}
                             css={{
                               width: 60,
                               height: 20,
@@ -477,7 +489,7 @@ const WarningCertComp = (props) => {
                             textAlign: "center",
                           }}
                         >
-                          {user?.data.state_officer.name}
+                       {routine_details.data?.report?.dosh_name}
                         </div>
                         <div
                           css={{
@@ -485,9 +497,10 @@ const WarningCertComp = (props) => {
                             fontSize: 14,
                             textAlign: "center",
                             fontStyle: "italic",
+                        
                           }}
                         >
-                          Director of the factories of the federation
+                          Director of factories of the federation
                         </div>
                       </div>
                     </div>
@@ -495,7 +508,8 @@ const WarningCertComp = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> }
+          
         </div>
       )}
     </div>

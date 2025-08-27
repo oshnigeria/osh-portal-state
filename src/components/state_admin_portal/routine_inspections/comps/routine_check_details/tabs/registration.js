@@ -96,13 +96,15 @@ const FacRoutineDetailsComp = () => {
                 {single_report.data?.report?.letter_type ===
                   "WARNING-NOTICE" && (
                   <WarningCertComp
-                    address={single_report.data?.report?.location}
-                    ref_number={single_report.data?.report?.reference_number}
-                     factory_name={single_report.data?.report?.factory_name}
-                    notice_type={single_report.data?.report?.letter_type}
-                    inspec_date={single_report.data?.report?.inspection_date}
-                    sections_of_contraventions={single_report.data?.report?.sections_of_contraventions}
-                    previous_date={single_report.data?.report?.date_of_last_inspection}
+                    // address={single_report.data?.report?.location}
+                    // ref_number={single_report.data?.report?.reference_number}
+                    //  factory_name={single_report.data?.report?.factory_name}
+                    // notice_type={single_report.data?.report?.letter_type}
+                    // inspec_date={single_report.data?.report?.inspection_date}
+                    // sections_of_contraventions={single_report.data?.report?.sections_of_contraventions}
+                    // previous_date={single_report.data?.report?.date_of_last_inspection}
+                    // dosh_name={single_report.data?.report?.dosh_name}
+                    // dosh_signature={single_report.data?.report?.dosh_signature}
                   />
                 )}
               </div>
@@ -111,15 +113,17 @@ const FacRoutineDetailsComp = () => {
                 {single_report.data?.report?.letter_type ===
                   "PROHIBITION-NOTICE" && (
                   <ProhibitionCertComp
-                    inspection_date={
-                      single_report.data?.report?.inspection_date
-                    }
-                    factory_name={single_report.data?.report?.factory_name}
-                    address={single_report.data?.report?.location}
-                    ref_number={single_report.data?.report?.reference_number}
-                    notice_type={single_report.data?.report?.letter_type}
-                    inspec_date={single_report.data?.report?.inspection_date}
-                     sections_of_contraventions={single_report.data?.report?.sections_of_contraventions}
+                    // inspection_date={
+                    //   single_report.data?.report?.inspection_date
+                    // }
+                    // factory_name={single_report.data?.report?.factory_name}
+                    // address={single_report.data?.report?.location}
+                    // ref_number={single_report.data?.report?.reference_number}
+                    // notice_type={single_report.data?.report?.letter_type}
+                    // inspec_date={single_report.data?.report?.inspection_date}
+                    //  sections_of_contraventions={single_report.data?.report?.sections_of_contraventions}
+                    //       dosh_name={single_report.data?.report?.dosh_name}
+                    // dosh_signature={single_report.data?.report?.dosh_signature}
                   />
                 )}
               </div>
@@ -128,16 +132,16 @@ const FacRoutineDetailsComp = () => {
                 {single_report.data?.report?.letter_type ===
                   "CAUTIONARY-NOTICE" && (
                   <CautionaryCertComp
-                    inspection_date={
-                      single_report.data?.report?.inspection_date
-                    }
-                    factory_name={single_report.data?.report?.factory_name}
-                    address={single_report.data?.report?.location}
-                    ref_number={single_report.data?.report?.reference_number}
-                    notice_type={single_report.data?.report?.letter_type}
-                    inspec_date={single_report.data?.report?.inspection_date}
-                    areas_to_improve={single_report.data?.report?.areas_to_improve}
- previous_date={single_report.data?.report?.date_of_last_inspection}
+//                     inspection_date={
+//                       single_report.data?.report?.inspection_date
+//                     }
+//                     factory_name={single_report.data?.report?.factory_name}
+//                     address={single_report.data?.report?.location}
+//                     ref_number={single_report.data?.report?.reference_number}
+//                     notice_type={single_report.data?.report?.letter_type}
+//                     inspec_date={single_report.data?.report?.inspection_date}
+//                     areas_to_improve={single_report.data?.report?.areas_to_improve}
+//  previous_date={single_report.data?.report?.date_of_last_inspection}
                   />
                 )}
               </div>
@@ -146,18 +150,18 @@ const FacRoutineDetailsComp = () => {
                 {single_report.data?.report?.letter_type ===
                   "IMPROVEMENT-NOTICE" && (
                   <ImprovementCertComp
-                    inspection_date={
-                      single_report.data?.report?.inspection_date
-                    }
-                    factory_name={single_report.data?.report?.factory_name}
-                    address={single_report.data?.report?.location}
-                    ref_number={single_report.data?.report?.reference_number}
-                    notice_type={single_report.data?.report?.letter_type}
-                    inspec_date={single_report.data?.report?.inspection_date}
-                    areas_to_improve={single_report.data?.report?.areas_to_improve}
- previous_date={single_report.data?.report?.date_of_last_inspection}
- weeks={single_report.data?.report?.no_of_weeks_for_deadline}
- date_created={single_report.data?.report?.createdAt}
+//                     inspection_date={
+//                       single_report.data?.report?.inspection_date
+//                     }
+//                     factory_name={single_report.data?.report?.factory_name}
+//                     address={single_report.data?.report?.location}
+//                     ref_number={single_report.data?.report?.reference_number}
+//                     notice_type={single_report.data?.report?.letter_type}
+//                     inspec_date={single_report.data?.report?.inspection_date}
+//                     areas_to_improve={single_report.data?.report?.areas_to_improve}
+//  previous_date={single_report.data?.report?.date_of_last_inspection}
+//  weeks={single_report.data?.report?.no_of_weeks_for_deadline}
+//  date_created={single_report.data?.report?.createdAt}
                   />
                 )}
               </div>
@@ -950,7 +954,9 @@ const FacRoutineDetailsComp = () => {
                 )}
                 content={() => componentRef.current}
               />
-              {single_report.data?.report?.letter_type == ("IMPROVEMENT-NOTICE" || "CAUTIONARY-NOTICE") && 
+              {
+              // single_report.data?.report?.letter_type == ("IMPROVEMENT-NOTICE" || "CAUTIONARY-NOTICE") 
+              true && 
               <button
               css={(theme) =>
                 mq({
