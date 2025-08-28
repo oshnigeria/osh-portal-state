@@ -214,7 +214,9 @@ const FacRoutineDetailsComp = () => {
                   }
                 >
                    Form LAB|F|9
-                </div></div>
+                </div>
+                
+                </div>
                 <div>
                   <div
                     css={mq({

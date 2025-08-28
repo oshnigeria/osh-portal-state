@@ -367,7 +367,7 @@ const WarningCertComp = (props) => {
                         css={(theme) => ({
                           color: theme.colors.Primary_700,
                         })}
-                      >{router.query.notice_type}</span>
+                      >{routine_details.data?.report?.letter_type}</span>
                     </div>
                     <div
                       css={{

@@ -408,7 +408,8 @@ const {
                           color: theme.colors.Primary_700,
                         })}
                       >
-                        {router.query.notice_type}
+                        
+                        {routine_details.data?.report?.letter_type}
                       </span>
                     </div>
                     <div
