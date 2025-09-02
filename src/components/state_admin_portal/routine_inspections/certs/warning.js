@@ -226,12 +226,60 @@ const WarningCertComp = (props) => {
                 >
                   <div
                     css={{
-                      width: "60%",
+                      width: "80%",
                     }}
                   >
+                                        <div>
+                                           <div
+                                css={{
+                                  display:"flex",
+                                  justifyContent:"center"
+                                }}
+                              >
+                                <img css={{
+                                  width: 100,
+                                  height: 80,
+                                 
+                                }} src="/cert/coat_of_arms.png" />
+                              </div>
+                              <div css={theme => ({
+                                textAlign:"center",
+                                textTransform:"uppercase",
+                               
+                                              color: theme.colors.Primary_700,
+                                              fontWeight:700,
+                                              marginTop:12,
+                                              fontSize:20
+                                          
+                              })}>
+                                federal ministry of labour and employment
+                              </div>
+                              <div css={{
+                                 textAlign:"center",
+                                textTransform:"capitalize",
+                                 fontWeight:700,
+                                   marginTop:4,
+                                   color:"#111"
+                              }}>
+                                Occupational and safety department
+                              </div>
+                    
+                              <div css={{
+                                 marginTop:2,
+                                fontSize:12,
+                    fontWeight:600,
+                      textAlign:"center",
+                       color:"#1a1a1a"
+                              }}>
+                                <span css={{
+                                textTransform:"capitalize",
+                    
+                                }}>federal secretariat complex, phase 1, shehu shagari way, abuja,</span> Tel: 09011127853, Email doshlabourhqrs@gmail.com
+                                </div>
+                                        </div>
                     <div
                       css={{
-                        marginTop: 24,
+                        marginTop: 44,
                       }}
                     >
                       <div
@@ -408,8 +456,7 @@ const WarningCertComp = (props) => {
                         >
                           Considering the contravention(s) listed above and
                           observation(s) you are hereby required to rectify all
-                          defects as pointed out to you by the Chief Inspector
-                          of Factories in the State within ONE month of this
+                          defects as pointed out to you by the factory heads in the State within ONE month of this
                           notice. Failure to do so will result in {" "}
                           <span
                             css={{
