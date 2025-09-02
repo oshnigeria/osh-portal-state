@@ -253,7 +253,7 @@ const ImprovementCertComp = (props) => {
                             fontWeight: 600,
                           })}
                         >
-                          {routine_details.data?.report?.inspection_date}
+                          {moment(routine_details.data?.report?.createdAt).format("YYYY-MM-DD")}
                         </span>
                       </div>
                       <div
@@ -370,7 +370,7 @@ const ImprovementCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE:{" "}
+                  
                       <span
                         css={(theme) => ({
                           color: theme.colors.Primary_700,
@@ -408,7 +408,7 @@ const ImprovementCertComp = (props) => {
                             {routine_details.data?.report?.date_of_last_inspection}
                           </span>{" "}
                           , the following contravention(s) of the Factories Act
-                          F1 Law of the Federal Republic of Nigeria was/were
+                          F1 Laws of the federation of Nigeria was/were
                           noticed;{" "}
                           <span
                             css={(theme) => ({
@@ -433,8 +433,7 @@ const ImprovementCertComp = (props) => {
                           <p>
                             Kindly regard this as
                           an IMPROVEMENT NOTICE to comply with the provisions of
-                          the Factories Act CAP F1 LAW OF FEDERAL REPUBLIC OF
-                          NIGERIA 2004 to protect Health, Safety and Welfare of
+                          the factories act CAP F1 Laws of the federation of Nigeria 2004 to protect Health, Safety and Welfare of
                           workers.
                           </p>
                         </div>

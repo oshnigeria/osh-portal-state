@@ -13,6 +13,8 @@ import { main_url, cookies_id } from "@/src/details";
 import { success_message, error_message } from "@/src/components/toasts";
 import toast, { Toaster } from "react-hot-toast";
 import facepaint from "facepaint";
+import moment from "moment";
+
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const WarningCertComp = (props) => {
@@ -269,7 +271,7 @@ const WarningCertComp = (props) => {
                             fontWeight: 600,
                             color: theme.colors.Warning_700,
                           })}
-                        >{routine_details.data?.report?.inspection_date}</span>
+                        >{moment(routine_details.data?.report?.createdAt).format("YYYY-MM-DD")}</span>
                       </div>
                       <div
                         css={{
@@ -363,7 +365,7 @@ const WarningCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE: <span
+                     <span
                         css={(theme) => ({
                           color: theme.colors.Primary_700,
                         })}
@@ -388,13 +390,13 @@ const WarningCertComp = (props) => {
                           It has been brought to the attention of the Director
                           of Factories of the Federation that your organization
                           was found to be in contravention of the following
-                          Section(s) of the Act:{" "}
+                          Section(s) of the
                           <span
-                            css={{
-                              fontWeight: 700,
-                            }}
+                            // css={{
+                            //   fontWeight: 700,
+                            // }}
                           >
-                            FACTORIES ACT CAP F1 L.F.N 2004
+                           factories act CAP F1 laws of the federation of nigeria 2004
                           </span>
                         </div>
                         <div

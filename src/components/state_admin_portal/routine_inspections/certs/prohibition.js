@@ -13,6 +13,8 @@ import { main_url, cookies_id } from "@/src/details";
 import { success_message, error_message } from "@/src/components/toasts";
 import toast, { Toaster } from "react-hot-toast";
 import facepaint from "facepaint";
+import moment from "moment";
+
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const ProhibitionCertComp = (props) => {
@@ -276,7 +278,7 @@ const {
                             color: theme.colors.Warning_700,
                           })}
                         >
-                          {routine_details.data?.report?.inspection_date}
+                          {moment(routine_details.data?.report?.createdAt).format("YYYY-MM-DD")}
                         </span>
                       </div>
                       <div
@@ -402,7 +404,7 @@ const {
                         })
                       }
                     >
-                      NOTICE:{" "}
+                      
                       <span
                         css={(theme) => ({
                           color: theme.colors.Primary_700,
@@ -431,10 +433,8 @@ const {
                           Sequels to your non – compliance to the provision of
                           section of the factories act and the contravention
                            {routine_details.data?.report?.sections_of_contraventions}  of the <span css={{
-                             fontWeight: 700,
-                          }}>FACTORIES ACT CAP F1 LAW OF FEDERAL
-                          REPUBLIC OF NIGERIA 2004 AND OTHER EXTANT LABOUR LAWS
-                          OF THE NATION</span>.
+                            //  fontWeight: 700,
+                          }}>Factories Act Cap F1 laws of the federation of nigeria 2004 and other extant labour laws of the nation</span>.
                         </div>
                         <p
                           css={{
@@ -443,7 +443,7 @@ const {
                             lineHeight: "20px",
                           }}
                         >
-                         Your fill in the prohibited part is hereby prohibited from further operation, pending full compliance with the provision of the Factories Act Cap F1 L.F.N 2004 and other extant Labour laws.
+                         Your fill in the prohibited part is hereby prohibited from further operation, pending full compliance with the provision of the Factories Act Cap F1 Laws of the federation of Nigeria 2004 and other extant Labour laws.
                         </p>
                        
                         <p

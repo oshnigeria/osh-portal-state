@@ -13,6 +13,8 @@ import { main_url, cookies_id } from "@/src/details";
 import { success_message, error_message } from "@/src/components/toasts";
 import toast, { Toaster } from "react-hot-toast";
 import facepaint from "facepaint";
+import moment from "moment";
+
 const breakpoints = [576, 768, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const CautionaryCertComp = (props) => {
@@ -244,7 +246,7 @@ const CautionaryCertComp = (props) => {
                             color: theme.colors.Warning_700,
                           })}
                         >
-                          {routine_details.data?.report?.inspection_date}
+                          {moment(routine_details.data?.report?.createdAt).format("YYYY-MM-DD")}
                         </span>
                       </div>
                       <div
@@ -360,7 +362,7 @@ const CautionaryCertComp = (props) => {
                         })
                       }
                     >
-                      NOTICE:{" "}
+                    
                       <span
                         css={(theme) => ({
                           color: theme.colors.Primary_700,
