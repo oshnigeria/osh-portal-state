@@ -480,7 +480,7 @@ fontWeight:600,
                             lineHeight: "20px",
                           }}
                         >
-                          Sequels to your non – compliance to the provision of
+                          Sequel to your non – compliance to the provision of
                           section of the factories act and the contravention
                            {routine_details.data?.report?.sections_of_contraventions}  of the <span css={{
                             //  fontWeight: 700,

@@ -456,7 +456,7 @@ const CautionaryCertComp = (props) => {
                           >
                             {routine_details.data?.report?.reference_number}{" "}
                           </span>{" "}
-                          requesting you to address the following{" "}
+                          requesting you to address the following;{" "}
                           <span
                             css={(theme) => ({
                               fontWeight: 600,

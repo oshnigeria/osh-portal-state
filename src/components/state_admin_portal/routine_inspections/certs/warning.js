@@ -438,54 +438,17 @@ const WarningCertComp = (props) => {
                           It has been brought to the attention of the Director
                           of Factories of the Federation that your organization
                           was found to be in contravention of the following
-                          Section(s) of the
-                          <span
-                            // css={{
-                            //   fontWeight: 700,
-                            // }}
-                          >
-                           factories act CAP F1 laws of the federation of nigeria 2004
-                          </span>
-                        </div>
-                        <div
-                          css={{
-                            marginBottom: 8,
-                               fontSize: 14,
-                            lineHeight:"20px"
-                          }}
-                        >
-                          Considering the contravention(s) listed above and
-                          observation(s) you are hereby required to rectify all
-                          defects as pointed out to you by the factory heads in the State within ONE month of this
-                          notice. Failure to do so will result in {" "}
+                          section(s) of the {" "}
                           <span
                             css={{
                               fontWeight: 700,
                             }}
                           >
-                            FURTHER SANCTION(S)
-                          </span>
-                        </div>
-                        <div
-                          css={{
-                            marginBottom: 8,
-                                fontSize: 14,
-                            lineHeight:"20px"
-                          }}
-                        >
-                          Kindly regard this as to {" "}
-                          <span
-                            css={{
-                              fontWeight: 700,
-                            }}
-                          >
-                            {router.query.notice_type}
+                           Factories Act CAP F1 Laws of the Federation of Nigeria 2004;
                           </span> {" "}
-                          comply with the provisions of the Factories Act 2004
-                          and provide a safe working environment for all
-                          operations.
+                          {routine_details.data?.report?.sections_of_contraventions}
                         </div>
-                        <div>
+                         {/* <div>
                             <div
                             css={{
                               fontWeight: 600,
@@ -503,7 +466,47 @@ const WarningCertComp = (props) => {
                           >
                             {routine_details.data?.report?.sections_of_contraventions}
                           </div>
+                        </div> */}
+                        <div
+                          css={{
+                            marginBottom: 8,
+                               fontSize: 14,
+                            lineHeight:"20px"
+                          }}
+                        >
+                          Considering the contravention(s) listed above and
+                          observation(s) you are hereby required to rectify all
+                          defects as pointed out to you by the factory heads in the state within <strong>ONE month</strong> of this
+                          notice. Failure to do so will result in {" "}
+                          <span
+                            css={{
+                              fontWeight: 700,
+                            }}
+                          >
+                            FURTHER SANCTION(S)
+                          </span>
                         </div>
+                        <div
+                          css={{
+                            marginBottom: 8,
+                                fontSize: 14,
+                            lineHeight:"20px"
+                          }}
+                        >
+                          Kindly regard this as a  {" "}
+                          <span
+                            css={{
+                              fontWeight: 700,
+                            }}
+                          >
+                           {routine_details.data?.report?.letter_type}
+                          </span> {" "}
+                          
+                         to comply with the provisions of the Factories Act 2004
+                          and provide a safe working environment for all
+                          operations.
+                        </div>
+                       
                       </div>
                     </div>
 
