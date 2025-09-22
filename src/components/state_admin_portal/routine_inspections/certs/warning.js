@@ -446,7 +446,7 @@ const WarningCertComp = (props) => {
                           >
                            Factories Act CAP F1 Laws of the Federation of Nigeria 2004;
                           </span> {" "}
-                          {routine_details.data?.report?.sections_of_contraventions}
+                          <span >{routine_details.data?.report?.sections_of_contraventions}</span>
                         </div>
                          {/* <div>
                             <div
