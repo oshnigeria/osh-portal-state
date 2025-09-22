@@ -343,10 +343,14 @@ const InspectionReportComp = () => {
             })
           }
         >
+
+          <div   ref={componentRef}>
           <div css={{
             display:"flex",
             justifyContent:"space-between",
-            alignItems:"center"
+            alignItems:"center",
+            padding:"0px 16px",
+            marginTop:24
           }}>
           <div
             css={(theme) =>
@@ -359,726 +363,418 @@ const InspectionReportComp = () => {
           >
             Inspection Form
           </div>
-          <ReactToPrint
-                onBeforePrint={() => null}
-                onAfterPrint={() => null}
-                trigger={() => (
-                  <button
-                css={(theme) =>
-                  mq({
-                    height: [40, 40, 56],
-                    borderRadius: 30,
-                    width: ["auto", "auto", 156],
-                    //   padding: ["10px 16px", "10px 16px", "16px 24px"],
-                    padding: ["12px 16px", "12px 16px", "16px 24px"],
-                    fontSize: [12, 12, 16],
-                    cursor: "pointer",
-                    marginRight: 20,
-                    fontWeight: 600,
-                    lineHeight: "17px",
-                    border: "none",
-                    display: "flex",
-                    justifyContent: "center",
-                    color: "#fff",
-                    backgroundColor: theme.colors.Gray_900,
-                  })
-                }
-                type="submit"
-                // onClick={() => {
-                //   setWillCancel(true);
-                // }}
-              >
-                 <div
-                    css={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div
-                     
-                    >
-                      Print Form
-                    </div>
-                    {/* <div
-                  css={{
-                    marginLeft: 8,
-                  }}
+          
+            <div
+                  css={(theme) =>
+                    mq({
+                        fontSize: [14, 14, 16],
+                      color: theme.colors.Success_700,
+                      textTransform: "capitalize",
+                      fontWeight:600,
+                      
+                    })
+                  }
                 >
-                  <img
-                    css={mq({
-                      width: [14, 14, 24],
-                      height: [14, 14, 24],
-                    })}
-                    src="/svg/registration/left_arrow.svg"
-                  />
-                </div> */}
-                  </div>
-              </button>
-                )}
-                content={() => componentRef.current}
-              />
-            
+                   Form LAB|F|9
+                </div>
           </div>
-          <div ref={componentRef}
-            css={mq({
-              marginTop: [24, 24, 80],
-              padding:"0px 16px"
-            })}
-          >
-            <div>
+            <div
+          
+              css={mq({
+                marginTop: [24, 24, 80],
+                padding:"0px 16px"
+              })}
+            >
               <div>
-                <label
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Name of Undertaking
-                </label>
                 <div
                   css={{
-                    marginTop: 20,
+                    display: "grid",
+                    gridTemplateColumns: `repeat(2, 1fr)`,
+                    rowGap: 48,
+                    columnGap: 50,
+                    marginTop: 24,
                   }}
                 >
-                  <input
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Name of undertaking
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        marginTop: 12,
+                        color: theme.colors.Gray_700,
+                        lineHeight: "20px",
+                        fontSize: 20,
+                      })}
+                    >
+                      {single_factory.data.factory._occupier_name}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Phone number of occupier
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        marginTop: 12,
+                        color: theme.colors.Gray_700,
+                        lineHeight: "20px",
+                        fontSize: 20,
+                      })}
+                    >
+                      {single_factory.data.factory.phone_number}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Nature of work
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        marginTop: 12,
+                        color: theme.colors.Gray_700,
+                        lineHeight: "20px",
+                        fontSize: 20,
+                      })}
+                    >
+                      {
+                        single_factory?.data?.factory?.inspection_report
+                          ?.nature_of_work_done
+                      }
+                    </div>
+                  </div>
+
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Postal address of occupier
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        marginTop: 12,
+                        color: theme.colors.Gray_700,
+                        lineHeight: "20px",
+                        fontSize: 20,
+                      })}
+                    >
+                      {single_factory.data.factory.postal_address}
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Inspection date
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        marginTop: 12,
+                        color: theme.colors.Gray_700,
+                        lineHeight: "20px",
+                        fontSize: 20,
+                      })}
+                    >
+                      {
+                        single_factory.data?.factory?.inspection_report
+                          ?.inspection_date
+                      }
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      css={(theme) =>
+                        mq({
+                          color: theme.colors.Gray_400,
+                          lineHeight: "20px",
+                          fontSize: [14, 14, 20],
+                        })
+                      }
+                    >
+                      Precise address of occupier
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        marginTop: 12,
+                        color: theme.colors.Gray_700,
+                        lineHeight: "20px",
+                        fontSize: 20,
+                      })}
+                    >
+                      {single_factory.data.factory.address}
+                    </div>
+                  </div>
+                </div>
+                <div
+                  css={{
+                    borderBottom: "1px solid #EAECF0",
+                    margin: "48px 0px",
+                  }}
+                ></div>
+                <div>
+                  <div
                     css={(theme) =>
                       mq({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: [14, 14, 18],
                         color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
-                          padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
-                          color: theme.colors.Gray_400,
-                        },
+                        lineHeight: "20px",
+                        fontSize: [14, 14, 20],
                       })
                     }
-                    placeholder=""
-                    type="text"
-                    //   onChange={(e) => handleFieldChange(e, "occupier_name")}
-                    value={single_factory?.data?.factory?.occupier_name}
-                  />
-                </div>
-              </div>
-
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <label
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Postal address of occupier/intending occupier
-                </label>
-                <div
-                  css={{
-                    marginTop: 20,
-                  }}
-                >
-                  <input
-                    css={(theme) =>
-                      mq({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: [14, 14, 18],
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
-                          padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
-                          color: theme.colors.Gray_400,
-                        },
-                      })
-                    }
-                    placeholder=""
-                    type="text"
-                    //   onChange={(e) => handleFieldChange(e, "occupier_name")}
-                    value={single_factory?.data?.factory?.postal_address}
-                  />
-                </div>
-              </div>
-
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <label
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Phone number of occupier/intending occupier
-                </label>
-                <div
-                  css={{
-                    marginTop: 20,
-                  }}
-                >
-                  <input
-                    css={(theme) =>
-                      mq({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: [14, 14, 18],
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
-                          padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
-                          color: theme.colors.Gray_400,
-                        },
-                      })
-                    }
-                    placeholder=""
-                    type="text"
-                    //   onChange={(e) => handleFieldChange(e, "occupier_name")}
-                    value={single_factory?.data?.factory?.phone_number}
-                  />
-                </div>
-              </div>
-
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <label
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Precise location of the factory
-                </label>
-                <div
-                  css={{
-                    marginTop: 20,
-                  }}
-                >
-                  <input
-                    css={(theme) =>
-                      mq({
-                        padding: "12px 14px",
-                        width: ["100%", "100%", "70%"],
-                        fontSize: [14, 14, 18],
-                        color: theme.colors.Gray_400,
-                        border: `1px solid ${theme.colors.Gray_200}`,
-                        borderRadius: 8,
-
-                        ":focus": {
-                          outline: "none",
-                          border: `1px solid ${theme.colors.Gray_400}`,
-
-                          padding: "12px 14px",
-                          color: theme.colors.Gray_800,
-                        },
-                        ":placeholder ": {
-                          outline: "none",
-                          border: "none",
-
-                          padding: "12px 14px",
-                          color: theme.colors.Gray_400,
-                        },
-                      })
-                    }
-                    placeholder=""
-                    type="text"
-                    // onChange={(e) => setState(e.target.value)}
-                    value={single_factory?.data?.factory?.address}
-                  />
-                </div>
-              </div>
-              <div
-                css={{
-                  marginTop: 48,
-                }}
-              >
-                <label
-                  css={(theme) =>
-                    mq({
-                      color: theme.colors.Gray_400,
-                      lineHeight: "20px",
-                      fontSize: [14, 14, 20],
-                    })
-                  }
-                >
-                  Total number of person employed or intended to be employed in
-                  the factory
-                </label>
-                <div
-                  css={{
-                    width: "50%",
-                  }}
-                >
+                  >
+                    Employee Information
+                  </div>
                   <div
                     css={{
-                      marginTop: 20,
-                      display: "flex",
+                      display: "grid",
+                      gridTemplateColumns: `repeat(3, 1fr)`,
                       alignItems: "center",
+                      width: "50%",
+                      height: "auto",
+                      rowGap: 48,
+                      marginTop: 24,
+                      columnGap: 50,
                     }}
                   >
+                    {" "}
                     <div
                       css={(theme) =>
                         mq({
                           color: theme.colors.Gray_700,
                           lineHeight: "20px",
                           fontSize: [14, 14, 20],
-                          marginRight: 28,
                         })
                       }
                     >
-                      Adults 
+                      Adults
                     </div>
-                    <div css={{
-                      display:"flex",
-                      justifyContent:"space-between"
-                    }}>
-                   
-                        <div>
-                        <div css={theme =>({
-fontSize:12,
- color: theme.colors.Gray_400,
- marginBottom:4
-                        })}>
-                          (Male)
-                        </div>
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-                          marginRight: 28,
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      placeholder="Male"
-                      type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.adult
-                          ?.male
-                      }
-                    /></div>
-                      <div>
-                      <div css={theme =>({
-fontSize:12,
- color: theme.colors.Gray_400,
- marginBottom:4
-                        })}>
-                          (Female)
-                        </div>
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      placeholder="Female"
-                      type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.adult
-                          ?.female
-                      }
-                    /></div></div>
+                    <div
+                      css={(theme) => ({
+                        backgroundColor: theme.colors.Gray_100,
+                        //   height: 67,
+                        borderRadius: 8,
+                        width: "100%",
+                        padding: "12px 14px",
+                      })}
+                    >
+                      <div
+                        css={{
+                          fontSize: 12,
+                        }}
+                      >
+                        Male
+                      </div>
+                      <div
+                        css={{
+                          fontSize: 20,
+                        }}
+                      >
+                        {single_factory.data.factory.total_employees.adult.male}
+                      </div>
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        backgroundColor: theme.colors.Gray_100,
+                        //   height: 67,
+                        borderRadius: 8,
+                        width: "100%",
+                        padding: "12px 14px",
+                      })}
+                    >
+                      <div
+                        css={{
+                          fontSize: 12,
+                        }}
+                      >
+                        Female
+                      </div>
+                      <div
+                        css={{
+                          fontSize: 20,
+                        }}
+                      >
+                        {
+                          single_factory.data.factory.total_employees.adult
+                            .female
+                        }
+                      </div>
+                    </div>
                   </div>
 
                   <div
                     css={{
-                      marginTop: 20,
-                      display: "flex",
+                      display: "grid",
+                      gridTemplateColumns: `repeat(3, 1fr)`,
                       alignItems: "center",
+                      width: "50%",
+                      height: "auto",
+                      rowGap: 48,
+                      marginTop: 24,
+                      columnGap: 50,
                     }}
                   >
+                    {" "}
                     <div
                       css={(theme) =>
                         mq({
                           color: theme.colors.Gray_700,
                           lineHeight: "20px",
                           fontSize: [14, 14, 20],
-                          marginRight: 28,
                         })
                       }
                     >
                       Youths
                     </div>
-                    <div css={{
-                      display:"flex",
-                      justifyContent:"space-between"
-                    }}>
-                      <div>
-                        <div css={theme =>({
-fontSize:12,
- color: theme.colors.Gray_400,
- marginBottom:4
-                        })}>
-                          (Male)
-                        </div>
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-                          marginRight: 28,
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      placeholder="Male"
-                      type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.youth
-                          ?.male
-                      }
-                    /></div>
-                      <div>
-                      <div css={theme =>({
-fontSize:12,
- color: theme.colors.Gray_400,
- marginBottom:4
-                        })}>
-                          (Female)
-                        </div>
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      placeholder="Female"
-                      type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.youth
-                          ?.female
-                      }
-                    /></div></div>
+                    <div
+                      css={(theme) => ({
+                        backgroundColor: theme.colors.Gray_100,
+                        //   height: 67,
+                        borderRadius: 8,
+                        width: "100%",
+                        padding: "12px 14px",
+                      })}
+                    >
+                      <div
+                        css={{
+                          fontSize: 12,
+                        }}
+                      >
+                        Male
+                      </div>
+                      <div
+                        css={{
+                          fontSize: 20,
+                        }}
+                      >
+                        {single_factory.data.factory.total_employees.adult.male}
+                      </div>
+                    </div>
+                    <div
+                      css={(theme) => ({
+                        backgroundColor: theme.colors.Gray_100,
+                        //   height: 67,
+                        borderRadius: 8,
+                        width: "100%",
+                        padding: "12px 14px",
+                      })}
+                    >
+                      <div
+                        css={{
+                          fontSize: 12,
+                        }}
+                      >
+                        Female
+                      </div>
+                      <div
+                        css={{
+                          fontSize: 20,
+                        }}
+                      >
+                        {
+                          single_factory.data.factory.total_employees.adult
+                            .female
+                        }
+                      </div>
+                    </div>
                   </div>
 
                   <div
                     css={{
-                      marginTop: 20,
-                      display: "flex",
+                      display: "grid",
+                      gridTemplateColumns: `repeat(3, 1fr)`,
                       alignItems: "center",
+                      width: "50%",
+                      height: "auto",
+                      rowGap: 48,
+                      marginTop: 24,
+                      columnGap: 50,
                     }}
                   >
+                    {" "}
                     <div
                       css={(theme) =>
                         mq({
                           color: theme.colors.Gray_700,
                           lineHeight: "20px",
                           fontSize: [14, 14, 20],
-                          marginRight: 28,
                         })
                       }
                     >
                       Total
                     </div>
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      {...register("youth_male", { required: true })}
-                      placeholder="1000"
-                      type="text"
-                      value={
-                        single_factory?.data?.factory?.total_employees?.adult
-                          ?.male +
-                        single_factory?.data?.factory?.total_employees?.adult
-                          ?.female +
-                        single_factory?.data?.factory?.total_employees?.youth
-                          ?.male +
-                        single_factory?.data?.factory?.total_employees?.youth
-                          ?.female
-                      }
-                    />
-                  </div>
-                </div>
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <label
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_400,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Nature of work carried out on the factory
-                  </label>
-                  <div
-                    css={{
-                      marginTop: 20,
-                    }}
-                  >
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      {...register("nature_of_work", { required: true })}
-                      placeholder=""
-                      type="text"
-                      onChange={(e) => setNatureOfWorkDone(e.target.value)}
-                      value={natureOfWorkDone}
-                    />
-                  </div>
-                  {errors.nature_of_work && (
-                    <span
-                      css={{
-                        fontSize: 12,
-                        marginTop: 12,
-                        color: "red",
-                      }}
+                    <div
+                      css={(theme) => ({
+                        backgroundColor: theme.colors.Gray_100,
+                        //   height: 67,
+                        borderRadius: 8,
+                        width: "100%",
+                        padding: "12px 14px",
+                      })}
                     >
-                      * this field is required
-                    </span>
-                  )}
-                </div>
-
-                <div
-                  css={{
-                    marginTop: 48,
-                  }}
-                >
-                  <label
-                    css={(theme) =>
-                      mq({
-                        color: theme.colors.Gray_400,
-                        lineHeight: "20px",
-                        fontSize: [14, 14, 20],
-                      })
-                    }
-                  >
-                    Inspection date
-                  </label>
-                  <div
-                    css={{
-                      marginTop: 20,
-                    }}
-                  >
-                    <input
-                      css={(theme) =>
-                        mq({
-                          padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
-                          fontSize: [14, 14, 18],
-                          color: theme.colors.Gray_400,
-                          border: `1px solid ${theme.colors.Gray_200}`,
-                          borderRadius: 8,
-
-                          ":focus": {
-                            outline: "none",
-                            border: `1px solid ${theme.colors.Gray_400}`,
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_800,
-                          },
-                          ":placeholder ": {
-                            outline: "none",
-                            border: "none",
-
-                            padding: "12px 14px",
-                            color: theme.colors.Gray_400,
-                          },
-                        })
-                      }
-                      {...register("inspection_date", { required: true })}
-                      placeholder=""
-                      type="date"
-                      onChange={(e) => setInspectionDate(e.target.value)}
-                      value={inspectionDate}
-                    />
+                      <div
+                        css={{
+                          fontSize: 12,
+                        }}
+                      >
+                        Male
+                      </div>
+                      <div
+                        css={{
+                          fontSize: 20,
+                        }}
+                      >
+                        {single_factory.data.factory.total_employees.youth.male}
+                      </div>
+                    </div>
+                    <div></div>
                   </div>
-                  {errors.inspection_date && (
-                    <span
-                      css={{
-                        fontSize: 12,
-                        marginTop: 12,
-                        color: "red",
-                      }}
-                    >
-                      * this field is required
-                    </span>
-                  )}
                 </div>
-
                 <div
                   css={{
-                    marginTop: 48,
+                    borderBottom: "1px solid #EAECF0",
+                    margin: "48px 0px",
                   }}
-                >
-                  <label
+                ></div>
+
+                <div>
+                  <div
                     css={(theme) =>
                       mq({
                         color: theme.colors.Gray_400,
@@ -1088,34 +784,28 @@ fontSize:12,
                     }
                   >
                     Inspection summary
-                  </label>
-                  <div
-                    css={{
-                      marginTop: 20,
-                      width: "70%",
-                      paddingBottom: 48,
-                    }}
-                  >
-                    {" "}
-                    <QuillNoSSRWrapper
-                      placeholder="Enter a description..."
-                      onChange={(e) => setInspectionSummary(e)}
-                      value={inspectionSummary}
-                      modules={modules}
-                      formats={formats}
-                      theme="snow"
-                      css={{
-                        height: 200,
-                      }}
-                    />
                   </div>
+                  <div
+                    css={(theme) => ({
+                      marginTop: 12,
+                      color: theme.colors.Gray_700,
+                      lineHeight: "20px",
+                      fontSize: 20,
+                    })}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        single_factory?.data?.factory?.inspection_report
+                          ?.inspection_summary,
+                    }}
+                  ></div>
                 </div>
+
                 <div
                   css={{
                     marginTop: 48,
                   }}
                 >
-                  <label
+                  <div
                     css={(theme) =>
                       mq({
                         color: theme.colors.Gray_400,
@@ -1125,34 +815,28 @@ fontSize:12,
                     }
                   >
                     Health and safety report
-                  </label>
-                  <div
-                    css={{
-                      marginTop: 20,
-                      width: "70%",
-                      paddingBottom: 48,
-                    }}
-                  >
-                    {" "}
-                    <QuillNoSSRWrapper
-                      placeholder="Enter a description..."
-                      onChange={(e) => setHealthSafetyReport(e)}
-                      value={healthSafetyReport}
-                      modules={modules}
-                      formats={formats}
-                      theme="snow"
-                      css={{
-                        height: 200,
-                      }}
-                    />
                   </div>
+                  <div
+                    css={(theme) => ({
+                      marginTop: 12,
+                      color: theme.colors.Gray_700,
+                      lineHeight: "20px",
+                      fontSize: 20,
+                    })}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        single_factory?.data?.factory?.inspection_report
+                          ?.health_safety_report,
+                    }}
+                  ></div>
                 </div>
+
                 <div
                   css={{
                     marginTop: 48,
                   }}
                 >
-                  <label
+                  <div
                     css={(theme) =>
                       mq({
                         color: theme.colors.Gray_400,
@@ -1162,31 +846,25 @@ fontSize:12,
                     }
                   >
                     Recomendations
-                  </label>
-                  <div
-                    css={{
-                      marginTop: 20,
-                      width: "70%",
-                      paddingBottom: 48,
-                    }}
-                  >
-                    {" "}
-                    <QuillNoSSRWrapper
-                      placeholder="Enter a description..."
-                      onChange={(e) => setRecommendations(e)}
-                      value={recommendations}
-                      modules={modules}
-                      formats={formats}
-                      theme="snow"
-                      css={{
-                        height: 200,
-                      }}
-                    />
                   </div>
+                  <div
+                    css={(theme) => ({
+                      marginTop: 12,
+                      color: theme.colors.Gray_700,
+                      lineHeight: "20px",
+                      fontSize: 20,
+                    })}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        single_factory?.data?.factory?.inspection_report
+                          ?.recommendations,
+                    }}
+                  ></div>
                 </div>
+
                 {/* <div
                   css={{
-                    marginTop: 88,
+                    marginTop: 48,
                   }}
                 >
                   <div
@@ -1195,11 +873,10 @@ fontSize:12,
                         color: theme.colors.Gray_400,
                         lineHeight: "20px",
                         fontSize: [14, 14, 20],
-                        textTransform: "capitalize",
                       })
                     }
                   >
-                    Factory Information Update
+                    Comment
                   </div>
                   <div
                     css={{
@@ -1211,7 +888,7 @@ fontSize:12,
                       css={(theme) =>
                         mq({
                           padding: "12px 14px",
-                          width: ["100%", "100%", "70%"],
+                          width: ["100%", "100%", 450],
                           fontSize: 20,
                           color: theme.colors.Gray_400,
                           border: `1px solid ${theme.colors.Gray_200}`,
@@ -1299,10 +976,9 @@ fontSize:12,
                               display: "flex",
                               marginTop: 4,
                               alignItems: "center",
-                              textTransform: "capitalize",
                             }}
                           >
-                            <div>Adjust info</div>
+                            <div>Send comment</div>
                           </div>
                         )}
                       </button>
@@ -1310,126 +986,65 @@ fontSize:12,
                   </div>
                 </div> */}
               </div>
-            </div>
-             <div css={{
-            marginTop:44
-          }}>
-             <div
-            css={(theme) =>
-              mq({
-                fontSize: [16, 16, 22],
-                color: theme.colors.Gray_700,
-                textTransform: "capitalize",
-              })
-            }
-          >
-            State Officer Details
-          </div>
-          <div>
-            <div css={{
-              marginTop:16
-            }}>
-              {user_isLoading ? null : (
-                <div
-                  css={{
-                    marginBottom: 12,
-                  }}
-                >
-                  <div
+            </div></div>
+         <ReactToPrint
+                onBeforePrint={() => null}
+                onAfterPrint={() => null}
+                trigger={() => (
+                  <button
+                css={(theme) =>
+                  mq({
+                    height: [40, 40, 56],
+                    borderRadius: 30,
+                    width: ["auto", "auto", 156],
+                    //   padding: ["10px 16px", "10px 16px", "16px 24px"],
+                    padding: ["12px 16px", "12px 16px", "16px 24px"],
+                    fontSize: [12, 12, 16],
+                    cursor: "pointer",
+                    marginRight: 20,
+                    fontWeight: 600,
+                    lineHeight: "17px",
+                    border: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#fff",
+                    backgroundColor: theme.colors.Gray_900,
+                  })
+                }
+                type="submit"
+                // onClick={() => {
+                //   setWillCancel(true);
+                // }}
+              >
+                 <div
                     css={{
                       display: "flex",
-                      justifyContent: "space-between",
-                      width: "70%",
+                      alignItems: "center",
                     }}
                   >
-                    <div>
-                      <div
-                        css={(theme) =>
-                          mq({
-                            color: theme.colors.Gray_400,
-                            fontSize: [16, 16, 16],
-                            lineHeight: "28px",
-                            fontWeight: 400,
-                          })
-                        }
-                      >
-                        Signatory name
-                      </div>
-                      <div>
-                        <div>
-                          <div
-                            css={(theme) =>
-                              mq({
-                                color: theme.colors.Gray_700,
-                                fontSize: [16, 16, 16],
-                                lineHeight: "28px",
-                                fontWeight: 700,
-                              })
-                            }
-                          >
-                            {user?.data.state_officer.email}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  
-                  </div>
-
-                  <div
-                    // css={{
-                    //   marginTop: 16,
-                    // }}
-                  >
                     <div
-                      css={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        width: "70%",
-                      }}
-                    >
-                      <div>
-                        <div
-                          css={(theme) =>
-                            mq({
-                              color: theme.colors.Gray_400,
-                              fontSize: [16, 16, 16],
-                              lineHeight: "28px",
-                              fontWeight: 400,
-                            })
-                          }
-                        >
-                          Signature
-                        </div>
-                        <div css={{
-                          marginTop:8
-                        }}>
-                          <div
-                            css={{
-                              marginRight: 8,
-                            }}
-                          >
-                            <img
-                              css={{
-                                width: 45,
-                                height: 45,
-                              }}
-                              src={user?.data.state_officer.signature_image}
-                            />
-                          </div>
-                        </div>
-                      </div>
-
                      
+                    >
+                      Print Form
                     </div>
+                    {/* <div
+                  css={{
+                    marginLeft: 8,
+                  }}
+                >
+                  <img
+                    css={mq({
+                      width: [14, 14, 24],
+                      height: [14, 14, 24],
+                    })}
+                    src="/svg/registration/left_arrow.svg"
+                  />
+                </div> */}
                   </div>
-                </div>
-              )}
-            </div>
-          </div>
-          </div>
-          </div>
-         
+              </button>
+                )}
+                content={() => componentRef.current}
+              />
         </div>
         <div
           css={{
