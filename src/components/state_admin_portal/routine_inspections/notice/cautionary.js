@@ -21,6 +21,7 @@ const CautionaryNoticeComp = (props) => {
   const [improvement, setImprovements] = useState("");
   const [inspectionDate, setInspectionDate] = useState("");
   const [saved, setSaved] = useState(false);
+    const [weeks_for_deadline, setWeeksForDeadline] = useState("");
 
   const notice = useContext(RoutineChecksContext);
   const router = useRouter();
@@ -48,6 +49,7 @@ const CautionaryNoticeComp = (props) => {
       previous_notice_reference_number: ref_number,
       areas_to_improve: improvement,
       date_of_last_inspection: inspectionDate,
+      no_of_weeks_for_deadline: weeks_for_deadline
     });
     setSaved(true);
   };
@@ -238,7 +240,7 @@ const CautionaryNoticeComp = (props) => {
                     })
                   }
                 >
-                  Reference Number
+                 Previous reference Number
                 </label>
                 <div
                   css={{
@@ -358,7 +360,7 @@ const CautionaryNoticeComp = (props) => {
                     })
                   }
                 >
-                  Inspection date
+                 Previous inspection date
                 </label>
                 <div
                   css={{
@@ -409,6 +411,61 @@ const CautionaryNoticeComp = (props) => {
                     * this field is required
                   </span>
                 )}
+              </div>
+
+                <div
+                css={{
+                  marginTop: 48,
+                }}
+              >
+                <label
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                >
+                  Weeks to Resolve
+                </label>
+                <div
+                  css={{
+                    marginTop: 20,
+                  }}
+                >
+                  <input
+                    css={(theme) =>
+                      mq({
+                        padding: "12px 14px",
+                        width: ["100%", "100%", "100%"],
+                        fontSize: [14, 14, 18],
+                        color: theme.colors.Gray_400,
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
+                    placeholder=""
+                    type="number"
+                    onChange={(e) => setWeeksForDeadline(e.target.value)}
+                    value={weeks_for_deadline}
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -493,7 +493,10 @@ fontWeight:600,
                             lineHeight: "20px",
                           }}
                         >
-                         Your fill in the prohibited part is hereby prohibited from further operation, pending full compliance with the provision of the Factories Act Cap F1 Laws of the federation of Nigeria 2004 and other extant Labour laws.
+                         The following; <span  css={(theme) => ({
+                                                       fontWeight: 600,
+                                                       color: theme.colors.Primary_700,
+                                                     })}>{routine_details.data?.report?.prohibited_part}</span> {" "}is hereby prohibited from further operation, pending full compliance with the provision of the Factories Act Cap F1 Laws of the federation of Nigeria 2004 and other extant Labour laws.
                         </p>
                        
                         <p

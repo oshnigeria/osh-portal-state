@@ -20,6 +20,8 @@ const ProhibitionNoticeComp = (props) => {
   const [ref_number, setRef_number] = useState("");
   const [improvement, setImprovements] = useState("");
   const [inspectionDate, setInspectionDate] = useState("");
+    const [prohibited_parts, setProhibitedParts] = useState("");
+
   const [saved, setSaved] = useState(false);
 
   const notice = useContext(RoutineChecksContext);
@@ -49,6 +51,7 @@ const ProhibitionNoticeComp = (props) => {
       previous_notice_reference_number: ref_number,
 
       date_of_last_inspection: inspectionDate,
+      prohibited_part: prohibited_parts
     });
     setSaved(true);
   };
@@ -172,7 +175,7 @@ const ProhibitionNoticeComp = (props) => {
                   />
                 </div>
               </div>
-              <div
+              {/* <div
                 css={{
                   marginTop: 48,
                 }}
@@ -225,7 +228,7 @@ const ProhibitionNoticeComp = (props) => {
                     value={postal_address}
                   />
                 </div>
-              </div>
+              </div> */}
               <div
                 css={{
                   marginTop: 48,
@@ -280,7 +283,60 @@ const ProhibitionNoticeComp = (props) => {
                   />
                 </div>
               </div>
+ <div
+                css={{
+                  marginTop: 48,
+                }}
+              >
+                <label
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                >
+                  Prohibited Parts 
+                </label>
+                <div
+                  css={{
+                    marginTop: 20,
+                  }}
+                >
+                  <input
+                    css={(theme) =>
+                      mq({
+                        padding: "12px 14px",
+                        width: ["100%", "100%", "100%"],
+                        fontSize: [14, 14, 18],
+                        color: theme.colors.Gray_400,
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
 
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
+                    placeholder=""
+                    type="text"
+                    onChange={(e) => setProhibitedParts(e.target.value)}
+                    value={prohibited_parts}
+                  />
+                </div>
+              </div>
               <div
                 css={{
                   marginTop: 48,

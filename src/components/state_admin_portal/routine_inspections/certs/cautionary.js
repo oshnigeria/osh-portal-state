@@ -294,7 +294,7 @@ const CautionaryCertComp = (props) => {
                             color: theme.colors.Warning_700,
                           })}
                         >
-                          {moment(routine_details.data?.report?.createdAt).format("YYYY-MM-DD")}
+                          {moment(routine_details.data?.report?.inspection_date).format("YYYY-MM-DD")}
                         </span>
                       </div>
                       <div
@@ -454,7 +454,7 @@ const CautionaryCertComp = (props) => {
                               color: theme.colors.Primary_700,
                             })}
                           >
-                            {routine_details.data?.report?.reference_number}{" "}
+                            {routine_details.data?.report?.previous_notice_reference_number}{" "}
                           </span>{" "}
                           requesting you to address the following;{" "}
                           <span
@@ -490,7 +490,15 @@ const CautionaryCertComp = (props) => {
                             {routine_details.data?.report?.date_of_last_inspection}
                           </span>{" "}
                           you are by this notice required to rectify the
-                          contravention(s) within no of weeks fill in weeks or
+                          contravention(s) within no of weeks   <span
+                                                      css={(theme) => ({
+                                                        fontWeight: 600,
+                                                        color: theme.colors.Primary_700,
+                                                      })}
+                                                    >{moment(routine_details.data?.report?.inspection_date).format("YYYY-MM-DD")} <span css={{
+                                                      color:"#111"
+                                                    }}>--</span> {moment(routine_details.data?.report?.inspection_date).add(routine_details.data?.report?.no_of_weeks_for_deadline, "weeks").format("YYYY-MM-DD")} ({routine_details.data?.report?.no_of_weeks_for_deadline} weeks)</span>
+                                                    {" "} or
                           you will be sanctioned. </p>
 
                           <p>

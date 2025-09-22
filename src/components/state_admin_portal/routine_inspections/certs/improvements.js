@@ -468,14 +468,18 @@ const ImprovementCertComp = (props) => {
                           </span>
                           <p>
                           Please you are hereby advised to rectify the
-                          contravention(s) within <span
+                          contravention(s) within 
+                          <span
                             css={(theme) => ({
                               fontWeight: 600,
                               color: theme.colors.Primary_700,
                             })}
                           >{moment(routine_details.data?.report?.createdAt).format("YYYY-MM-DD")} <span css={{
                             color:"#111"
-                          }}>--</span> {moment(routine_details.data?.report?.createdAt).add(routine_details.data?.report?.no_of_weeks_for_deadline, "weeks").format("YYYY-MM-DD")} ({routine_details.data?.report?.no_of_weeks_for_deadline} weeks)</span>  and
+                          }}>--</span> {moment(routine_details.data?.report?.createdAt).add(routine_details.data?.report?.no_of_weeks_for_deadline, "weeks").format("YYYY-MM-DD")} ({routine_details.data?.report?.no_of_weeks_for_deadline} weeks)</span>
+                          
+                          
+                            and
                           notify this office in writing. </p>
 
                           <p>
