@@ -468,7 +468,7 @@ const ImprovementCertComp = (props) => {
                           </span>
                           <p>
                           Please you are hereby advised to rectify the
-                          contravention(s) within 
+                          contravention(s) within {" "}
                           <span
                             css={(theme) => ({
                               fontWeight: 600,
