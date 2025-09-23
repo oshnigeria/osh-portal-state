@@ -194,9 +194,10 @@ const FacRoutineDetailsComp = () => {
                 <div
                   css={(theme) =>
                     mq({
-                      fontSize: [16, 16, 32],
+                      fontSize: [16, 16, 24],
                       color: theme.colors.Gray_700,
-                      textTransform: "capitalize",
+                     textTransform: "uppercase",
+                 fontWeight:700
                     })
                   }
                 >
@@ -571,7 +572,7 @@ const FacRoutineDetailsComp = () => {
                           })
                         }
                       >
-                        {single_report.data?.report?.sections_of_contraventions}
+                        {single_report.data?.report?.sections_of_contraventions  ?? single_report.data?.report?.prohibited_part}
                       </div>
                     </div>
                   )}

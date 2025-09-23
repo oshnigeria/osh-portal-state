@@ -238,7 +238,7 @@ const ImprovementCertComp = (props) => {
                                    marginTop:4,
                                    color:"#111"
                               }}>
-                                Occupational and safety department
+                               Occupational Safety and Health Department
                               </div>
                     
                               <div css={{
@@ -485,7 +485,7 @@ const ImprovementCertComp = (props) => {
                           <p>
                             Kindly regard this as
                           an IMPROVEMENT NOTICE to comply with the provisions of
-                          the factories act CAP F1 Laws of the federation of Nigeria 2004 to protect Health, Safety and Welfare of
+                          the Factories Act F1 Laws of the Federation of Nigeria 2004 to protect Health, Safety and Welfare of
                           workers.
                           </p>
                         </div>
@@ -534,7 +534,9 @@ const ImprovementCertComp = (props) => {
                             fontStyle: "italic",
                           })}
                         >
-                          Head of Factories, {user?.data.state_officer.state}
+                          Head of Factories, <span css={{
+                            textTransform:"capitalize"
+                          }}>{user?.data.state_officer.state}</span>
                         </div>
                       </div>
                     </div>

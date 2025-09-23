@@ -231,7 +231,7 @@ const CautionaryCertComp = (props) => {
                                    marginTop:4,
                                    color:"#111"
                               }}>
-                                Occupational and safety department
+                               Occupational Safety and Health Department
                               </div>
                     
                               <div css={{
@@ -470,8 +470,7 @@ const CautionaryCertComp = (props) => {
 
 
                           This is in pursuance of the provision of section
-                          17(3c) of the constitution of the Federal Republic of
-                          Nigeria and mandate of THE FEDERAL MINISTRY OF LABOUR
+                          17(3c) of the constitution of the Laws of the  the Federation of Nigeria and mandate of THE FEDERAL MINISTRY OF LABOUR
                           AND EMPLOYMENT on protection of health, Safety and
                           Welfare of person at work. </p>
 
@@ -490,7 +489,7 @@ const CautionaryCertComp = (props) => {
                             {routine_details.data?.report?.date_of_last_inspection}
                           </span>{" "}
                           you are by this notice required to rectify the
-                          contravention(s) within no of weeks   <span
+                          contravention(s) within   <span
                                                       css={(theme) => ({
                                                         fontWeight: 600,
                                                         color: theme.colors.Primary_700,
@@ -553,7 +552,9 @@ const CautionaryCertComp = (props) => {
                             fontStyle: "italic",
                           })}
                         >
-                          Head of Factories, {user?.data.state_officer.state}
+                          Head of Factories, <span css={{
+                            textTransform:"capitalize"
+                          }}>{user?.data.state_officer.state}</span>
                         </div>
                       </div>
                     </div>

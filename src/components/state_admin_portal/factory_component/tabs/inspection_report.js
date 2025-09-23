@@ -355,9 +355,10 @@ const InspectionReportComp = () => {
           <div
             css={(theme) =>
               mq({
-                fontSize: [16, 16, 32],
+                fontSize: [16, 16, 24],
                 color: theme.colors.Gray_700,
-                textTransform: "capitalize",
+                textTransform: "uppercase",
+                 fontWeight:700
               })
             }
           >
@@ -392,7 +393,7 @@ const InspectionReportComp = () => {
                     gridTemplateColumns: `repeat(2, 1fr)`,
                     rowGap: 48,
                     columnGap: 50,
-                    marginTop: 24,
+                    marginTop: 32,
                   }}
                 >
                   <div>
@@ -408,12 +409,14 @@ const InspectionReportComp = () => {
                       Name of undertaking
                     </div>
                     <div
-                      css={(theme) => ({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                     css={(theme) =>
+                                                 mq({
+                                                   marginTop: 12,
+                                                   color: theme.colors.Gray_700,
+                                                   lineHeight: "20px",
+                                                   fontSize: [14, 14, 20],
+                                                 })
+                                               }
                     >
                       {single_factory.data.factory._occupier_name}
                     </div>
@@ -432,12 +435,14 @@ const InspectionReportComp = () => {
                       Phone number of occupier
                     </div>
                     <div
-                      css={(theme) => ({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                     css={(theme) =>
+                                                 mq({
+                                                   marginTop: 12,
+                                                   color: theme.colors.Gray_700,
+                                                   lineHeight: "20px",
+                                                   fontSize: [14, 14, 20],
+                                                 })
+                                               }
                     >
                       {single_factory.data.factory.phone_number}
                     </div>
@@ -456,12 +461,14 @@ const InspectionReportComp = () => {
                       Nature of work
                     </div>
                     <div
-                      css={(theme) => ({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                     css={(theme) =>
+                                                 mq({
+                                                   marginTop: 12,
+                                                   color: theme.colors.Gray_700,
+                                                   lineHeight: "20px",
+                                                   fontSize: [14, 14, 20],
+                                                 })
+                                               }
                     >
                       {
                         single_factory?.data?.factory?.inspection_report
@@ -483,12 +490,14 @@ const InspectionReportComp = () => {
                       Postal address of occupier
                     </div>
                     <div
-                      css={(theme) => ({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                      css={(theme) =>
+                                                  mq({
+                                                    marginTop: 12,
+                                                    color: theme.colors.Gray_700,
+                                                    lineHeight: "20px",
+                                                    fontSize: [14, 14, 20],
+                                                  })
+                                                }
                     >
                       {single_factory.data.factory.postal_address}
                     </div>
@@ -500,18 +509,21 @@ const InspectionReportComp = () => {
                           color: theme.colors.Gray_400,
                           lineHeight: "20px",
                           fontSize: [14, 14, 20],
+                         
                         })
                       }
                     >
                       Inspection date
                     </div>
                     <div
-                      css={(theme) => ({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                     css={(theme) =>
+                                                 mq({
+                                                   marginTop: 12,
+                                                   color: theme.colors.Gray_700,
+                                                   lineHeight: "20px",
+                                                   fontSize: [14, 14, 20],
+                                                 })
+                                               }
                     >
                       {
                         single_factory.data?.factory?.inspection_report
@@ -532,12 +544,14 @@ const InspectionReportComp = () => {
                       Precise address of occupier
                     </div>
                     <div
-                      css={(theme) => ({
-                        marginTop: 12,
-                        color: theme.colors.Gray_700,
-                        lineHeight: "20px",
-                        fontSize: 20,
-                      })}
+                     css={(theme) =>
+                                                 mq({
+                                                   marginTop: 12,
+                                                   color: theme.colors.Gray_700,
+                                                   lineHeight: "20px",
+                                                   fontSize: [14, 14, 20],
+                                                 })
+                                               }
                     >
                       {single_factory.data.factory.address}
                     </div>
@@ -786,12 +800,14 @@ const InspectionReportComp = () => {
                     Inspection summary
                   </div>
                   <div
-                    css={(theme) => ({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                                                mq({
+                                                  marginTop: 12,
+                                                  color: theme.colors.Gray_700,
+                                                  lineHeight: "20px",
+                                                  fontSize: [14, 14, 20],
+                                                })
+                                              }
                     dangerouslySetInnerHTML={{
                       __html:
                         single_factory?.data?.factory?.inspection_report
@@ -817,12 +833,14 @@ const InspectionReportComp = () => {
                     Health and safety report
                   </div>
                   <div
-                    css={(theme) => ({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                                                mq({
+                                                  marginTop: 12,
+                                                  color: theme.colors.Gray_700,
+                                                  lineHeight: "20px",
+                                                  fontSize: [14, 14, 20],
+                                                })
+                                              }
                     dangerouslySetInnerHTML={{
                       __html:
                         single_factory?.data?.factory?.inspection_report
@@ -848,12 +866,14 @@ const InspectionReportComp = () => {
                     Recomendations
                   </div>
                   <div
-                    css={(theme) => ({
-                      marginTop: 12,
-                      color: theme.colors.Gray_700,
-                      lineHeight: "20px",
-                      fontSize: 20,
-                    })}
+                    css={(theme) =>
+                                                mq({
+                                                  marginTop: 12,
+                                                  color: theme.colors.Gray_700,
+                                                  lineHeight: "20px",
+                                                  fontSize: [14, 14, 20],
+                                                })
+                                              }
                     dangerouslySetInnerHTML={{
                       __html:
                         single_factory?.data?.factory?.inspection_report

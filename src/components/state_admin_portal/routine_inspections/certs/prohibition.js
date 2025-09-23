@@ -264,7 +264,7 @@ const {
                marginTop:4,
                color:"#111"
           }}>
-            Occupational and safety department
+            Occupational Safety and Health Department
           </div>
 
           <div css={{
@@ -481,10 +481,13 @@ fontWeight:600,
                           }}
                         >
                           Sequel to your non – compliance to the provision of
-                          section of the factories act and the contravention
+                          section; <span css={(theme) => ({
+                                                       fontWeight: 600,
+                                                       color: theme.colors.Primary_700,
+                                                     })}>{routine_details.data?.report?.further_sanctions}</span>{" "} of the factories act and the contravention
                            {routine_details.data?.report?.sections_of_contraventions}  of the <span css={{
                             //  fontWeight: 700,
-                          }}>Factories Act Cap F1 laws of the federation of nigeria 2004 and other extant labour laws of the nation</span>.
+                          }}>Factories Act Cap F1 Laws of the Federation of Nigeria and other extant Labour Laws of the Nation</span>.
                         </div>
                         <p
                           css={{
@@ -554,7 +557,7 @@ fontWeight:600,
                             fontStyle: "italic",
                           }}
                         >
-                          Director of factories of the federation
+                          Director of Factories of the Federation
                         </div>
                       </div>
                     </div>

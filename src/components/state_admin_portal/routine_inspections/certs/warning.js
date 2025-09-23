@@ -261,7 +261,7 @@ const WarningCertComp = (props) => {
                                    marginTop:4,
                                    color:"#111"
                               }}>
-                                Occupational and safety department
+                                Occupational Safety and Health Department
                               </div>
                     
                               <div css={{
@@ -476,7 +476,7 @@ const WarningCertComp = (props) => {
                         >
                           Considering the contravention(s) listed above and
                           observation(s) you are hereby required to rectify all
-                          defects as pointed out to you by the factory heads in the state within <strong>ONE month</strong> of this
+                          defects as pointed out to you by the Head of Factories in the state within <strong>ONE month</strong> of this
                           notice. Failure to do so will result in {" "}
                           <span
                             css={{
@@ -552,7 +552,7 @@ const WarningCertComp = (props) => {
                         
                           }}
                         >
-                          Director of factories of the federation
+                          Director of Factories of the Federation
                         </div>
                       </div>
                     </div>

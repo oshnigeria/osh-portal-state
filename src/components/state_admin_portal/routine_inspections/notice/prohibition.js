@@ -21,6 +21,7 @@ const ProhibitionNoticeComp = (props) => {
   const [improvement, setImprovements] = useState("");
   const [inspectionDate, setInspectionDate] = useState("");
     const [prohibited_parts, setProhibitedParts] = useState("");
+    const [contravened_laws, setContravenedLaws] = useState("");
 
   const [saved, setSaved] = useState(false);
 
@@ -51,7 +52,8 @@ const ProhibitionNoticeComp = (props) => {
       previous_notice_reference_number: ref_number,
 
       date_of_last_inspection: inspectionDate,
-      prohibited_part: prohibited_parts
+      prohibited_part: prohibited_parts,
+      further_sanctions: contravened_laws
     });
     setSaved(true);
   };
@@ -334,6 +336,61 @@ const ProhibitionNoticeComp = (props) => {
                     type="text"
                     onChange={(e) => setProhibitedParts(e.target.value)}
                     value={prohibited_parts}
+                  />
+                </div>
+              </div>
+
+               <div
+                css={{
+                  marginTop: 48,
+                }}
+              >
+                <label
+                  css={(theme) =>
+                    mq({
+                      color: theme.colors.Gray_400,
+                      lineHeight: "20px",
+                      fontSize: [14, 14, 20],
+                    })
+                  }
+                >
+                  Contravened Laws
+                </label>
+                <div
+                  css={{
+                    marginTop: 20,
+                  }}
+                >
+                  <input
+                    css={(theme) =>
+                      mq({
+                        padding: "12px 14px",
+                        width: ["100%", "100%", "100%"],
+                        fontSize: [14, 14, 18],
+                        color: theme.colors.Gray_400,
+                        border: `1px solid ${theme.colors.Gray_200}`,
+                        borderRadius: 8,
+
+                        ":focus": {
+                          outline: "none",
+                          border: `1px solid ${theme.colors.Gray_400}`,
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_800,
+                        },
+                        ":placeholder ": {
+                          outline: "none",
+                          border: "none",
+
+                          padding: "12px 14px",
+                          color: theme.colors.Gray_400,
+                        },
+                      })
+                    }
+                    placeholder=""
+                    type="text"
+                    onChange={(e) => setContravenedLaws(e.target.value)}
+                    value={contravened_laws}
                   />
                 </div>
               </div>
