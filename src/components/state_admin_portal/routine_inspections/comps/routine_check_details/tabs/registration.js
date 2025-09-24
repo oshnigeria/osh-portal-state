@@ -194,7 +194,7 @@ const FacRoutineDetailsComp = () => {
                 <div
                   css={(theme) =>
                     mq({
-                      fontSize: [16, 16, 24],
+                      fontSize: [20, 20, 24],
                       color: theme.colors.Gray_700,
                      textTransform: "uppercase",
                  fontWeight:700

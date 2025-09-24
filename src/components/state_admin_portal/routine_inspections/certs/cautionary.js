@@ -470,8 +470,8 @@ const CautionaryCertComp = (props) => {
 
 
                           This is in pursuance of the provision of section
-                          17(3c) of the constitution of the Laws of the  the Federation of Nigeria and mandate of THE FEDERAL MINISTRY OF LABOUR
-                          AND EMPLOYMENT on protection of health, Safety and
+                          17(3c) of the constitution of the Laws of the Federation of Nigeria and mandate of  <span> {" "} THE FEDERAL MINISTRY OF LABOUR
+                          AND EMPLOYMENT</span> on protection of health, Safety and
                           Welfare of person at work. </p>
 
 
